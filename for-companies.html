@@ -95,7 +95,7 @@
       msg.classList.add("hidden");
 
       try {
-        const response = await fetch("https://script.google.com/macros/s/AKfycbyz8R3edKoRg0vYDjGMnvo2BSA8rMgy9PbwyrQ4cmvV7QyIBDnATIgZu3pgi1RCftFtKQ/exec", {
+        const response = await fetch("https://script.google.com/macros/s/AKfycbyQzYUC8hUJJ6TD6ukqDNi7Q7fIVtn6vM1R-Xa5r9Hs14jW6Mgf-Xh56QjlPuJHM703/exec", {
           method: "POST",
           mode: 'cors',
           headers: {
@@ -151,7 +151,7 @@
     // Test the API connection on page load (optional)
     window.addEventListener('load', async () => {
       try {
-        const response = await fetch("https://script.google.com/macros/s/AKfycbyz8R3edKoRg0vYDjGMnvo2BSA8rMgy9PbwyrQ4cmvV7QyIBDnATIgZu3pgi1RCftFtKQ/exec", {
+        const response = await fetch("https://script.google.com/macros/s/AKfycbyQzYUC8hUJJ6TD6ukqDNi7Q7fIVtn6vM1R-Xa5r9Hs14jW6Mgf-Xh56QjlPuJHM703/exec", {
           method: "GET"
         });
         const result = await response.json();
