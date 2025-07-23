@@ -92,11 +92,14 @@
           headers: { "Content-Type": "application/json" }
         });
 
-        if (response.ok) {
+        const resultText = await response.text();
+        console.log("Response from Google Script:", resultText);
+
+        if (response.ok && resultText.includes("Success")) {
           msg.classList.remove("hidden");
           form.reset();
         } else {
-          alert("Submission failed. Please try again later.");
+          alert("Submission failed. Server responded with:\n" + resultText);
         }
       } catch (error) {
         console.error("Submission error:", error);
