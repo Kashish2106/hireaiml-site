@@ -11,11 +11,11 @@
     <h2 class="text-3xl font-bold mb-6 text-center text-indigo-700">For Companies</h2>
     <form id="companyForm" class="space-y-4">
       <div class="grid grid-cols-2 gap-4">
-        <input name="firstName" required placeholder="First Name" class="p-3 border rounded w-full" />
-        <input name="lastName" required placeholder="Last Name" class="p-3 border rounded w-full" />
+        <input type="text" name="firstName" required placeholder="First Name" class="p-3 border rounded w-full" />
+        <input type="text" name="lastName" required placeholder="Last Name" class="p-3 border rounded w-full" />
       </div>
 
-      <input name="email" type="email" required placeholder="Email Address" class="p-3 border rounded w-full" />
+      <input type="email" name="email" required placeholder="Email Address" class="p-3 border rounded w-full" />
 
       <div class="grid grid-cols-2 gap-4">
         <select name="contactCode" required class="p-3 border rounded w-full">
@@ -25,12 +25,11 @@
           <option value="+44">+44 (UK)</option>
           <option value="+61">+61 (Australia)</option>
           <option value="+81">+81 (Japan)</option>
-          <!-- Add more if needed -->
         </select>
-        <input name="contactNumber" required placeholder="Contact Number" class="p-3 border rounded w-full" />
+        <input type="tel" name="contactNumber" required placeholder="Contact Number" class="p-3 border rounded w-full" />
       </div>
 
-      <input name="companyName" required placeholder="Company Name" class="p-3 border rounded w-full" />
+      <input type="text" name="companyName" required placeholder="Company Name" class="p-3 border rounded w-full" />
 
       <select name="country" required class="p-3 border rounded w-full">
         <option value="">Place where company is situated</option>
@@ -44,7 +43,6 @@
         <option>France</option>
         <option>Netherlands</option>
         <option>UAE</option>
-        <!-- You can add more countries or I can provide a full dropdown list -->
       </select>
 
       <select name="role" required class="p-3 border rounded w-full">
@@ -53,7 +51,7 @@
         <option>Director</option>
         <option>Vice President</option>
         <option>CXO</option>
-        <option>Founder/Co founder</option>
+        <option>Founder/Co-founder</option>
         <option>Hiring Manager</option>
       </select>
 
@@ -87,17 +85,22 @@
       const data = {};
       formData.forEach((value, key) => data[key] = value);
 
-      const response = await fetch("https://script.google.com/macros/s/AKfycbzLc64jEsL-7hK9jYL_-1TqE30sLjO1AZ06C7s9MTW0KVmPbTFUl541DqXzSXKIu1XU1w/exec", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: { "Content-Type": "application/json" }
-      });
+      try {
+        const response = await fetch("https://script.google.com/macros/s/AKfycbzLc64jEsL-7hK9jYL_-1TqE30sLjO1AZ06C7s9MTW0KVmPbTFUl541DqXzSXKIu1XU1w/exec", {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: { "Content-Type": "application/json" }
+        });
 
-      if (response.ok) {
-        msg.classList.remove("hidden");
-        form.reset();
-      } else {
-        alert("Submission failed. Try again later.");
+        if (response.ok) {
+          msg.classList.remove("hidden");
+          form.reset();
+        } else {
+          alert("Submission failed. Please try again later.");
+        }
+      } catch (error) {
+        console.error("Submission error:", error);
+        alert("An error occurred while submitting the form.");
       }
     });
   </script>
