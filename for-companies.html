@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>For Companies - HireAIML</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans text-gray-800">
+  <div class="max-w-2xl mx-auto p-6 bg-white shadow-lg mt-10 rounded-lg">
+    <h2 class="text-3xl font-bold mb-6 text-center text-indigo-700">For Companies</h2>
+    <form id="companyForm" class="space-y-4">
+      <div class="grid grid-cols-2 gap-4">
+        <input name="firstName" required placeholder="First Name" class="p-3 border rounded w-full" />
+        <input name="lastName" required placeholder="Last Name" class="p-3 border rounded w-full" />
+      </div>
+
+      <input name="email" type="email" required placeholder="Email Address" class="p-3 border rounded w-full" />
+
+      <div class="grid grid-cols-2 gap-4">
+        <select name="contactCode" required class="p-3 border rounded w-full">
+          <option value="">Country Code</option>
+          <option value="+91">+91 (India)</option>
+          <option value="+1">+1 (USA)</option>
+          <option value="+44">+44 (UK)</option>
+          <option value="+61">+61 (Australia)</option>
+          <option value="+81">+81 (Japan)</option>
+          <!-- Add more if needed -->
+        </select>
+        <input name="contactNumber" required placeholder="Contact Number" class="p-3 border rounded w-full" />
+      </div>
+
+      <input name="companyName" required placeholder="Company Name" class="p-3 border rounded w-full" />
+
+      <select name="country" required class="p-3 border rounded w-full">
+        <option value="">Place where company is situated</option>
+        <option>United States</option>
+        <option>India</option>
+        <option>United Kingdom</option>
+        <option>Germany</option>
+        <option>Australia</option>
+        <option>Canada</option>
+        <option>Singapore</option>
+        <option>France</option>
+        <option>Netherlands</option>
+        <option>UAE</option>
+        <!-- You can add more countries or I can provide a full dropdown list -->
+      </select>
+
+      <select name="role" required class="p-3 border rounded w-full">
+        <option value="">What best describes you?</option>
+        <option>Manager</option>
+        <option>Director</option>
+        <option>Vice President</option>
+        <option>CXO</option>
+        <option>Founder/Co founder</option>
+        <option>Hiring Manager</option>
+      </select>
+
+      <div class="flex space-x-6">
+        <label class="inline-flex items-center space-x-2">
+          <input type="radio" name="preferredContact" value="Email" checked />
+          <span>Email</span>
+        </label>
+        <label class="inline-flex items-center space-x-2">
+          <input type="radio" name="preferredContact" value="Call" />
+          <span>Call</span>
+        </label>
+      </div>
+
+      <button type="submit" class="bg-indigo-600 text-white font-semibold py-2 px-4 rounded hover:bg-indigo-700 w-full">
+        Submit
+      </button>
+    </form>
+
+    <p id="responseMsg" class="mt-4 text-green-600 text-center hidden">Form submitted successfully!</p>
+  </div>
+
+  <script>
+    const form = document.getElementById("companyForm");
+    const msg = document.getElementById("responseMsg");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+      const data = {};
+      formData.forEach((value, key) => data[key] = value);
+
+      const response = await fetch("YOUR_GOOGLE_SCRIPT_WEB_APP_URL", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" }
+      });
+
+      if (response.ok) {
+        msg.classList.remove("hidden");
+        form.reset();
+      } else {
+        alert("Submission failed. Try again later.");
+      }
+    });
+  </script>
+</body>
+</html>
