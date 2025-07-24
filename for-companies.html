@@ -1,72 +1,93 @@
+<!-- Save as: for-companies.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>For Companies - HireAIML</title>
+  <title>AI/ML Talent Acquisition Form - HireAIML</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 font-sans text-gray-800">
-  <div class="max-w-2xl mx-auto p-6 bg-white shadow-lg mt-10 rounded-lg">
-    <h2 class="text-3xl font-bold mb-6 text-center text-indigo-700">For Companies</h2>
-    <form id="companyForm" class="space-y-4">
-      <div class="grid grid-cols-2 gap-4">
-        <input type="text" name="firstName" required placeholder="First Name" class="p-3 border rounded w-full" />
-        <input type="text" name="lastName" required placeholder="Last Name" class="p-3 border rounded w-full" />
+  <div class="max-w-3xl mx-auto p-6 bg-white shadow-lg mt-10 rounded-lg">
+    <h2 class="text-3xl font-bold mb-6 text-center text-indigo-700">AI/ML Talent Acquisition Form</h2>
+    
+    <form id="companyForm" class="space-y-6">
+      <!-- Section 1: Company Information -->
+      <h3 class="text-xl font-semibold">1. Company Information</h3>
+      <input type="text" name="company_name" required placeholder="Company Name" class="w-full p-3 border rounded" />
+      <input type="url" name="company_website" required placeholder="Company Website" class="w-full p-3 border rounded" />
+
+      <div>
+        <label class="block font-medium mb-1">Industry</label>
+        <div class="grid grid-cols-2 gap-2">
+          <label><input type="checkbox" name="industry" value="Technology" /> Technology</label>
+          <label><input type="checkbox" name="industry" value="Healthcare" /> Healthcare</label>
+          <label><input type="checkbox" name="industry" value="Finance" /> Finance</label>
+          <label><input type="checkbox" name="industry" value="Retail" /> Retail</label>
+          <label><input type="checkbox" name="industry" value="Manufacturing" /> Manufacturing</label>
+        </div>
       </div>
 
-      <input type="email" name="email" required placeholder="Email Address" class="p-3 border rounded w-full" />
-
-      <div class="grid grid-cols-2 gap-4">
-        <select name="contactCode" required class="p-3 border rounded w-full">
-          <option value="">Country Code</option>
-          <option value="+91">+91 (India)</option>
-          <option value="+1">+1 (USA)</option>
-          <option value="+44">+44 (UK)</option>
-          <option value="+61">+61 (Australia)</option>
-          <option value="+81">+81 (Japan)</option>
-        </select>
-        <input type="tel" name="contactNumber" required placeholder="Contact Number" class="p-3 border rounded w-full" />
-      </div>
-
-      <input type="text" name="companyName" required placeholder="Company Name" class="p-3 border rounded w-full" />
-
-      <select name="country" required class="p-3 border rounded w-full">
-        <option value="">Place where company is situated</option>
-        <option>United States</option>
-        <option>India</option>
-        <option>United Kingdom</option>
-        <option>Germany</option>
-        <option>Australia</option>
-        <option>Canada</option>
-        <option>Singapore</option>
-        <option>France</option>
-        <option>Netherlands</option>
-        <option>UAE</option>
+      <select name="company_size" class="w-full p-3 border rounded">
+        <option value="">Company Size (Optional)</option>
+        <option>1-10</option>
+        <option>11-50</option>
+        <option>51-200</option>
+        <option>201-1000</option>
+        <option>1000+</option>
       </select>
 
-      <select name="role" required class="p-3 border rounded w-full">
-        <option value="">What best describes you?</option>
-        <option>Manager</option>
-        <option>Director</option>
-        <option>Vice President</option>
-        <option>CXO</option>
-        <option>Founder/Co-founder</option>
-        <option>Hiring Manager</option>
-      </select>
+      <!-- Section 2: Contact Person -->
+      <h3 class="text-xl font-semibold">2. Contact Person Information</h3>
+      <input type="text" name="contact_name" required placeholder="Full Name of Contact Person" class="w-full p-3 border rounded" />
+      <input type="text" name="contact_title" required placeholder="Job Title of Contact Person" class="w-full p-3 border rounded" />
+      <input type="email" name="contact_email" required placeholder="Email Address of Contact Person" class="w-full p-3 border rounded" />
+      <input type="text" name="contact_phone" placeholder="Phone Number (Optional)" class="w-full p-3 border rounded" />
 
-      <div class="flex space-x-6">
-        <label class="inline-flex items-center space-x-2">
-          <input type="radio" name="preferredContact" value="Email" checked />
-          <span>Email</span>
-        </label>
-        <label class="inline-flex items-center space-x-2">
-          <input type="radio" name="preferredContact" value="Call" />
-          <span>Call</span>
-        </label>
+      <!-- Section 3: Job Details -->
+      <h3 class="text-xl font-semibold">3. Job Details</h3>
+      <input type="text" name="job_title" required placeholder="Job Title" class="w-full p-3 border rounded" />
+      <input type="number" name="openings" required placeholder="Number of Openings" class="w-full p-3 border rounded" />
+
+      <div>
+        <label class="block font-medium mb-1">Job Type</label>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+          <label><input type="checkbox" name="job_type" value="Full-time" /> Full-time</label>
+          <label><input type="checkbox" name="job_type" value="Part-time" /> Part-time</label>
+          <label><input type="checkbox" name="job_type" value="Contract" /> Contract</label>
+          <label><input type="checkbox" name="job_type" value="Freelance" /> Freelance</label>
+          <label><input type="checkbox" name="job_type" value="Internship" /> Internship</label>
+        </div>
       </div>
 
-      <button type="submit" class="bg-indigo-600 text-white font-semibold py-2 px-4 rounded hover:bg-indigo-700 w-full transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed">
+      <textarea name="job_description" required placeholder="Job Description (Rich details encouraged)" class="w-full p-3 border rounded min-h-[120px]"></textarea>
+
+      <select name="min_experience" required class="w-full p-3 border rounded">
+        <option value="">Minimum Years of Experience</option>
+        <option>0-1</option>
+        <option>1-3</option>
+        <option>3-5</option>
+        <option>5-10</option>
+        <option>10+</option>
+      </select>
+
+      <select name="hiring_urgency" class="w-full p-3 border rounded">
+        <option value="">How soon do you need to hire? (Optional)</option>
+        <option>Urgently</option>
+        <option>Within 1 month</option>
+        <option>Within 3 months</option>
+        <option>No fixed timeline</option>
+      </select>
+
+      <!-- Section 4: Consent -->
+      <h3 class="text-xl font-semibold">4. Consent & Privacy</h3>
+      <div class="space-y-2">
+        <label><input type="checkbox" name="agree_terms" required /> I agree to the <a href="/terms" class="text-blue-600 underline">Terms and Conditions</a> and <a href="/privacy" class="text-blue-600 underline">Privacy Policy</a>.</label>
+        <label><input type="checkbox" name="consent_contact" /> I consent to receive communications from HireAIML regarding this job posting.</label>
+      </div>
+
+      <!-- Submit -->
+      <button type="submit" class="bg-indigo-600 text-white font-semibold py-3 px-6 rounded w-full hover:bg-indigo-700">
         Submit
       </button>
     </form>
@@ -82,82 +103,46 @@
       e.preventDefault();
 
       const formData = new FormData(form);
-      const data = {};
-      formData.forEach((value, key) => data[key] = value);
+      const data = Object.fromEntries(formData.entries());
 
-      // Show loading state
+      // Convert multiple checkbox values to arrays
+      data.industry = formData.getAll("industry");
+      data.job_type = formData.getAll("job_type");
+
       const submitBtn = form.querySelector('button[type="submit"]');
       const originalText = submitBtn.textContent;
       submitBtn.textContent = 'Submitting...';
       submitBtn.disabled = true;
 
-      // Hide any previous messages
       msg.classList.add("hidden");
 
       try {
-        const response = await fetch("https://script.google.com/macros/s/AKfycbwuB0Gu87lBJTuIVLS30jSs-10n9jxHeW11rx4_PeYh0SeFYjqJvwN-1Qpf3DCvKOkP/exec", {
+        const response = await fetch("YOUR_GOOGLE_SCRIPT_URL_COMPANY", {
           method: "POST",
-          mode: 'cors',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data)
         });
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
         const result = await response.json();
-        console.log("Response:", result);
-
         if (result.status === "success") {
-          msg.textContent = "Form submitted successfully! We'll get back to you soon.";
+          msg.textContent = "Form submitted successfully! We’ll get back to you soon.";
           msg.classList.remove("hidden", "text-red-600");
           msg.classList.add("text-green-600");
           form.reset();
-          
-          // Auto-hide success message after 5 seconds
-          setTimeout(() => {
-            msg.classList.add("hidden");
-          }, 5000);
+
+          setTimeout(() => msg.classList.add("hidden"), 5000);
         } else {
           throw new Error(result.message || "Submission failed");
         }
 
       } catch (error) {
-        console.error("Submission error:", error);
-        
-        let errorMessage = "An error occurred while submitting the form.";
-        
-        if (error.message.includes("Failed to fetch")) {
-          errorMessage = "Network error. Please check your connection and try again.";
-        } else if (error.message.includes("HTTP error")) {
-          errorMessage = "Server error. Please try again later.";
-        } else if (error.message) {
-          errorMessage = error.message;
-        }
-        
-        msg.textContent = errorMessage;
+        console.error("Submission error:", error.message);
+        msg.textContent = error.message.includes("fetch") ? "Network error. Try again later." : "Something went wrong.";
         msg.classList.remove("hidden", "text-green-600");
         msg.classList.add("text-red-600");
       } finally {
-        // Reset button
         submitBtn.textContent = originalText;
         submitBtn.disabled = false;
-      }
-    });
-
-    // Test the API connection on page load (optional)
-    window.addEventListener('load', async () => {
-      try {
-        const response = await fetch("https://script.google.com/macros/s/AKfycbwuB0Gu87lBJTuIVLS30jSs-10n9jxHeW11rx4_PeYh0SeFYjqJvwN-1Qpf3DCvKOkP/exec", {
-          method: "GET"
-        });
-        const result = await response.json();
-        console.log("API connection test:", result);
-      } catch (error) {
-        console.warn("API connection test failed:", error.message);
       }
     });
   </script>
