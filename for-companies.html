@@ -1,4 +1,3 @@
-<!-- Save as: for-companies.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,96 +5,188 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>AI/ML Talent Acquisition Form - HireAIML</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .form-container {
+      transition: all 0.3s ease;
+    }
+    @media (max-width: 640px) {
+      .form-container {
+        margin-top: 1rem;
+        padding: 1rem;
+      }
+    }
+  </style>
 </head>
-<body class="bg-gray-100 font-sans text-gray-800">
-  <div class="max-w-3xl mx-auto p-6 bg-white shadow-lg mt-10 rounded-lg">
-    <h2 class="text-3xl font-bold mb-6 text-center text-indigo-700">AI/ML Talent Acquisition Form</h2>
+<body class="bg-gray-100 min-h-screen">
+  <!-- Responsive Header (same as index.html) -->
+  <header class="bg-white shadow-sm py-4 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 flex justify-between items-center">
+      <div>
+        <a href="index.html" class="text-2xl font-bold text-gray-700 hover:text-indigo-600">HIREAIML</a>
+      </div>
+      
+      <div class="md:hidden">
+        <button id="mobile-menu-button" class="text-gray-500 hover:text-indigo-600 focus:outline-none">
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+      
+      <nav class="hidden md:block">
+        <ul class="flex space-x-6">
+          <li><a href="for-companies.html" class="text-gray-600 hover:text-indigo-600 font-medium">Companies</a></li>
+          <li><a href="for-talent.html" class="text-gray-600 hover:text-indigo-600 font-medium">Talent</a></li>
+          <li><a href="contact.html" class="text-gray-600 hover:text-indigo-600 font-medium">Contact Us</a></li>
+        </ul>
+      </nav>
+    </div>
     
-    <form id="companyForm" class="space-y-6">
-      <!-- Section 1: Company Information -->
-      <h3 class="text-xl font-semibold">1. Company Information</h3>
-      <input type="text" name="company_name" required placeholder="Company Name" class="w-full p-3 border rounded" />
-      <input type="url" name="company_website" required placeholder="Company Website" class="w-full p-3 border rounded" />
+    <div id="mobile-menu" class="hidden md:hidden bg-white px-4 pt-2 pb-4 shadow-md">
+      <div class="flex flex-col space-y-2">
+        <a href="for-companies.html" class="text-gray-600 hover:text-indigo-600 font-medium block px-3 py-2 rounded hover:bg-gray-50">Companies</a>
+        <a href="for-talent.html" class="text-gray-600 hover:text-indigo-600 font-medium block px-3 py-2 rounded hover:bg-gray-50">Talent</a>
+        <a href="contact.html" class="text-gray-600 hover:text-indigo-600 font-medium block px-3 py-2 rounded hover:bg-gray-50">Contact Us</a>
+      </div>
+    </div>
+  </header>
 
-      <div>
-        <label class="block font-medium mb-1">Industry</label>
-        <div class="grid grid-cols-2 gap-2">
-          <label><input type="checkbox" name="industry" value="Technology" /> Technology</label>
-          <label><input type="checkbox" name="industry" value="Healthcare" /> Healthcare</label>
-          <label><input type="checkbox" name="industry" value="Finance" /> Finance</label>
-          <label><input type="checkbox" name="industry" value="Retail" /> Retail</label>
-          <label><input type="checkbox" name="industry" value="Manufacturing" /> Manufacturing</label>
+  <main class="container mx-auto px-4 sm:px-6 py-8">
+    <div class="form-container max-w-3xl mx-auto p-4 sm:p-6 bg-white shadow-lg rounded-lg">
+      <h2 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-center text-indigo-700">AI/ML Talent Acquisition Form</h2>
+      
+      <form id="companyForm" class="space-y-4 sm:space-y-6">
+        <!-- Section 1: Company Information -->
+        <div class="space-y-3">
+          <h3 class="text-lg sm:text-xl font-semibold border-b pb-2">1. Company Information</h3>
+          <input type="text" name="company_name" required placeholder="Company Name" class="w-full p-2 sm:p-3 border rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+          <input type="url" name="company_website" required placeholder="Company Website" class="w-full p-2 sm:p-3 border rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+
+          <div>
+            <label class="block font-medium mb-1">Industry</label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <label class="flex items-center space-x-2"><input type="checkbox" name="industry" value="Technology" class="rounded" /> <span>Technology</span></label>
+              <label class="flex items-center space-x-2"><input type="checkbox" name="industry" value="Healthcare" class="rounded" /> <span>Healthcare</span></label>
+              <label class="flex items-center space-x-2"><input type="checkbox" name="industry" value="Finance" class="rounded" /> <span>Finance</span></label>
+              <label class="flex items-center space-x-2"><input type="checkbox" name="industry" value="Retail" class="rounded" /> <span>Retail</span></label>
+              <label class="flex items-center space-x-2"><input type="checkbox" name="industry" value="Manufacturing" class="rounded" /> <span>Manufacturing</span></label>
+            </div>
+          </div>
+
+          <select name="company_size" class="w-full p-2 sm:p-3 border rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+            <option value="">Company Size (Optional)</option>
+            <option>1-10</option>
+            <option>11-50</option>
+            <option>51-200</option>
+            <option>201-1000</option>
+            <option>1000+</option>
+          </select>
         </div>
-      </div>
 
-      <select name="company_size" class="w-full p-3 border rounded">
-        <option value="">Company Size (Optional)</option>
-        <option>1-10</option>
-        <option>11-50</option>
-        <option>51-200</option>
-        <option>201-1000</option>
-        <option>1000+</option>
-      </select>
-
-      <!-- Section 2: Contact Person -->
-      <h3 class="text-xl font-semibold">2. Contact Person Information</h3>
-      <input type="text" name="contact_name" required placeholder="Full Name of Contact Person" class="w-full p-3 border rounded" />
-      <input type="text" name="contact_title" required placeholder="Job Title of Contact Person" class="w-full p-3 border rounded" />
-      <input type="email" name="contact_email" required placeholder="Email Address of Contact Person" class="w-full p-3 border rounded" />
-      <input type="text" name="contact_phone" placeholder="Phone Number (Optional)" class="w-full p-3 border rounded" />
-
-      <!-- Section 3: Job Details -->
-      <h3 class="text-xl font-semibold">3. Job Details</h3>
-      <input type="text" name="job_title" required placeholder="Job Title" class="w-full p-3 border rounded" />
-      <input type="number" name="openings" required placeholder="Number of Openings" class="w-full p-3 border rounded" />
-
-      <div>
-        <label class="block font-medium mb-1">Job Type</label>
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
-          <label><input type="checkbox" name="job_type" value="Full-time" /> Full-time</label>
-          <label><input type="checkbox" name="job_type" value="Part-time" /> Part-time</label>
-          <label><input type="checkbox" name="job_type" value="Contract" /> Contract</label>
-          <label><input type="checkbox" name="job_type" value="Freelance" /> Freelance</label>
-          <label><input type="checkbox" name="job_type" value="Internship" /> Internship</label>
+        <!-- Section 2: Contact Person -->
+        <div class="space-y-3">
+          <h3 class="text-lg sm:text-xl font-semibold border-b pb-2">2. Contact Person Information</h3>
+          <input type="text" name="contact_name" required placeholder="Full Name of Contact Person" class="w-full p-2 sm:p-3 border rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+          <input type="text" name="contact_title" required placeholder="Job Title of Contact Person" class="w-full p-2 sm:p-3 border rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+          <input type="email" name="contact_email" required placeholder="Email Address of Contact Person" class="w-full p-2 sm:p-3 border rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+          <input type="text" name="contact_phone" placeholder="Phone Number (Optional)" class="w-full p-2 sm:p-3 border rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
         </div>
+
+        <!-- Section 3: Job Details -->
+        <div class="space-y-3">
+          <h3 class="text-lg sm:text-xl font-semibold border-b pb-2">3. Job Details</h3>
+          <input type="text" name="job_title" required placeholder="Job Title" class="w-full p-2 sm:p-3 border rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+          <input type="number" name="openings" required placeholder="Number of Openings" class="w-full p-2 sm:p-3 border rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+
+          <div>
+            <label class="block font-medium mb-1">Job Type</label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
+              <label class="flex items-center space-x-2"><input type="checkbox" name="job_type" value="Full-time" class="rounded" /> <span>Full-time</span></label>
+              <label class="flex items-center space-x-2"><input type="checkbox" name="job_type" value="Part-time" class="rounded" /> <span>Part-time</span></label>
+              <label class="flex items-center space-x-2"><input type="checkbox" name="job_type" value="Contract" class="rounded" /> <span>Contract</span></label>
+              <label class="flex items-center space-x-2"><input type="checkbox" name="job_type" value="Freelance" class="rounded" /> <span>Freelance</span></label>
+              <label class="flex items-center space-x-2"><input type="checkbox" name="job_type" value="Internship" class="rounded" /> <span>Internship</span></label>
+            </div>
+          </div>
+
+          <textarea name="job_description" required placeholder="Job Description (Rich details encouraged)" class="w-full p-2 sm:p-3 border rounded min-h-[120px] focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+
+          <select name="min_experience" required class="w-full p-2 sm:p-3 border rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+            <option value="">Minimum Years of Experience</option>
+            <option>0-1</option>
+            <option>1-3</option>
+            <option>3-5</option>
+            <option>5-10</option>
+            <option>10+</option>
+          </select>
+
+          <select name="hiring_urgency" class="w-full p-2 sm:p-3 border rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+            <option value="">How soon do you need to hire? (Optional)</option>
+            <option>Urgently</option>
+            <option>Within 1 month</option>
+            <option>Within 3 months</option>
+            <option>No fixed timeline</option>
+          </select>
+        </div>
+
+        <!-- Section 4: Consent -->
+        <div class="space-y-3">
+          <h3 class="text-lg sm:text-xl font-semibold border-b pb-2">4. Consent & Privacy</h3>
+          <div class="space-y-2">
+            <label class="flex items-start space-x-2">
+              <input type="checkbox" name="agree_terms" required class="mt-1 rounded" />
+              <span>I agree to the <a href="/terms" class="text-blue-600 underline">Terms and Conditions</a> and <a href="/privacy" class="text-blue-600 underline">Privacy Policy</a>.</span>
+            </label>
+            <label class="flex items-start space-x-2">
+              <input type="checkbox" name="consent_contact" class="mt-1 rounded" />
+              <span>I consent to receive communications from HireAIML regarding this job posting.</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="bg-indigo-600 text-white font-semibold py-2 sm:py-3 px-4 sm:px-6 rounded w-full hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors">
+          Submit
+        </button>
+      </form>
+
+      <p id="responseMsg" class="mt-3 sm:mt-4 text-center hidden font-medium"></p>
+    </div>
+  </main>
+
+  <!-- Footer (same as index.html) -->
+  <footer class="bg-gray-900 text-gray-300 py-8 px-4 sm:px-6">
+    <div class="max-w-7xl mx-auto">
+      <p class="mb-4">&copy; 2025 HIREAIML. All rights reserved.</p>
+      <div class="flex flex-wrap justify-center gap-x-4 gap-y-2 text-sm">
+        <a href="#" class="hover:text-white">Privacy Policy</a>
+        <a href="#" class="hover:text-white">Terms of Service</a>
       </div>
-
-      <textarea name="job_description" required placeholder="Job Description (Rich details encouraged)" class="w-full p-3 border rounded min-h-[120px]"></textarea>
-
-      <select name="min_experience" required class="w-full p-3 border rounded">
-        <option value="">Minimum Years of Experience</option>
-        <option>0-1</option>
-        <option>1-3</option>
-        <option>3-5</option>
-        <option>5-10</option>
-        <option>10+</option>
-      </select>
-
-      <select name="hiring_urgency" class="w-full p-3 border rounded">
-        <option value="">How soon do you need to hire? (Optional)</option>
-        <option>Urgently</option>
-        <option>Within 1 month</option>
-        <option>Within 3 months</option>
-        <option>No fixed timeline</option>
-      </select>
-
-      <!-- Section 4: Consent -->
-      <h3 class="text-xl font-semibold">4. Consent & Privacy</h3>
-      <div class="space-y-2">
-        <label><input type="checkbox" name="agree_terms" required /> I agree to the <a href="/terms" class="text-blue-600 underline">Terms and Conditions</a> and <a href="/privacy" class="text-blue-600 underline">Privacy Policy</a>.</label>
-        <label><input type="checkbox" name="consent_contact" /> I consent to receive communications from HireAIML regarding this job posting.</label>
-      </div>
-
-      <!-- Submit -->
-      <button type="submit" class="bg-indigo-600 text-white font-semibold py-3 px-6 rounded w-full hover:bg-indigo-700">
-        Submit
-      </button>
-    </form>
-
-    <p id="responseMsg" class="mt-4 text-center hidden font-medium"></p>
-  </div>
+    </div>
+  </footer>
 
   <script>
+    // Mobile menu toggle
+    document.getElementById('mobile-menu-button').addEventListener('click', function() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    });
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(event) {
+      const menu = document.getElementById('mobile-menu');
+      const button = document.getElementById('mobile-menu-button');
+      
+      if (!menu.contains(event.target) && event.target !== button && !button.contains(event.target)) {
+        menu.classList.add('hidden');
+      }
+    });
+
+    // Form submission handler
     const form = document.getElementById("companyForm");
     const msg = document.getElementById("responseMsg");
 
@@ -117,6 +208,7 @@
       msg.classList.add("hidden");
 
       try {
+        // Replace with your actual endpoint
         const response = await fetch("YOUR_GOOGLE_SCRIPT_URL_COMPANY", {
           method: "POST",
           headers: { 'Content-Type': 'application/json' },
@@ -125,7 +217,7 @@
 
         const result = await response.json();
         if (result.status === "success") {
-          msg.textContent = "Form submitted successfully! We’ll get back to you soon.";
+          msg.textContent = "Form submitted successfully! We'll get back to you soon.";
           msg.classList.remove("hidden", "text-red-600");
           msg.classList.add("text-green-600");
           form.reset();
