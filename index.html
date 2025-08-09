@@ -469,6 +469,15 @@
                                     </div>
                                     <div>
                                         <h4 class="font-semibold text-gray-900">80% Faster Hiring</h4>
+                                        <p class="text-gray-600 text-sm">Average time to fill AI/ML roles reduced from 3 months to 2 weeks</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="bg-indigo-100 p-2 rounded-lg mr-4">
+                                        <i class="fas fa-dollar-sign text-indigo-600"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-900">40% Cost Savings</h4>
                                         <p class="text-gray-600 text-sm">Compared to traditional hiring and recruitment fees</p>
                                     </div>
                                 </div>
@@ -693,87 +702,35 @@
                 </div>
                 <div class="lg:w-1/2 bg-white rounded-xl p-8 text-gray-800 card-shadow">
                     <h3 class="text-2xl font-bold mb-6">Get in Touch</h3>
-                    <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" id="contact-form">
+                    <form>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                             <div>
-                                <label for="first-name" class="block text-sm font-medium mb-1">First Name *</label>
-                                <input 
-                                    type="text" 
-                                    id="first-name" 
-                                    name="first-name" 
-                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" 
-                                    required
-                                >
+                                <label for="first-name" class="block text-sm font-medium mb-1">First Name</label>
+                                <input type="text" id="first-name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
                             </div>
                             <div>
-                                <label for="last-name" class="block text-sm font-medium mb-1">Last Name *</label>
-                                <input 
-                                    type="text" 
-                                    id="last-name" 
-                                    name="last-name" 
-                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" 
-                                    required
-                                >
+                                <label for="last-name" class="block text-sm font-medium mb-1">Last Name</label>
+                                <input type="text" id="last-name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
                             </div>
                         </div>
                         <div class="mb-6">
-                            <label for="email" class="block text-sm font-medium mb-1">Email *</label>
-                            <input 
-                                type="email" 
-                                id="email" 
-                                name="email" 
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" 
-                                required
-                            >
+                            <label for="email" class="block text-sm font-medium mb-1">Email</label>
+                            <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
                         </div>
                         <div class="mb-6">
-                            <label for="company" class="block text-sm font-medium mb-1">Company/Organization</label>
-                            <input 
-                                type="text" 
-                                id="company" 
-                                name="company" 
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                            >
-                        </div>
-                        <div class="mb-6">
-                            <label for="interest" class="block text-sm font-medium mb-1">I'm interested in *</label>
-                            <select 
-                                id="interest" 
-                                name="interest" 
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" 
-                                required
-                            >
-                                <option value="" disabled selected>Select an option</option>
-                                <option value="Hiring AI/ML Talent">Hiring AI/ML Talent</option>
-                                <option value="Joining as AI/ML Talent">Joining as AI/ML Talent</option>
-                                <option value="Partnership Opportunities">Partnership Opportunities</option>
-                                <option value="Other Inquiry">Other Inquiry</option>
+                            <label for="interest" class="block text-sm font-medium mb-1">I'm interested in</label>
+                            <select id="interest" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                <option>Hiring AI/ML Talent</option>
+                                <option>Joining as AI/ML Talent</option>
+                                <option>Partnership Opportunities</option>
+                                <option>Other Inquiry</option>
                             </select>
                         </div>
                         <div class="mb-6">
-                            <label for="message" class="block text-sm font-medium mb-1">Message *</label>
-                            <textarea 
-                                id="message" 
-                                name="message" 
-                                rows="4" 
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" 
-                                placeholder="Tell us about your project needs or how we can help you..."
-                                required
-                            ></textarea>
+                            <label for="message" class="block text-sm font-medium mb-1">Message</label>
+                            <textarea id="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"></textarea>
                         </div>
-                        
-                        <!-- Hidden fields for Formspree -->
-                        <input type="hidden" name="_subject" value="New Contact from Rilith Website">
-                        <input type="hidden" name="_replyto" value="">
-                        <input type="text" name="_gotcha" style="display:none">
-                        
-                        <button type="submit" class="btn-primary w-full flex items-center justify-center">
-                            <span id="submit-text">Send Message</span>
-                            <span id="spinner" class="hidden ml-2">
-                                <i class="fas fa-spinner fa-spin"></i>
-                            </span>
-                        </button>
-                        <p id="form-status" class="mt-3 text-center text-sm"></p>
+                        <button type="submit" class="btn-primary w-full">Send Message</button>
                     </form>
                 </div>
             </div>
@@ -874,56 +831,13 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
-        // Form submission with Formspree
-        const form = document.getElementById('contact-form');
+        // Form submission
+        const form = document.querySelector('form');
         if (form) {
-            form.addEventListener('submit', async function(e) {
+            form.addEventListener('submit', function(e) {
                 e.preventDefault();
-                
-                // Set reply-to field dynamically
-                const emailInput = form.querySelector('#email');
-                form.querySelector('input[name="_replyto"]').value = emailInput.value;
-                
-                // UI feedback
-                const submitBtn = form.querySelector('button[type="submit"]');
-                const submitText = document.getElementById('submit-text');
-                const spinner = document.getElementById('spinner');
-                const statusEl = document.getElementById('form-status');
-                
-                // Show loading state
-                submitText.textContent = 'Sending...';
-                spinner.classList.remove('hidden');
-                submitBtn.disabled = true;
-                statusEl.textContent = '';
-                statusEl.className = 'mt-3 text-center text-sm';
-                
-                try {
-                    const response = await fetch(form.action, {
-                        method: 'POST',
-                        body: new FormData(form),
-                        headers: {
-                            'Accept': 'application/json'
-                        }
-                    });
-                    
-                    if (response.ok) {
-                        statusEl.textContent = '✅ Thank you! We will get back to you soon.';
-                        statusEl.className = 'mt-3 text-center text-sm text-green-600 font-medium';
-                        form.reset();
-                    } else {
-                        const data = await response.json();
-                        throw new Error(data.error || 'Form submission failed');
-                    }
-                } catch (error) {
-                    console.error('Form submission error:', error);
-                    statusEl.textContent = '❌ Oops! There was a problem. Please try again or email us directly at hello@rilith.com';
-                    statusEl.className = 'mt-3 text-center text-sm text-red-600';
-                } finally {
-                    // Reset button state
-                    submitText.textContent = 'Send Message';
-                    spinner.classList.add('hidden');
-                    submitBtn.disabled = false;
-                }
+                alert('Thank you for your message! We will get back to you soon.');
+                form.reset();
             });
         }
 
@@ -951,4 +865,4 @@
         });
     </script>
 <p style="border-radius: 8px; text-align: center; font-size: 12px; color: #fff; margin-top: 16px;position: fixed; left: 8px; bottom: 8px; z-index: 10; background: rgba(0, 0, 0, 0.8); padding: 4px 8px;">Made with <img src="https://enzostvs-deepsite.hf.space/logo.svg" alt="DeepSite Logo" style="width: 16px; height: 16px; vertical-align: middle;display:inline-block;margin-right:3px;filter:brightness(0) invert(1);"><a href="https://enzostvs-deepsite.hf.space" style="color: #fff;text-decoration: underline;" target="_blank" >DeepSite</a> - 🧬 <a href="https://enzostvs-deepsite.hf.space?remix=kamalxai/mathtex" style="color: #fff;text-decoration: underline;" target="_blank" >Remix</a></p></body>
-</html>-gray-600 text-sm">Average time to fill AI/ML roles reduced from 3 months to 2 weeks</p>
+</html>
