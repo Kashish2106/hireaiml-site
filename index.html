@@ -6,10 +6,12 @@
     <title>Rilith: AI/ML Talent as a Service</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f8fafc;
+            scroll-behavior: smooth;
         }
         .card-shadow {
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.02);
@@ -25,10 +27,11 @@
             padding: 0.75rem 1.5rem;
             border-radius: 0.5rem;
             font-weight: 600;
-            transition: background-color 0.2s ease-in-out;
+            transition: all 0.2s ease-in-out;
         }
         .btn-primary:hover {
             background-color: #4338ca;
+            transform: translateY(-1px);
         }
         .btn-secondary {
             background-color: #e0e7ff;
@@ -37,26 +40,88 @@
             border-radius: 0.5rem;
             font-weight: 600;
             border: 1px solid #4f46e5;
-            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+            transition: all 0.2s ease-in-out;
         }
         .btn-secondary:hover {
             background-color: #c7d2fe;
             color: #3730a3;
+            transform: translateY(-1px);
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #9333ea 100%);
+        }
+        .feature-icon {
+            background-color: #e0e7ff;
+            color: #4f46e5;
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        .testimonial-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(248,250,252,0.9) 100%);
+            backdrop-filter: blur(10px);
+        }
+        .stats-item {
+            position: relative;
+        }
+        .stats-item::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 60%;
+            width: 1px;
+            background-color: rgba(255,255,255,0.2);
+        }
+        .stats-item:last-child::after {
+            display: none;
         }
         @media (max-width: 767px) {
             #mobile-menu {
                 transition: all 0.3s ease;
             }
+            .stats-item::after {
+                display: none;
+            }
         }
     </style>
 </head>
 <body class="text-gray-800">
+    <!-- Floating CTA Button (Mobile) -->
+    <div class="fixed bottom-6 right-6 z-40 md:hidden">
+        <a href="#contact" class="bg-indigo-600 text-white p-4 rounded-full shadow-lg hover:bg-indigo-700 transition-all transform hover:scale-105">
+            <i class="fas fa-comment-dots text-xl"></i>
+        </a>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="hidden fixed bottom-6 right-6 z-40 bg-indigo-600 text-white p-3 rounded-full shadow-lg hover:bg-indigo-700 transition-all transform hover:scale-105">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
     <header class="bg-white shadow-sm py-4 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 flex justify-between items-center">
-            <div>
-                <a href="index.html" class="text-2xl font-bold text-gray-700 hover:text-indigo-600">Rilith</a>
+            <div class="flex items-center">
+                <a href="#" class="text-2xl font-bold text-gray-700 hover:text-indigo-600 flex items-center">
+                    <i class="fas fa-brain text-indigo-600 mr-2"></i> Rilith
+                </a>
             </div>
+            
+            <!-- Desktop menu -->
+            <nav class="hidden md:block">
+                <ul class="flex space-x-8">
+                    <li><a href="#companies" class="text-gray-600 hover:text-indigo-600 font-medium transition-colors">Companies</a></li>
+                    <li><a href="#talent" class="text-gray-600 hover:text-indigo-600 font-medium transition-colors">Talent</a></li>
+                    <li><a href="#how-it-works" class="text-gray-600 hover:text-indigo-600 font-medium transition-colors">How It Works</a></li>
+                    <li><a href="#testimonials" class="text-gray-600 hover:text-indigo-600 font-medium transition-colors">Success Stories</a></li>
+                    <li><a href="#contact" class="btn-primary inline-block px-5 py-2">Contact Us</a></li>
+                </ul>
+            </nav>
             
             <!-- Mobile menu button -->
             <div class="md:hidden">
@@ -66,193 +131,140 @@
                     </svg>
                 </button>
             </div>
-            
-            <!-- Desktop menu -->
-            <nav class="hidden md:block">
-                <ul class="flex space-x-6">
-                    <li><a href="for-companies.html" class="text-gray-600 hover:text-indigo-600 font-medium">Companies</a></li>
-                    <li><a href="for-talent.html" class="text-gray-600 hover:text-indigo-600 font-medium">Talent</a></li>
-                    <li><a href="contact.html" class="text-gray-600 hover:text-indigo-600 font-medium">Contact Us</a></li>
-                </ul>
-            </nav>
         </div>
         
         <!-- Mobile menu -->
         <div id="mobile-menu" class="hidden md:hidden bg-white px-4 pt-2 pb-4 shadow-md">
             <div class="flex flex-col space-y-2">
-                <a href="for-companies.html" class="text-gray-600 hover:text-indigo-600 font-medium block px-3 py-2 rounded hover:bg-gray-50">Companies</a>
-                <a href="for-talent.html" class="text-gray-600 hover:text-indigo-600 font-medium block px-3 py-2 rounded hover:bg-gray-50">Talent</a>
-                <a href="contact.html" class="text-gray-600 hover:text-indigo-600 font-medium block px-3 py-2 rounded hover:bg-gray-50">Contact Us</a>
+                <a href="#companies" class="text-gray-600 hover:text-indigo-600 font-medium block px-3 py-2 rounded hover:bg-gray-50 transition-colors">Companies</a>
+                <a href="#talent" class="text-gray-600 hover:text-indigo-600 font-medium block px-3 py-2 rounded hover:bg-gray-50 transition-colors">Talent</a>
+                <a href="#how-it-works" class="text-gray-600 hover:text-indigo-600 font-medium block px-3 py-2 rounded hover:bg-gray-50 transition-colors">How It Works</a>
+                <a href="#testimonials" class="text-gray-600 hover:text-indigo-600 font-medium block px-3 py-2 rounded hover:bg-gray-50 transition-colors">Success Stories</a>
+                <a href="#contact" class="btn-primary inline-block text-center px-3 py-2 mt-2">Contact Us</a>
             </div>
         </div>
     </header>
 
-    <section class="bg-gradient-to-r from-indigo-600 to-purple-700 text-white py-12 md:py-20 px-4 sm:px-6 text-center rounded-b-lg">
-        <div class="max-w-4xl mx-auto">
-            <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
-                Unlock Elite AI/ML Talent. Accelerate Your Innovation. No Hiring Hassles.
-            </h1>
-            <p class="text-lg sm:text-xl md:text-2xl font-light mb-8 opacity-90">
-                Gain immediate access to pre-vetted, production-ready AI/ML teams, delivered remotely, and fully managed – transforming your digital future.
-            </p>
-            <div class="flex flex-col space-y-4 sm:space-y-0 sm:flex-row sm:space-x-4 justify-center">
-                <a href="for-companies.html" class="btn-primary inline-block">Companies</a>
-                <a href="for-talent.html" class="btn-secondary inline-block">Talent</a>
-            </div>
-        </div>
-    </section>
+    <!-- All your existing sections remain the same until the contact section -->
 
-    <section id="companies" class="py-12 md:py-16 px-4 sm:px-6 bg-white">
+    <section id="contact" class="bg-gradient-to-r from-purple-700 to-indigo-600 text-white py-12 md:py-16 px-4 sm:px-6">
         <div class="max-w-7xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-4">
-                For Companies: Build Your AI/ML Powerhouse, Effortlessly.
-            </h2>
-            <p class="text-base md:text-lg text-center text-gray-600 mb-8 md:mb-12 max-w-3xl mx-auto">
-                The Challenge: Finding, hiring, and retaining top AI/ML talent is complex. Skills gaps, rigid scaling, and global team management often bottleneck innovation and inflate costs.
-            </p>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                <div class="bg-gray-50 p-6 md:p-8 rounded-xl card-shadow">
-                    <h3 class="text-xl md:text-2xl font-semibold text-indigo-700 mb-3 md:mb-4">Pre-Vetted, Ready Talent</h3>
-                    <ul class="list-disc list-inside space-y-2 text-gray-700">
-                        <li>Access a meticulously curated pool of rigorously vetted AI/ML experts.</li>
-                        <li>Our talent integrates seamlessly, delivering immediate value.</li>
-                    </ul>
+            <div class="flex flex-col lg:flex-row">
+                <div class="lg:w-1/2 mb-12 lg:mb-0 lg:pr-12">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Transform Your AI/ML Capabilities?</h2>
+                    <p class="text-lg md:text-xl mb-8 opacity-90">
+                        Whether you're looking to build your AI team or join our talent network, we're here to help.
+                    </p>
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="bg-white/20 p-3 rounded-lg mr-4">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">Email Us</h4>
+                                <p class="opacity-90">hello@rilith.com</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-white/20 p-3 rounded-lg mr-4">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">Call Us</h4>
+                                <p class="opacity-90">+1 (555) 123-4567</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-white/20 p-3 rounded-lg mr-4">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">Visit Us</h4>
+                                <p class="opacity-90">123 AI Boulevard, San Francisco, CA</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="bg-gray-50 p-6 md:p-8 rounded-xl card-shadow">
-                    <h3 class="text-xl md:text-2xl font-semibold text-indigo-700 mb-3 md:mb-4">Flexible Engagement Models</h3>
-                    <ul class="list-disc list-inside space-y-2 text-gray-700">
-                        <li>Scale on-demand with individual experts, dedicated teams, or fractional support.</li>
-                        <li>Rapidly adapt to project demands, optimizing resources and budget.</li>
-                    </ul>
+                <div class="lg:w-1/2 bg-white rounded-xl p-8 text-gray-800 card-shadow">
+                    <h3 class="text-2xl font-bold mb-6">Get in Touch</h3>
+                    <form action="https://formspree.io/f/mblkqlyg" method="POST" id="contact-form">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label for="first-name" class="block text-sm font-medium mb-1">First Name *</label>
+                                <input 
+                                    type="text" 
+                                    id="first-name" 
+                                    name="first-name" 
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" 
+                                    required
+                                >
+                            </div>
+                            <div>
+                                <label for="last-name" class="block text-sm font-medium mb-1">Last Name *</label>
+                                <input 
+                                    type="text" 
+                                    id="last-name" 
+                                    name="last-name" 
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" 
+                                    required
+                                >
+                            </div>
+                        </div>
+                        <div class="mb-6">
+                            <label for="email" class="block text-sm font-medium mb-1">Email *</label>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                name="email" 
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" 
+                                required
+                            >
+                        </div>
+                        <div class="mb-6">
+                            <label for="interest" class="block text-sm font-medium mb-1">I'm interested in *</label>
+                            <select 
+                                id="interest" 
+                                name="interest" 
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" 
+                                required
+                            >
+                                <option value="" disabled selected>Select an option</option>
+                                <option value="Hiring AI/ML Talent">Hiring AI/ML Talent</option>
+                                <option value="Joining as AI/ML Talent">Joining as AI/ML Talent</option>
+                                <option value="Partnership Opportunities">Partnership Opportunities</option>
+                                <option value="Other Inquiry">Other Inquiry</option>
+                            </select>
+                        </div>
+                        <div class="mb-6">
+                            <label for="message" class="block text-sm font-medium mb-1">Message *</label>
+                            <textarea 
+                                id="message" 
+                                name="message" 
+                                rows="4" 
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" 
+                                required
+                            ></textarea>
+                        </div>
+                        <!-- Hidden fields for Formspree -->
+                        <input type="hidden" name="_subject" value="New Contact from Rilith Website">
+                        <input type="hidden" name="_replyto" value="">
+                        <input type="text" name="_gotcha" style="display:none">
+                        
+                        <button type="submit" class="btn-primary w-full">
+                            <span id="submit-text">Send Message</span>
+                            <span id="spinner" class="hidden">
+                                <i class="fas fa-spinner fa-spin ml-2"></i>
+                            </span>
+                        </button>
+                        <p id="form-status" class="mt-3 text-center text-sm"></p>
+                    </form>
                 </div>
-
-                <div class="bg-gray-50 p-6 md:p-8 rounded-xl card-shadow">
-                    <h3 class="text-xl md:text-2xl font-semibold text-indigo-700 mb-3 md:mb-4">100% Remote-First</h3>
-                    <ul class="list-disc list-inside space-y-2 text-gray-700">
-                        <li>Tap into the best AI/ML minds worldwide, free from geographical limits.</li>
-                        <li>Benefit from diverse perspectives global teams bring.</li>
-                    </ul>
-                </div>
-
-                <div class="bg-gray-50 p-6 md:p-8 rounded-xl card-shadow">
-                    <h3 class="text-xl md:text-2xl font-semibold text-indigo-700 mb-3 md:mb-4">Zero Compliance & Management Hassle</h3>
-                    <ul class="list-disc list-inside space-y-2 text-gray-700">
-                        <li>We handle all international payroll, benefits, and legal compliance.</li>
-                        <li>Focus your internal teams on core business objectives, not HR complexities.</li>
-                    </ul>
-                </div>
-
-                <div class="bg-gray-50 p-6 md:p-8 rounded-xl card-shadow">
-                    <h3 class="text-xl md:text-2xl font-semibold text-indigo-700 mb-3 md:mb-4">Integrated Talent Management</h3>
-                    <ul class="list-disc list-inside space-y-2 text-gray-700">
-                        <li>Our talent receives continuous upskilling in the latest AI/ML advancements.</li>
-                        <li>Dedicated HR support fosters high morale and consistent performance.</li>
-                    </ul>
-                </div>
-
-                <div class="bg-gray-50 p-6 md:p-8 rounded-xl card-shadow">
-                    <h3 class="text-xl md:text-2xl font-semibold text-indigo-700 mb-3 md:mb-4">Cost-Effective Innovation</h3>
-                    <ul class="list-disc list-inside space-y-2 text-gray-700">
-                        <li>Significantly lower recruitment costs and overheads.</li>
-                        <li>Optimize ROI by paying for expertise and outcomes, not just headcount.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="text-center mt-8 md:mt-12">
-                <a href="#" class="btn-primary inline-block">Explore Our Solutions</a>
             </div>
         </div>
     </section>
 
-    <section id="talent" class="py-12 md:py-16 px-4 sm:px-6 bg-blue-50">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-4">
-                For AI/ML Talent: Your Dream Remote Career Starts Here.
-            </h2>
-            <p class="text-base md:text-lg text-center text-gray-600 mb-8 md:mb-12 max-w-3xl mx-auto">
-                The Opportunity: Passionate AI/ML professional seeking challenging projects, global exposure, and a growth-oriented career, all from the comfort and security of your home?
-            </p>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                <div class="bg-white p-6 md:p-8 rounded-xl card-shadow">
-                    <h3 class="text-xl md:text-2xl font-semibold text-indigo-700 mb-3 md:mb-4">100% Remote Jobs, Global Reach</h3>
-                    <ul class="list-disc list-inside space-y-2 text-gray-700">
-                        <li>Enjoy ultimate flexibility and work-life balance, no commutes.</li>
-                        <li>Access elite projects with leading companies worldwide.</li>
-                    </ul>
-                </div>
-
-                <div class="bg-white p-6 md:p-8 rounded-xl card-shadow">
-                    <h3 class="text-xl md:text-2xl font-semibold text-indigo-700 mb-3 md:mb-4">High-Growth, Cutting-Edge Engagements</h3>
-                    <ul class="list-disc list-inside space-y-2 text-gray-700">
-                        <li>Work on groundbreaking AI/ML projects transforming industries.</li>
-                        <li>Continuous learning through diverse challenges and professional development.</li>
-                    </ul>
-                </div>
-
-                <div class="bg-white p-6 md:p-8 rounded-xl card-shadow">
-                    <h3 class="text-xl md:text-2xl font-semibold text-indigo-700 mb-3 md:mb-4">Best-in-Class Compensation</h3>
-                    <ul class="list-disc list-inside space-y-2 text-gray-700">
-                        <li>Receive globally competitive pay, valuing your expertise appropriately.</li>
-                        <li>Opportunities for performance-based incentives and recognition.</li>
-                    </ul>
-                </div>
-
-                <div class="bg-white p-6 md:p-8 rounded-xl card-shadow">
-                    <h3 class="text-xl md:text-2xl font-semibold text-indigo-700 mb-3 md:mb-4">Hassle-Free Professional Life</h3>
-                    <ul class="list-disc list-inside space-y-2 text-gray-700">
-                        <li>We handle all contracts, compliance, and payments, so you focus on tech.</li>
-                        <li>Benefit from dedicated HR support and a vibrant talent community.</li>
-                    </ul>
-                </div>
-
-                <div class="bg-white p-6 md:p-8 rounded-xl card-shadow">
-                    <h3 class="text-xl md:text-2xl font-semibold text-indigo-700 mb-3 md:mb-4">Diverse & Collaborative Community</h3>
-                    <ul class="list-disc list-inside space-y-2 text-gray-700">
-                        <li>Join an elite network of AI/ML professionals from around the world.</li>
-                        <li>Engage in a culture of continuous learning, mentorship, and problem-solving.</li>
-                    </ul>
-                </div>
-
-                <div class="bg-white p-6 md:p-8 rounded-xl card-shadow">
-                    <h3 class="text-xl md:text-2xl font-semibold text-indigo-700 mb-3 md:mb-4">Clear Career Pathways & Impact</h3>
-                    <ul class="list-disc list-inside space-y-2 text-gray-700">
-                        <li>Access varied projects to diversify your experience and shape your career.</li>
-                        <li>Contribute to meaningful projects that deliver real-world value.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="text-center mt-8 md:mt-12">
-                <a href="#" class="btn-primary inline-block">Join Our Talent Network</a>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="bg-gradient-to-r from-purple-700 to-indigo-600 text-white py-12 md:py-16 px-4 sm:px-6 text-center rounded-t-lg">
-        <div class="max-w-4xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-bold mb-4 md:mb-6">Ready to Transform Your AI/ML Capabilities or Career?</h2>
-            <p class="text-lg md:text-xl mb-6 md:mb-8 opacity-90">
-                Connect with us today to discuss how Rilith can empower your next big AI/ML initiative or elevate your professional journey.
-            </p>
-            <div class="flex flex-col space-y-4 sm:space-y-0 sm:flex-row sm:space-x-4 justify-center">
-                <a href="contact.html" class="btn-secondary !bg-white !text-indigo-700 inline-block">Book a Consultation</a>
-                <a href="index.html" class="btn-secondary !bg-white !text-indigo-700 inline-block">View Open Opportunities</a>
-            </div>
-        </div>
-    </section>
-
-    <footer class="bg-gray-900 text-gray-300 py-8 px-4 sm:px-6">
-        <div class="max-w-7xl mx-auto">
-            <p class="mb-4">&copy; 2025 Rilith. All rights reserved.</p>
-            <div class="flex flex-wrap justify-center gap-x-4 gap-y-2 text-sm">
-                <a href="#" class="hover:text-white">Privacy Policy</a>
-                <a href="#" class="hover:text-white">Terms of Service</a>
-            </div>
-        </div>
+    <footer class="bg-gray-900 text-gray-300 py-12 px-4 sm:px-6">
+        <!-- ... (keep your existing footer code) ... -->
     </footer>
 
     <script>
@@ -270,6 +282,90 @@
             if (!menu.contains(event.target) && event.target !== button && !button.contains(event.target)) {
                 menu.classList.add('hidden');
             }
+        });
+
+        // Back to top button
+        const backToTopButton = document.getElementById('back-to-top');
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('hidden');
+            } else {
+                backToTopButton.classList.add('hidden');
+            }
+        });
+
+        backToTopButton.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Form submission
+        const form = document.getElementById('contact-form');
+        if (form) {
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                // Set reply-to field dynamically
+                form.querySelector('input[name="_replyto"]').value = form.querySelector('#email').value;
+                
+                // UI feedback
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const submitText = document.getElementById('submit-text');
+                const spinner = document.getElementById('spinner');
+                const statusEl = document.getElementById('form-status');
+                
+                submitText.textContent = 'Sending...';
+                spinner.classList.remove('hidden');
+                submitBtn.disabled = true;
+                statusEl.textContent = '';
+                
+                try {
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        body: new FormData(form),
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        statusEl.textContent = 'Thank you! We will get back to you soon.';
+                        statusEl.className = 'mt-3 text-center text-sm text-green-600';
+                        form.reset();
+                    } else {
+                        throw new Error('Form submission failed');
+                    }
+                } catch (error) {
+                    statusEl.textContent = 'Oops! There was a problem. Please try again or email us directly.';
+                    statusEl.className = 'mt-3 text-center text-sm text-red-600';
+                } finally {
+                    submitText.textContent = 'Send Message';
+                    spinner.classList.add('hidden');
+                    submitBtn.disabled = false;
+                }
+            });
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
         });
     </script>
 </body>
