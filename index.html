@@ -3,296 +3,169 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rilith: AI/ML Talent as a Service</title>
+    <title>Rilith - AI/ML Talent as a Service</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8fafc;
-            scroll-behavior: smooth;
+        .gradient-bg {
+            background: linear-gradient(135deg, #6e8efb 0%, #4a6cf7 100%);
         }
-        .card-shadow {
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.02);
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
         }
-        .card-shadow:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
-        }
-        .btn-primary {
-            background-color: #4f46e5;
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            transition: all 0.2s ease-in-out;
-        }
-        .btn-primary:hover {
-            background-color: #4338ca;
-            transform: translateY(-1px);
-        }
-        .btn-secondary {
-            background-color: #e0e7ff;
-            color: #4f46e5;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            border: 1px solid #4f46e5;
-            transition: all 0.2s ease-in-out;
-        }
-        .btn-secondary:hover {
-            background-color: #c7d2fe;
-            color: #3730a3;
-            transform: translateY(-1px);
-        }
-        .hero-gradient {
-            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #9333ea 100%);
-        }
-        .feature-icon {
-            background-color: #e0e7ff;
-            color: #4f46e5;
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1rem;
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
         .testimonial-card {
-            background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(248,250,252,0.9) 100%);
-            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
         }
-        .stats-item {
-            position: relative;
+        .testimonial-card:hover {
+            transform: scale(1.03);
         }
-        .stats-item::after {
-            content: '';
+        .process-step::before {
+            content: "";
             position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            height: 60%;
-            width: 1px;
-            background-color: rgba(255,255,255,0.2);
+            width: 2px;
+            height: 100%;
+            background: #4a6cf7;
+            left: 24px;
+            top: 40px;
+            z-index: 0;
         }
-        .stats-item:last-child::after {
+        .process-step:last-child::before {
             display: none;
-        }
-        .form-success {
-            background-color: #10b981;
-            color: white;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            margin-bottom: 1rem;
-            display: none;
-        }
-        .form-error {
-            background-color: #ef4444;
-            color: white;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            margin-bottom: 1rem;
-            display: none;
-        }
-        .btn-disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-        @media (max-width: 767px) {
-            #mobile-menu {
-                transition: all 0.3s ease;
-            }
-            .stats-item::after {
-                display: none;
-            }
         }
     </style>
 </head>
-<body class="text-gray-800">
-    <!-- Floating CTA Button (Mobile) -->
-    <div class="fixed bottom-6 right-6 z-40 md:hidden">
-        <a href="#contact" class="bg-indigo-600 text-white p-4 rounded-full shadow-lg hover:bg-indigo-700 transition-all transform hover:scale-105">
-            <i class="fas fa-comment-dots text-xl"></i>
-        </a>
-    </div>
-
-    <!-- Back to Top Button -->
-    <button id="back-to-top" class="hidden fixed bottom-6 right-6 z-40 bg-indigo-600 text-white p-3 rounded-full shadow-lg hover:bg-indigo-700 transition-all transform hover:scale-105">
-        <i class="fas fa-arrow-up"></i>
-    </button>
-
-    <header class="bg-white shadow-sm py-4 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 flex justify-between items-center">
-            <div class="flex items-center">
-                <a href="index.html" class="text-2xl font-bold text-gray-700 hover:text-indigo-600 flex items-center">
-                    <i class="fas fa-brain text-indigo-600 mr-2"></i> Rilith
-                </a>
-            </div>
-            
-            <!-- Desktop menu -->
-            <nav class="hidden md:block">
-                <ul class="flex space-x-8">
-                    <li><a href="#companies" class="text-gray-600 hover:text-indigo-600 font-medium transition-colors">Companies</a></li>
-                    <li><a href="#talent" class="text-gray-600 hover:text-indigo-600 font-medium transition-colors">Talent</a></li>
-                    <li><a href="#how-it-works" class="text-gray-600 hover:text-indigo-600 font-medium transition-colors">How It Works</a></li>
-                    <li><a href="#testimonials" class="text-gray-600 hover:text-indigo-600 font-medium transition-colors">Success Stories</a></li>
-                    <li><a href="#contact" class="btn-primary inline-block px-5 py-2">Contact Us</a></li>
-                </ul>
-            </nav>
-            
-            <!-- Mobile menu button -->
-            <div class="md:hidden">
-                <button id="mobile-menu-button" class="text-gray-500 hover:text-indigo-600 focus:outline-none">
-                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                    </svg>
-                </button>
+<body class="font-sans antialiased text-gray-800">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="#" class="text-2xl font-bold text-blue-600">Rilith</a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#companies" class="text-gray-700 hover:text-blue-600 transition">Companies</a>
+                    <a href="#talent" class="text-gray-700 hover:text-blue-600 transition">Talent</a>
+                    <a href="#how-it-works" class="text-gray-700 hover:text-blue-600 transition">How It Works</a>
+                    <a href="#testimonials" class="text-gray-700 hover:text-blue-600 transition">Success Stories</a>
+                    <a href="#contact" class="text-gray-700 hover:text-blue-600 transition">Contact Us</a>
+                    <a href="#contact" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition">Get Started</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="menu-btn" class="text-gray-700">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
             </div>
         </div>
-        
         <!-- Mobile menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white px-4 pt-2 pb-4 shadow-md">
-            <div class="flex flex-col space-y-2">
-                <a href="#companies" class="text-gray-600 hover:text-indigo-600 font-medium block px-3 py-2 rounded hover:bg-gray-50 transition-colors">Companies</a>
-                <a href="#talent" class="text-gray-600 hover:text-indigo-600 font-medium block px-3 py-2 rounded hover:bg-gray-50 transition-colors">Talent</a>
-                <a href="#how-it-works" class="text-gray-600 hover:text-indigo-600 font-medium block px-3 py-2 rounded hover:bg-gray-50 transition-colors">How It Works</a>
-                <a href="#testimonials" class="text-gray-600 hover:text-indigo-600 font-medium block px-3 py-2 rounded hover:bg-gray-50 transition-colors">Success Stories</a>
-                <a href="#contact" class="btn-primary inline-block text-center px-3 py-2 mt-2">Contact Us</a>
-            </div>
+        <div id="mobile-menu" class="md:hidden hidden bg-white pb-4 px-4 shadow-lg">
+            <a href="#companies" class="block py-2 text-gray-700 hover:text-blue-600">Companies</a>
+            <a href="#talent" class="block py-2 text-gray-700 hover:text-blue-600">Talent</a>
+            <a href="#how-it-works" class="block py-2 text-gray-700 hover:text-blue-600">How It Works</a>
+            <a href="#testimonials" class="block py-2 text-gray-700 hover:text-blue-600">Success Stories</a>
+            <a href="#contact" class="block py-2 text-gray-700 hover:text-blue-600">Contact Us</a>
+            <a href="#contact" class="block mt-2 bg-blue-600 text-white px-4 py-2 rounded-md text-center hover:bg-blue-700">Get Started</a>
         </div>
-    </header>
+    </nav>
 
-    <section class="hero-gradient text-white py-12 md:py-24 px-4 sm:px-6">
-        <div class="max-w-7xl mx-auto">
-            <div class="flex flex-col lg:flex-row items-center">
-                <div class="lg:w-1/2 mb-12 lg:mb-0 lg:pr-12">
-                    <div class="bg-white/10 backdrop-blur-sm rounded-lg p-4 inline-block mb-6">
-                        <span class="text-sm font-semibold">AI/ML Talent as a Service</span>
-                    </div>
-                    <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight mb-6">
-                        Build Your AI Future With World-Class Talent
-                    </h1>
-                    <p class="text-lg sm:text-xl md:text-2xl font-light mb-8 opacity-90">
-                        Access pre-vetted AI/ML experts and teams on demand. Scale your capabilities without the hiring headaches.
-                    </p>
-                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-                        <a href="#companies" class="btn-primary inline-block text-center">Hire Talent</a>
-                        <a href="#talent" class="btn-secondary inline-block text-center">Join as Talent</a>
-                    </div>
-                    
-                    <div class="mt-12 flex items-center space-x-4">
-                        <div class="flex -space-x-2">
-                            <img src="https://randomuser.me/api/portraits/women/44.jpg" class="w-10 h-10 rounded-full border-2 border-white" alt="Client">
-                            <img src="https://randomuser.me/api/portraits/men/32.jpg" class="w-10 h-10 rounded-full border-2 border-white" alt="Client">
-                            <img src="https://randomuser.me/api/portraits/women/68.jpg" class="w-10 h-10 rounded-full border-2 border-white" alt="Client">
-                        </div>
-                        <div>
-                            <div class="flex items-center">
-                                <div class="flex">
-                                    <i class="fas fa-star text-yellow-400"></i>
-                                    <i class="fas fa-star text-yellow-400"></i>
-                                    <i class="fas fa-star text-yellow-400"></i>
-                                    <i class="fas fa-star text-yellow-400"></i>
-                                    <i class="fas fa-star text-yellow-400"></i>
-                                </div>
-                                <span class="ml-2 text-sm font-medium">5.0</span>
-                            </div>
-                            <p class="text-sm opacity-90">Trusted by 50+ companies</p>
-                        </div>
+    <!-- Hero Section -->
+    <section class="hero-section text-white py-20 md:py-32">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="md:flex items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">AI/ML Talent as a Service</h1>
+                    <p class="text-xl mb-8">Access pre-vetted AI/ML experts and teams on demand. Scale your capabilities without the hiring headaches.</p>
+                    <div class="flex space-x-4">
+                        <a href="#companies" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md font-medium transition">Hire Talent</a>
+                        <a href="#talent" class="bg-white hover:bg-gray-100 text-blue-600 px-6 py-3 rounded-md font-medium transition">Join as Talent</a>
                     </div>
                 </div>
-                <div class="lg:w-1/2 relative">
-                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-white/20">
-                        <div class="flex space-x-2 mb-4">
-                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                <div class="md:w-1/2 md:pl-12">
+                    <div class="bg-white rounded-lg p-6 shadow-xl">
+                        <div class="flex items-center mb-4">
+                            <div class="flex -space-x-2">
+                                <img src="https://randomuser.me/api/portraits/women/44.jpg" class="w-10 h-10 rounded-full border-2 border-white" alt="Client">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" class="w-10 h-10 rounded-full border-2 border-white" alt="Client">
+                                <img src="https://randomuser.me/api/portraits/women/68.jpg" class="w-10 h-10 rounded-full border-2 border-white" alt="Client">
+                            </div>
+                            <div class="ml-4">
+                                <div class="flex items-center">
+                                    <div class="flex text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <span class="ml-2 text-gray-700">5.0</span>
+                                </div>
+                                <p class="text-sm text-gray-600">Trusted by 50+ companies</p>
+                            </div>
                         </div>
-                        <div class="bg-gray-900 rounded-lg p-4 mb-4">
-                            <div class="flex items-center mb-3">
-                                <div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center mr-3">
-                                    <i class="fas fa-robot text-white"></i>
-                                </div>
-                                <h3 class="font-bold text-white">AI Talent Matching</h3>
-                            </div>
-                            <div class="bg-gray-800 rounded p-3 text-sm text-gray-300">
-                                <p>Connecting you with the perfect AI/ML expert for your project needs...</p>
-                                <div class="mt-2 flex space-x-2">
-                                    <span class="inline-block bg-gray-700 rounded-full px-2 py-1 text-xs">Computer Vision</span>
-                                    <span class="inline-block bg-gray-700 rounded-full px-2 py-1 text-xs">NLP</span>
-                                    <span class="inline-block bg-gray-700 rounded-full px-2 py-1 text-xs">MLOps</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="bg-indigo-100 rounded-lg p-3 text-center">
-                                <div class="text-indigo-600 mb-1">
-                                    <i class="fas fa-bolt"></i>
-                                </div>
-                                <p class="text-xs font-semibold text-gray-800">Fast Matching</p>
-                            </div>
-                            <div class="bg-indigo-100 rounded-lg p-3 text-center">
-                                <div class="text-indigo-600 mb-1">
-                                    <i class="fas fa-shield-alt"></i>
-                                </div>
-                                <p class="text-xs font-semibold text-gray-800">Vetted Experts</p>
-                            </div>
-                            <div class="bg-indigo-100 rounded-lg p-3 text-center">
-                                <div class="text-indigo-600 mb-1">
-                                    <i class="fas fa-globe"></i>
-                                </div>
-                                <p class="text-xs font-semibold text-gray-800">Global Talent</p>
-                            </div>
-                            <div class="bg-indigo-100 rounded-lg p-3 text-center">
-                                <div class="text-indigo-600 mb-1">
-                                    <i class="fas fa-clock"></i>
-                                </div>
-                                <p class="text-xs font-semibold text-gray-800">Flexible Terms</p>
-                            </div>
+                        <p class="text-gray-700 mb-6">Connecting you with the perfect AI/ML expert for your project needs...</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Computer Vision</span>
+                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">NLP</span>
+                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">MLOps</span>
                         </div>
                     </div>
-                    <div class="absolute -bottom-6 -left-6 w-32 h-32 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20"></div>
-                    <div class="absolute -top-6 -right-6 w-32 h-32 bg-indigo-500 rounded-full mix-blend-multiply filter blur-xl opacity-20"></div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Stats Section -->
-    <section class="bg-indigo-700 text-white py-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                <div class="stats-item py-4 px-2">
-                    <p class="text-3xl md:text-4xl font-bold mb-1">50+</p>
-                    <p class="text-sm md:text-base opacity-90">Companies Served</p>
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div class="p-6">
+                    <div class="text-3xl font-bold text-blue-600 mb-2">50+</div>
+                    <div class="text-gray-600">Companies Served</div>
                 </div>
-                <div class="stats-item py-4 px-2">
-                    <p class="text-3xl md:text-4xl font-bold mb-1">98%</p>
-                    <p class="text-sm md:text-base opacity-90">Retention Rate</p>
+                <div class="p-6">
+                    <div class="text-3xl font-bold text-blue-600 mb-2">98%</div>
+                    <div class="text-gray-600">Retention Rate</div>
                 </div>
-                <div class="stats-item py-4 px-2">
-                    <p class="text-3xl md:text-4xl font-bold mb-1">3,000+</p>
-                    <p class="text-sm md:text-base opacity-90">AI/ML Experts</p>
+                <div class="p-6">
+                    <div class="text-3xl font-bold text-blue-600 mb-2">3,000+</div>
+                    <div class="text-gray-600">AI/ML Experts</div>
                 </div>
-                <div class="stats-item py-4 px-2">
-                    <p class="text-3xl md:text-4xl font-bold mb-1">24h</p>
-                    <p class="text-sm md:text-base opacity-90">Avg. Matching Time</p>
+                <div class="p-6">
+                    <div class="text-3xl font-bold text-blue-600 mb-2">24h</div>
+                    <div class="text-gray-600">Avg. Matching Time</div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Trusted By Section -->
-    <section class="py-8 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6">
-            <p class="text-center text-gray-500 mb-6">Trusted by</p>
-            <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-70">
-                <h2 class="text-3xl md:text-4xl font-bold text-indigo-900 mb-4">
-                    Top 500 Global Companies
-                </h2>
+    <section class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-center text-gray-500 text-sm font-semibold uppercase tracking-wide mb-8">Trusted by</h2>
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-8 items-center">
+                <div class="flex justify-center">
+                    <div class="h-12 text-gray-400 font-bold text-xl">Top 500</div>
+                </div>
+                <div class="flex justify-center">
+                    <div class="h-12 text-gray-400 font-bold text-xl">Global</div>
+                </div>
+                <div class="flex justify-center">
+                    <div class="h-12 text-gray-400 font-bold text-xl">Companies</div>
+                </div>
+                <div class="flex justify-center">
+                    <div class="h-12 text-gray-400 font-bold text-xl">Fortune 500</div>
+                </div>
+                <div class="flex justify-center">
+                    <div class="h-12 text-gray-400 font-bold text-xl">Startups</div>
+                </div>
             </div>
         </div>
     </section>
