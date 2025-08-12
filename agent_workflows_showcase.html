@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI Agent Workflows | Data Preparation Tools</title>
+  
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  
+  <style>
+    .card-hover {
+      transition: all 0.3s ease;
+      transform: translateY(0);
+    }
+    .card-hover:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    .gradient-bg {
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    }
+    .app-icon {
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      font-size: 24px;
+      color: white;
+    }
+    .category-pill {
+      transition: all 0.2s;
+    }
+    .category-pill:hover {
+      transform: scale(1.05);
+    }
+    .active-category {
+      background-color: #3b82f6 !important;
+      color: white !important;
+    }
+    .search-input:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    }
+  </style>
+</head>
+<body class="gradient-bg min-h-screen">
+  <div class="container mx-auto px-4 py-8">
+    <!-- Header -->
+    <header class="text-center mb-12">
+      <h1 class="text-4xl font-bold text-gray-800 mb-3">AI Agent Workflows</h1>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+        Curated collection of applications to accelerate your AI development pipeline - from data preparation to model training
+      </p>
+    </header>
+    
+    <!-- Search and Filter -->
+    <div class="bg-white rounded-xl shadow p-6 mb-8">
+      <div class="md:flex justify-between items-center gap-6">
+        <div class="relative md:w-2/3 mb-4 md:mb-0">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <i class="fas fa-search text-gray-400"></i>
+          </div>
+          <input 
+            type="text" 
+            id="search-input" 
+            class="search-input block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:border-blue-500" 
+            placeholder="Search applications (e.g. 'text', 'image', 'math')"
+          >
+        </div>
+        
+        <div class="flex flex-wrap gap-2 md:w-1/3 justify-end">
+          <button class="category-pill px-3 py-1 bg-gray-200 text-gray-700 rounded-full text-sm font-medium" data-category="all">
+            All Apps
+          </button>
+          <button class="category-pill px-3 py-1 bg-gray-200 text-gray-700 rounded-full text-sm font-medium" data-category="text">
+            Text
+          </button>
+          <button class="category-pill px-3 py-1 bg-gray-200 text-gray-700 rounded-full text-sm font-medium" data-category="math">
+            Math
+          </button>
+          <button class="category-pill px-3 py-1 bg-gray-200 text-gray-700 rounded-full text-sm font-medium" data-category="image">
+            Image
+          </button>
+          <button class="category-pill px-3 py-1 bg-gray-200 text-gray-700 rounded-full text-sm font-medium" data-category="data">
+            Data
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+      <div class="bg-white rounded-xl shadow p-4 text-center">
+        <div class="text-3xl font-bold text-blue-600">24</div>
+        <div class="text-gray-500">Applications</div>
+      </div>
+      <div class="bg-white rounded-xl shadow p-4 text-center">
+        <div class="text-3xl font-bold text-green-600">18</div>
+        <div class="text-gray-500">Open Source</div>
+      </div>
+      <div class="bg-white rounded-xl shadow p-4 text-center">
+        <div class="text-3xl font-bold text-purple-600">9</div>
+        <div class="text-gray-500">API Available</div>
+      </div>
+      <div class="bg-white rounded-xl shadow p-4 text-center">
+        <div class="text-3xl font-bold text-orange-600">6</div>
+        <div class="text-gray-500">New This Month</div>
+      </div>
+    </div>
+    
+    <!-- Featured App -->
+    <div class="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-xl shadow-lg p-6 mb-8 text-white">
+      <div class="md:flex items-center gap-6">
+        <div class="app-icon bg-white bg-opacity-20 mb-4 md:mb-0">
+          <i class="fas fa-square-root-alt"></i>
+        </div>
+        <div class="flex-1">
+          <h2 class="text-2xl font-bold mb-2">MathTex Converter</h2>
+          <p class="mb-4 opacity-90">Convert PDFs, images and documents containing mathematical notation to clean LaTeX format for your AI training datasets.</p>
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="px-2 py-1 bg-white bg-opacity-20 rounded-full text-xs">Math</span>
+            <span class="px-2 py-1 bg-white bg-opacity-20 rounded-full text-xs">Text</span>
+            <span class="px-2 py-1 bg-white bg-opacity-20 rounded-full text-xs">Open Source</span>
+          </div>
+        </div>
+        <button class="open-app-btn bg-white text-blue-600 px-6 py-2 rounded-lg font-medium shadow hover:bg-gray-100 transition" data-app="mathtex">
+          Try Now <i class="fas fa-arrow-right ml-2"></i>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Apps Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12" id="apps-container">
+      <!-- App cards will be dynamically filtered -->
+      
+      <!-- MathTex (already featured, but included in grid) -->
+      <div class="bg-white rounded-xl shadow p-6 card-hover" data-categories="math,text" data-name="MathTex Converter">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="app-icon bg-blue-600">
+            <i class="fas fa-square-root-alt"></i>
+          </div>
+          <div>
+            <h3 class="font-bold text-lg text-gray-800">MathTex Converter</h3>
+            <p class="text-gray-600 text-sm">Convert documents with math to LaTeX</p>
+          </div>
+        </div>
+        <p class="text-gray-700 mb-4 text-sm">Extract mathematical notation from PDFs, images and documents into clean LaTeX format for your AI training datasets.</p>
+        <div class="flex flex-wrap gap-2 mb-4">
+          <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">Math</span>
+          <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">Text</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <div class="text-xs text-gray-500">
+            <i class="fas fa-code-branch mr-1"></i> Open Source
+          </div>
+          <button class="open-app-btn text-blue-600 text-sm font-medium hover:underline" data-app="mathtex">
+            Open <i class="fas fa-external-link-alt ml-1"></i>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Text Cleaner -->
+      <div class="bg-white rounded-xl shadow p-6 card-hover" data-categories="text,data" data-name="Text Cleaner Pro">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="app-icon bg-green-600">
+            <i class="fas fa-text-height"></i>
+          </div>
+          <div>
+            <h3 class="font-bold text-lg text-gray-800">Text Cleaner Pro</h3>
+            <p class="text-gray-600 text-sm">Normalize and clean text datasets</p>
+          </div>
+        </div>
+        <p class="text-gray-700 mb-4 text-sm">Advanced text normalization, deduplication, and cleaning tool specifically designed for NLP training datasets.</p>
+        <div class="flex flex-wrap gap-2 mb-4">
+          <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Text</span>
+          <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">NLP</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <div class="text-xs text-gray-500">
+            <i class="fas fa-plug mr-1"></i> API Available
+          </div>
+          <button class="open-app-btn text-blue-600 text-sm font-medium hover:underline" data-app="textcleaner">
+            Open <i class="fas fa-external-link-alt ml-1"></i>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Image Labeler -->
+      <div class="bg-white rounded-xl shadow p-6 card-hover" data-categories="image,data" data-name="Image Labeler">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="app-icon bg-purple-600">
+            <i class="fas fa-tags"></i>
+          </div>
+          <div>
+            <h3 class="font-bold text-lg text-gray-800">Image Labeler</h3>
+            <p class="text-gray-600 text-sm">Semi-automated image annotation</p>
+          </div>
+        </div>
+        <p class="text-gray-700 mb-4 text-sm">Accelerate your computer vision projects with AI-assisted image labeling and bounding box generation.</p>
+        <div class="flex flex-wrap gap-2 mb-4">
+          <span class="px-2 py-1 bg-purple-100 text-purple-800 rounded-full text-xs">Image</span>
+          <span class="px-2 py-1 bg-purple-100 text-purple-800 rounded-full text-xs">CV</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <div class="text-xs text-gray-500">
+            <i class="fas fa-code-branch mr-1"></i> Open Source
+          </div>
+          <button class="open-app-btn text-blue-600 text-sm font-medium hover:underline" data-app="imagelabeler">
+            Open <i class="fas fa-external-link-alt ml-1"></i>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Data Augmentor -->
+      <div class="bg-white rounded-xl shadow p-6 card-hover" data-categories="data,text,image" data-name="Data Augmentor">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="app-icon bg-yellow-600">
+            <i class="fas fa-copy"></i>
+          </div>
+          <div>
+            <h3 class="font-bold text-lg text-gray-800">Data Augmentor</h3>
+            <p class="text-gray-600 text-sm">Synthetic data generation</p>
+          </div>
+        </div>
+        <p class="text-gray-700 mb-4 text-sm">Generate synthetic training data with transformations, perturbations and realistic variations for robust models.</p>
+        <div class="flex flex-wrap gap-2 mb-4">
+          <span class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs">Data</span>
+          <span class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs">Augmentation</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <div class="text-xs text-gray-500">
+            <i class="fas fa-plug mr-1"></i> API Available
+          </div>
+          <button class="open-app-btn text-blue-600 text-sm font-medium hover:underline" data-app="dataaugmentor">
+            Open <i class="fas fa-external-link-alt ml-1"></i>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Math OCR -->
+      <div class="bg-white rounded-xl shadow p-6 card-hover" data-categories="math,image" data-name="Math OCR">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="app-icon bg-red-600">
+            <i class="fas fa-superscript"></i>
+          </div>
+          <div>
+            <h3 class="font-bold text-lg text-gray-800">Math OCR</h3>
+            <p class="text-gray-600 text-sm">Handwritten equation recognition</p>
+          </div>
+        </div>
+        <p class="text-gray-700 mb-4 text-sm">Convert handwritten mathematical equations into digital format with structure preservation for ML training.</p>
+        <div class="flex flex-wrap gap-2 mb-4">
+          <span class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-xs">Math</span>
+          <span class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-xs">Image</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <div class="text-xs text-gray-500">
+            <i class="fas fa-crown mr-1"></i> Premium
+          </div>
+          <button class="open-app-btn text-blue-600 text-sm font-medium hover:underline" data-app="mathocr">
+            Open <i class="fas fa-external-link-alt ml-1"></i>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Text to SQL -->
+      <div class="bg-white rounded-xl shadow p-6 card-hover" data-categories="text,data" data-name="Text to SQL">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="app-icon bg-indigo-600">
+            <i class="fas fa-database"></i>
+          </div>
+          <div>
+            <h3 class="font-bold text-lg text-gray-800">Text to SQL</h3>
+            <p class="text-gray-600 text-sm">Generate training queries</p>
+          </div>
+        </div>
+        <p class="text-gray-700 mb-4 text-sm">Convert natural language questions into SQL queries to create training data for text-to-SQL AI models.</p>
+        <div class="flex flex-wrap gap-2 mb-4">
+          <span class="px-2 py-1 bg-indigo-100 text-indigo-800 rounded-full text-xs">Text</span>
+          <span class="px-2 py-1 bg-indigo-100 text-indigo-800 rounded-full text-xs">Database</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <div class="text-xs text-gray-500">
+            <i class="fas fa-code-branch mr-1"></i> Open Source
+          </div>
+          <button class="open-app-btn text-blue-600 text-sm font-medium hover:underline" data-app="texttosql">
+            Open <i class="fas fa-external-link-alt ml-1"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Newsletter -->
+    <div class="bg-white rounded-xl shadow p-6 mb-8">
+      <div class="md:flex items-center justify-between gap-6">
+        <div class="mb-4 md:mb-0">
+          <h3 class="font-bold text-xl text-gray-800 mb-2">Stay Updated</h3>
+          <p class="text-gray-600">Get notified when we add new AI workflow applications</p>
+        </div>
+        <div class="flex gap-2">
+          <input 
+            type="email" 
+            placeholder="Your email address" 
+            class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:border-blue-500"
+          >
+          <button class="bg-blue-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-blue-700 transition">
+            Subscribe
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="text-center text-gray-600 text-sm">
+      <div class="mb-4">
+        <a href="#" class="mx-2 hover:text-blue-600">About</a>
+        <a href="#" class="mx-2 hover:text-blue-600">Contribute</a>
+        <a href="#" class="mx-2 hover:text-blue-600">API Docs</a>
+        <a href="#" class="mx-2 hover:text-blue-600">Privacy</a>
+      </div>
+      <p>AI Agent Workflows © 2023 | Open Source Community</p>
+    </footer>
+  </div>
+  
+  <!-- App Modal (hidden by default) -->
+  <div id="app-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-xl shadow-xl w-full max-w-4xl max-h-[90vh] overflow-hidden">
+      <div class="flex justify-between items-center border-b p-4">
+        <h3 id="modal-title" class="text-xl font-bold">Application</h3>
+        <button id="close-modal" class="text-gray-500 hover:text-gray-700">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div id="modal-content" class="p-6 overflow-y-auto" style="max-height: calc(90vh - 60px)">
+        <!-- Content will be loaded here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- MathTex App (hidden by default) -->
+  <div id="mathtex-app" class="hidden">
+    <!-- Your existing MathTex converter HTML goes here -->
+    <div class="container mx-auto px-4 py-8">
+      <header class="text-center mb-8">
+        <h1 class="text-4xl font-bold text-gray-800 mb-2">MathTex Converter</h1>
+        <p class="text-gray-600">Client-side converter — best-effort conversion of PDFs, images and .docx to LaTeX. For production-level math OCR consider a server API.</p>
+      </header>
+
+      <div class="bg-white rounded-xl shadow p-6 mb-6 border">
+        <div class="md:flex gap-6">
+          <div class="md:w-1/2">
+            <div class="flex justify-between items-center mb-4">
+              <h2 class="text-xl font-semibold">Upload</h2>
+              <button id="clear-all-btn" class="text-sm text-red-600 hover:underline"><i class="fas fa-trash-alt mr-1"></i> Clear All</button>
+            </div>
+
+            <div id="dropzone" class="dropzone rounded p-6 text-center cursor-pointer mb-4">
+              <div class="flex flex-col items-center">
+                <i class="fas fa-cloud-upload-alt text-3xl text-blue-500 mb-2"></i>
+                <p class="text-gray-600">Drag & drop files here, or</p>
+                <label for="file-upload" class="bg-blue-600 text-white px-4 py-2 rounded mt-3 cursor-pointer inline-flex items-center">
+                  <i class="fas fa-folder-open mr-2"></i> Browse
+                </label>
+                <input id="file-upload" type="file" class="hidden" multiple />
+                <p class="text-sm text-gray-500 mt-3">Supported: PDF, PNG, JPG/JPEG, DOCX, TXT</p>
+              </div>
+            </div>
+
+            <div class="bg-blue-50 p-3 rounded mb-4">
+              <strong>Conversion Options</strong>
+              <div class="mt-2 space-y-1 text-sm">
+                <label class="flex items-center"><input id="opt-math-ocr" type="checkbox" checked class="mr-2"> Use enhanced math heuristics</label>
+                <label class="flex items-center"><input id="opt-convert-tables" type="checkbox" checked class="mr-2"> Try to convert tables</label>
+                <label class="flex items-center"><input id="opt-number-eq" type="checkbox" checked class="mr-2"> Number equations</label>
+                <label class="flex items-center"><input id="opt-highlight" type="checkbox" class="mr-2"> Highlight uncertain tokens</label>
+              </div>
+            </div>
+
+            <div>
+              <button id="convert-btn" class="w-full bg-gradient-to-r from-blue-600 to-green-600 text-white py-2 rounded flex items-center justify-center gap-2">
+                <i class="fas fa-exchange-alt"></i> Convert
+              </button>
+            </div>
+
+            <!-- Uploaded files list -->
+            <div id="files-container" class="mt-6 hidden">
+              <h3 class="font-semibold">Files</h3>
+              <div id="files-list" class="mt-2 space-y-2"></div>
+            </div>
+          </div>
+
+          <div class="md:w-1/2">
+            <div class="flex justify-between items-start mb-4">
+              <h2 class="text-xl font-semibold">LaTeX Output</h2>
+              <div class="flex gap-2">
+                <button id="copy-btn" class="bg-gray-200 px-3 py-1 rounded hover:bg-gray-300"><i class="fas fa-copy mr-1"></i> Copy</button>
+                <button id="download-btn" class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"><i class="fas fa-download mr-1"></i> Download</button>
+              </div>
+            </div>
+
+            <div id="progress-container" class="mb-3 hidden">
+              <div class="flex justify-between text-sm text-gray-600 mb-1">
+                <span>Progress</span><span id="progress-percent">0%</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-2.5">
+                <div id="progress-bar" class="h-2.5 rounded-full bg-gradient-to-r from-blue-500 to-green-500" style="width:0%"></div>
+              </div>
+              <div id="progress-detail" class="text-xs text-gray-500 mt-1">Idle</div>
+            </div>
+
+            <div id="latex-preview" class="latex-preview p-4 rounded h-96 overflow-auto relative">
+              <div id="empty-state" class="text-gray-400 flex flex-col items-center justify-center h-full">
+                <i class="fas fa-square-root-alt text-3xl mb-2"></i>
+                <p>Your converted LaTeX will appear here</p>
+              </div>
+              <pre id="latex-content" class="whitespace-pre-wrap hidden"></pre>
+              <div id="error-highlights" class="hidden absolute inset-0 pointer-events-none"></div>
+            </div>
+
+            <div id="stats" class="mt-3 hidden">
+              <div class="grid grid-cols-4 gap-2 text-center">
+                <div><div class="text-xs text-gray-500">Equations</div><div id="eq-count" class="font-bold">0</div></div>
+                <div><div class="text-xs text-gray-500">Tables</div><div id="table-count" class="font-bold">0</div></div>
+                <div><div class="text-xs text-gray-500">Uncertain</div><div id="uncount" class="font-bold">0</div></div>
+                <div><div class="text-xs text-gray-500">Files</div><div id="file-count" class="font-bold">0</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- External libs for MathTex -->
+  <script src="https://unpkg.com/pdfjs-dist@2.16.105/build/pdf.min.js"></script>
+  <script src="https://unpkg.com/tesseract.js@4.1.1/dist/tesseract.min.js"></script>
+  <script src="https://unpkg.com/mammoth/mammoth.browser.min.js"></script>
+
+  <script>
+    // Filter and search functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const searchInput = document.getElementById('search-input');
+      const categoryPills = document.querySelectorAll('.category-pill');
+      const appCards = document.querySelectorAll('[data-categories]');
+      const openAppBtns = document.querySelectorAll('.open-app-btn');
+      const appModal = document.getElementById('app-modal');
+      const closeModal = document.getElementById('close-modal');
+      const modalTitle = document.getElementById('modal-title');
+      const modalContent = document.getElementById('modal-content');
+      const appsContainer = document.getElementById('apps-container');
+      
+      // Current filter state
+      let currentCategory = 'all';
+      let currentSearch = '';
+      
+      // Filter apps based on category and search
+      function filterApps() {
+        appCards.forEach(card => {
+          const categories = card.getAttribute('data-categories').split(',');
+          const name = card.getAttribute('data-name').toLowerCase();
+          
+          const categoryMatch = currentCategory === 'all' || categories.includes(currentCategory);
+          const searchMatch = currentSearch === '' || name.includes(currentSearch.toLowerCase());
+          
+          if (categoryMatch && searchMatch) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      }
+      
+      // Category filter
+      categoryPills.forEach(pill => {
+        pill.addEventListener('click', function() {
+          // Update UI
+          categoryPills.forEach(p => p.classList.remove('active-category'));
+          this.classList.add('active-category');
+          
+          // Update filter
+          currentCategory = this.getAttribute('data-category');
+          filterApps();
+        });
+      });
+      
+      // Set 'all' as default active
+      document.querySelector('[data-category="all"]').classList.add('active-category');
+      
+      // Search input
+      searchInput.addEventListener('input', function() {
+        currentSearch = this.value.trim();
+        filterApps();
+      });
+      
+      // Open app modal
+      openAppBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          const appId = this.getAttribute('data-app');
+          
+          if (appId === 'mathtex') {
+            // Special case for MathTex - show the full app
+            modalTitle.textContent = 'MathTex Converter';
+            modalContent.innerHTML = document.getElementById('mathtex-app').innerHTML;
+            
+            // Initialize MathTex functionality
+            initMathTex();
+          } else {
+            // For other apps, show a description
+            const appName = this.closest('[data-name]').getAttribute('data-name');
+            modalTitle.textContent = appName;
+            modalContent.innerHTML = `
+              <div class="text-center py-8">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
+                  <i class="fas fa-cog text-blue-600 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">${appName}</h3>
+                <p class="text-gray-600 mb-6">This application is currently in development.</p>
+                <button class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
+                  Notify Me When Ready
+                </button>
+              </div>
+            `;
+          }
+          
+          appModal.classList.remove('hidden');
+          document.body.style.overflow = 'hidden';
+        });
+      });
+      
+      // Close modal
+      closeModal.addEventListener('click', function() {
+        appModal.classList.add('hidden');
+        document.body.style.overflow = '';
+      });
+      
+      // Close modal when clicking outside
+      appModal.addEventListener('click', function(e) {
+        if (e.target === appModal) {
+          appModal.classList.add('hidden');
+          document.body.style.overflow = '';
+        }
+      });
+    });
+    
+    // Initialize MathTex functionality when loaded in modal
+    function initMathTex() {
+      /*  
+        MathTex_fixed.js (embedded)
+        - Robust file handling (drag/drop, browse)
+        - Extraction using pdf.js, tesseract.js, mammoth where applicable
+        - Conversion pipeline with safer ordered replacements
+        - Concurrency control for processing multiple files
+        - Progress, stats, copy/download, error handling
+      */ 
+
+      // --- DOM references
+      const dropzone = document.getElementById('dropzone');
+      const fileUpload = document.getElementById('file-upload');
+      const convertBtn = document.getElementById('convert-btn');
+      const copyBtn = document.getElementById('copy-btn');
+      const downloadBtn = document.getElementById('download-btn');
+      const filesContainer = document.getElementById('files-container');
+      const filesList = document.getElementById('files-list');
+      const progressContainer = document.getElementById('progress-container');
+      const progressBar = document.getElementById('progress-bar');
+      const progressPercent = document.getElementById('progress-percent');
+      const progressDetail = document.getElementById('progress-detail');
+      const latexContent = document.getElementById('latex-content');
+      const emptyState = document.getElementById('empty-state');
+      const stats = document.getElementById('stats');
+      const eqCountEl = document.getElementById('eq-count');
+      const tableCountEl = document.getElementById('table-count');
+      const uncountEl = document.getElementById('uncount');
+      const fileCountEl = document.getElementById('file-count');
+      const clearAllBtn = document.getElementById('clear-all-btn');
+      const optMath = document.getElementById('opt-math-ocr');
+      const optTables = document.getElementById('opt-convert-tables');
+      const optNumberEq = document.getElementById('opt-number-eq');
+      const optHighlight = document.getElementById('opt-highlight');
+
+      // --- state
+      let uploadedFiles = []; // { file, id, status, extractedText }
+      let conversionInProgress = false;
+
+      // concurrency (bounded)
+      const MAX_CONCURRENCY = Math.max(1, (navigator.hardwareConcurrency || 4) - 1);
+
+      // --- Supported MIME types (we will still attempt on unknown by extension fallback)
+      const ACCEPTED_EXT = {
+        pdf: ['application/pdf'],
+        docx: ['application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
+        txt: ['text/plain'],
+        png: ['image/png'],
+        jpg: ['image/jpeg', 'image/jpg'],
+      };
+
+      // --- Basic, safe, ordered patterns for text -> LaTeX
+      // We intentionally keep replacements manageable and ordered to avoid overlapping collisions.
+      // Each pattern is { re: RegExp, replace: string or function, note: optional }
+      const latexPatterns = [
+        // spacing and escapes
+        { re: /&nbsp;| /g, replace: ' ' },
+        { re: /\u200b/g, replace: '' }, // zero width
+        // common math symbols (single char)
+        { re: /∈/g, replace: '\\in ' },
+        { re: /∉/g, replace: '\\notin ' },
+        { re: /⊂/g, replace: '\\subset ' },
+        { re: /⊃/g, replace: '\\supset ' },
+        { re: /≤/g, replace: '\\leq ' },
+        { re: /≥/g, replace: '\\geq ' },
+        { re: /≠/g, replace: '\\neq ' },
+        { re: /≈/g, replace: '\\approx ' },
+        { re: /→/g, replace: '\\rightarrow ' },
+        { re: /←/g, replace: '\\leftarrow ' },
+        { re: /×/g, replace: '\\times ' },
+        { re: /·/g, replace: '\\cdot ' },
+        { re: /∞/g, replace: '\\infty ' },
+        { re: /√\s*([^\s]+)/g, replace: '\\sqrt{$1}' },
+
+        // fractions: a/b -> \frac{a}{b} but only on clear tokens to avoid converting dates etc.
+        { re: /(?<!\d)(\d+)\s*\/\s*(\d+)(?!\d)/g, replace: '\\frac{$1}{$2}' },
+        // parentheses fractions: (a+b)/c
+        { re: /\(([^()]+)\)\s*\/\s*(\d+)/g, replace: '\\frac{$1}{$2}' },
+
+        // exponents: x^2 or x^n => x^{n} (avoid when ^ already followed by {)
+        { re: /\^(\w+)/g, replace: '^{$1}' },
+        { re: /_(\w+)/g, replace: '_{$1}' },
+
+        // common functions -> \sin \cos etc.
+        { re: /\b(sin|cos|tan|log|ln|exp|lim|max|min|sup|arg)\b/gi, replace: (m) => '\\' + m.toLowerCase() },
+
+        // Greek names spelled out -> \alpha etc.
+        { re: /\b(alpha|beta|gamma|delta|epsilon|zeta|eta|theta|iota|kappa|lambda|mu|nu|xi|pi|rho|sigma|tau|phi|chi|psi|omega)\b/gi,
+          replace: (m) => '\\' + m.toLowerCase()
+        },
+
+        // integrals and sums: try to capture common patterns
+        { re: /∫/g, replace: '\\int ' },
+        { re: /∑/g, replace: '\\sum ' },
+        { re: /∏/g, replace: '\\prod ' },
+
+        // arrows and relational
+        { re: /⇒/g, replace: '\\Rightarrow ' },
+        { re: /⇔/g, replace: '\\Leftrightarrow ' },
+
+        // dots
+        { re: /…/g, replace: '\\dots ' },
+        { re: /\.\.\./g, replace: '\\dots ' },
+
+        // escape percent signs and backslashes (we keep single backslash for LaTeX)
+        { re: /%/g, replace: '\\%' },
+
+        // fallback: wrap obvious equation lines (simple heuristic)
+        // We'll detect lines that contain math-like characters and wrap them in $$ ... $$ when asked.
+      ];
+
+      // --- Utility helpers
+      function uid(prefix = 'f') {
+        return prefix + Math.random().toString(36).slice(2,9);
+      }
+
+      function setProgress(percent, text) {
+        progressContainer.classList.remove('hidden');
+        progressBar.style.width = percent + '%';
+        progressPercent.textContent = `${Math.round(percent)}%`;
+        progressDetail.textContent = text || '';
+      }
+
+      function resetProgress() {
+        setProgress(0, 'Idle');
+        progressContainer.classList.add('hidden');
+      }
+
+      function addFileToList(fileObj) {
+        filesContainer.classList.remove('hidden');
+        const row = document.createElement('div');
+        row.className = 'flex items-center justify-between bg-gray-50 p-2 rounded shadow-sm';
+        row.id = 'file-row-' + fileObj.id;
+        row.innerHTML = `
+          <div class="flex items-center gap-3">
+            <div class="text-sm text-gray-700 font-medium">${escapeHtml(fileObj.file.name)}</div>
+            <div class="text-xs text-gray-500">${Math.round(fileObj.file.size/1024)} KB</div>
+          </div>
+          <div class="flex items-center gap-2">
+            <div id="status-${fileObj.id}" class="text-xs text-gray-500">pending</div>
+            <button data-id="${fileObj.id}" class="btn-remove text-red-600 hover:underline text-xs">Remove</button>
+          </div>
+        `;
+        filesList.appendChild(row);
+        fileCountEl.textContent = uploadedFiles.length.toString();
+      }
+
+      function updateFileStatus(id, text) {
+        const s = document.getElementById('status-' + id);
+        if (s) s.textContent = text;
+      }
+
+      function escapeHtml(s) {
+        return String(s).replace(/[&<>"]/g, (m) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+      }
+
+      // --- Extraction functions per file type
+      async function extractFromPDF(file) {
+        // Uses pdf.js to extract plain text (per page textContent)
+        try {
+          const arrayBuffer = await file.arrayBuffer();
+          const loadingTask = pdfjsLib.getDocument({data: arrayBuffer});
+          const pdf = await loadingTask.promise;
+          const numPages = pdf.numPages;
+          let fullText = '';
+          for (let p = 1; p <= numPages; ++p) {
+            const page = await pdf.getPage(p);
+            const content = await page.getTextContent();
+            const pageText = content.items.map(i => i.str).join(' ');
+            fullText += pageText + '\n\n';
+          }
+          return { text: fullText.trim(), meta: { pages: numPages } };
+        } catch (err) {
+          console.warn('PDF extraction error', err);
+          throw new Error('PDF extraction failed: ' + (err.message || err));
+        }
+      }
+
+      async function extractFromImage(file) {
+        // Uses tesseract.js (web worker) with English + digits; math recognition is limited, but it is a fallback
+        try {
+          const worker = Tesseract.createWorker({
+            logger: m => {
+              // optionally, we could report progress
+            }
+          });
+          await worker.load();
+          await worker.loadLanguage('eng');
+          await worker.initialize('eng');
+          // if the image is large, tesseract may be slow; consider resizing in production
+          const result = await worker.recognize(URL.createObjectURL(file));
+          await worker.terminate();
+          return { text: (result && result.data && result.data.text) ? result.data.text : '' };
+        } catch (err) {
+          console.warn('Tesseract error', err);
+          throw new Error('Image OCR failed: ' + (err.message || err));
+        }
+      }
+
+      async function extractFromDocx(file) {
+        // Uses mammoth to convert to HTML, then strip tags for text
+        try {
+          const arrayBuffer = await file.arrayBuffer();
+          const result = await mammoth.convertToHtml({ arrayBuffer });
+          const html = result.value || '';
+          // Quick strip of HTML tags; keep block separators
+          const text = html.replace(/<\/(p|div|h[1-6]|li|br|tr)>/gi, '\n')
+                           .replace(/<[^>]+>/g, ' ')
+                           .replace(/\n\s+\n/g, '\n\n')
+                           .trim();
+          return { text, meta: {} };
+        } catch (err) {
+          console.warn('mammoth error', err);
+          throw new Error('DOCX extraction failed: ' + (err.message || err));
+        }
+      }
+
+      async function extractFromTextFile(file) {
+        try {
+          const txt = await file.text();
+          return { text: txt };
+        } catch (err) {
+          throw new Error('Text read failed: ' + (err.message || err));
+        }
+      }
+
+      // Generic fallback: attempt to read as text
+      async function extractFallback(file) {
+        try {
+          const txt = await file.text();
+          return { text: txt };
+        } catch (err) {
+          return { text: '' };
+        }
+      }
+
+      // Decide extractor by file.type or extension
+      async function extractFile(file) {
+        const name = file.name || '';
+        const ext = name.split('.').pop().toLowerCase();
+        if (ext === 'pdf' || file.type === 'application/pdf') {
+          return await extractFromPDF(file);
+        } else if (ext === 'docx' || file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+          return await extractFromDocx(file);
+        } else if (ext === 'txt' || file.type === 'text/plain') {
+          return await extractFromTextFile(file);
+        } else if (file.type && file.type.startsWith('image/')) {
+          return await extractFromImage(file);
+        } else {
+          // fallback: try to read as text
+          return await extractFallback(file);
+        }
+      }
+
+      // --- Conversion pipeline (apply ordered patterns and some heuristics)
+      function convertTextToLatex(rawText, options = {}) {
+        if (!rawText || !rawText.trim()) return { latex: '', stats: {} };
+
+        let text = String(rawText);
+
+        // Normalize common OCR mistakes: replace double curly quotes with normal quotes, etc.
+        text = text.replace(/[“”«»]/g, '"').replace(/[‘’]/g, "'");
+
+        // If user enabled math heuristics, try to detect equation-like lines and process line-by-line
+        const lines = text.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+
+        let eqCount = 0;
+        let tableCount = 0;
+        let uncertainCount = 0;
+
+        const processedLines = lines.map(line => {
+          let originalLine = line;
+          // heuristics: if line contains math-like chars
+</body>
+</html>
