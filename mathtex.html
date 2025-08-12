@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MathTex Converter</title>
+
+  <!-- Tailwind CDN (for UI) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+  <!-- External libs for client-side extraction -->
+  <!-- pdf.js -->
+  <script src="https://unpkg.com/pdfjs-dist@2.16.105/build/pdf.min.js"></script>
+  <!-- tesseract.js (image OCR) -->
+  <script src="https://unpkg.com/tesseract.js@4.1.1/dist/tesseract.min.js"></script>
+  <!-- mammoth (docx -> html/text) -->
+  <script src="https://unpkg.com/mammoth/mammoth.browser.min.js"></script>
+
+  <style>
+    /* small subset of styles (kept from your original for visual parity) */
+    .dropzone { border: 2px dashed #3b82f6; transition: all .2s; }
+    .dropzone.active { border-color: #10b981; background: #f0f9ff; }
+    .latex-preview { font-family: "Courier New", monospace; background: #f8fafc; border-left:4px solid #3b82f6; }
+    .tooltip { position: relative; display:inline-block; }
+    .tooltip .tooltiptext { visibility:hidden; opacity:0; transition:opacity .2s; position:absolute; bottom:120%; left:50%; transform:translateX(-50%); background:#333; color:#fff; padding:6px; border-radius:6px; width:220px; text-align:center; z-index:50;}
+    .tooltip:hover .tooltiptext { visibility:visible; opacity:1; }
+    .hidden { display:none !important; }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <div class="container mx-auto px-4 py-8">
+    <header class="text-center mb-8">
+      <h1 class="text-4xl font-bold text-gray-800 mb-2">MathTex Converter</h1>
+      <p class="text-gray-600">Client-side converter — best-effort conversion of PDFs, images and .docx to LaTeX. For production-level math OCR consider a server API.</p>
+    </header>
+
+    <div class="bg-white rounded-xl shadow p-6 mb-6 border">
+      <div class="md:flex gap-6">
+        <div class="md:w-1/2">
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-semibold">Upload</h2>
+            <button id="clear-all-btn" class="text-sm text-red-600 hover:underline"><i class="fas fa-trash-alt mr-1"></i> Clear All</button>
+          </div>
+
+          <div id="dropzone" class="dropzone rounded p-6 text-center cursor-pointer mb-4">
+            <div class="flex flex-col items-center">
+              <i class="fas fa-cloud-upload-alt text-3xl text-blue-500 mb-2"></i>
+              <p class="text-gray-600">Drag & drop files here, or</p>
+              <label for="file-upload" class="bg-blue-600 text-white px-4 py-2 rounded mt-3 cursor-pointer inline-flex items-center">
+                <i class="fas fa-folder-open mr-2"></i> Browse
+              </label>
+              <input id="file-upload" type="file" class="hidden" multiple />
+              <p class="text-sm text-gray-500 mt-3">Supported: PDF, PNG, JPG/JPEG, DOCX, TXT</p>
+            </div>
+          </div>
+
+          <div class="bg-blue-50 p-3 rounded mb-4">
+            <strong>Conversion Options</strong>
+            <div class="mt-2 space-y-1 text-sm">
+              <label class="flex items-center"><input id="opt-math-ocr" type="checkbox" checked class="mr-2"> Use enhanced math heuristics</label>
+              <label class="flex items-center"><input id="opt-convert-tables" type="checkbox" checked class="mr-2"> Try to convert tables</label>
+              <label class="flex items-center"><input id="opt-number-eq" type="checkbox" checked class="mr-2"> Number equations</label>
+              <label class="flex items-center"><input id="opt-highlight" type="checkbox" class="mr-2"> Highlight uncertain tokens</label>
+            </div>
+          </div>
+
+          <div>
+            <button id="convert-btn" class="w-full bg-gradient-to-r from-blue-600 to-green-600 text-white py-2 rounded flex items-center justify-center gap-2">
+              <i class="fas fa-exchange-alt"></i> Convert
+            </button>
+          </div>
+
+          <!-- Uploaded files list -->
+          <div id="files-container" class="mt-6 hidden">
+            <h3 class="font-semibold">Files</h3>
+            <div id="files-list" class="mt-2 space-y-2"></div>
+          </div>
+        </div>
+
+        <div class="md:w-1/2">
+          <div class="flex justify-between items-start mb-4">
+            <h2 class="text-xl font-semibold">LaTeX Output</h2>
+            <div class="flex gap-2">
+              <button id="copy-btn" class="bg-gray-200 px-3 py-1 rounded hover:bg-gray-300"><i class="fas fa-copy mr-1"></i> Copy</button>
+              <button id="download-btn" class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"><i class="fas fa-download mr-1"></i> Download</button>
+            </div>
+          </div>
+
+          <div id="progress-container" class="mb-3 hidden">
+            <div class="flex justify-between text-sm text-gray-600 mb-1">
+              <span>Progress</span><span id="progress-percent">0%</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2.5">
+              <div id="progress-bar" class="h-2.5 rounded-full bg-gradient-to-r from-blue-500 to-green-500" style="width:0%"></div>
+            </div>
+            <div id="progress-detail" class="text-xs text-gray-500 mt-1">Idle</div>
+          </div>
+
+          <div id="latex-preview" class="latex-preview p-4 rounded h-96 overflow-auto relative">
+            <div id="empty-state" class="text-gray-400 flex flex-col items-center justify-center h-full">
+              <i class="fas fa-square-root-alt text-3xl mb-2"></i>
+              <p>Your converted LaTeX will appear here</p>
+            </div>
+            <pre id="latex-content" class="whitespace-pre-wrap hidden"></pre>
+            <div id="error-highlights" class="hidden absolute inset-0 pointer-events-none"></div>
+          </div>
+
+          <div id="stats" class="mt-3 hidden">
+            <div class="grid grid-cols-4 gap-2 text-center">
+              <div><div class="text-xs text-gray-500">Equations</div><div id="eq-count" class="font-bold">0</div></div>
+              <div><div class="text-xs text-gray-500">Tables</div><div id="table-count" class="font-bold">0</div></div>
+              <div><div class="text-xs text-gray-500">Uncertain</div><div id="uncount" class="font-bold">0</div></div>
+              <div><div class="text-xs text-gray-500">Files</div><div id="file-count" class="font-bold">0</div></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <footer class="text-center text-sm text-gray-500">
+      MathTex Converter — Client-side demo. © 2025
+    </footer>
+  </div>
+
+<script>
+/*
+  MathTex_fixed.js (embedded)
+  - Robust file handling (drag/drop, browse)
+  - Extraction using pdf.js, tesseract.js, mammoth where applicable
+  - Conversion pipeline with safer ordered replacements
+  - Concurrency control for processing multiple files
+  - Progress, stats, copy/download, error handling
+*/
+
+(() => {
+  // --- DOM references
+  const dropzone = document.getElementById('dropzone');
+  const fileUpload = document.getElementById('file-upload');
+  const convertBtn = document.getElementById('convert-btn');
+  const copyBtn = document.getElementById('copy-btn');
+  const downloadBtn = document.getElementById('download-btn');
+  const filesContainer = document.getElementById('files-container');
+  const filesList = document.getElementById('files-list');
+  const progressContainer = document.getElementById('progress-container');
+  const progressBar = document.getElementById('progress-bar');
+  const progressPercent = document.getElementById('progress-percent');
+  const progressDetail = document.getElementById('progress-detail');
+  const latexContent = document.getElementById('latex-content');
+  const emptyState = document.getElementById('empty-state');
+  const stats = document.getElementById('stats');
+  const eqCountEl = document.getElementById('eq-count');
+  const tableCountEl = document.getElementById('table-count');
+  const uncountEl = document.getElementById('uncount');
+  const fileCountEl = document.getElementById('file-count');
+  const clearAllBtn = document.getElementById('clear-all-btn');
+  const optMath = document.getElementById('opt-math-ocr');
+  const optTables = document.getElementById('opt-convert-tables');
+  const optNumberEq = document.getElementById('opt-number-eq');
+  const optHighlight = document.getElementById('opt-highlight');
+
+  // --- state
+  let uploadedFiles = []; // { file, id, status, extractedText }
+  let conversionInProgress = false;
+
+  // concurrency (bounded)
+  const MAX_CONCURRENCY = Math.max(1, (navigator.hardwareConcurrency || 4) - 1);
+
+  // --- Supported MIME types (we will still attempt on unknown by extension fallback)
+  const ACCEPTED_EXT = {
+    pdf: ['application/pdf'],
+    docx: ['application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
+    txt: ['text/plain'],
+    png: ['image/png'],
+    jpg: ['image/jpeg', 'image/jpg'],
+  };
+
+  // --- Basic, safe, ordered patterns for text -> LaTeX
+  // We intentionally keep replacements manageable and ordered to avoid overlapping collisions.
+  // Each pattern is { re: RegExp, replace: string or function, note: optional }
+  const latexPatterns = [
+    // spacing and escapes
+    { re: /&nbsp;| /g, replace: ' ' },
+    { re: /\u200b/g, replace: '' }, // zero width
+    // common math symbols (single char)
+    { re: /∈/g, replace: '\\in ' },
+    { re: /∉/g, replace: '\\notin ' },
+    { re: /⊂/g, replace: '\\subset ' },
+    { re: /⊃/g, replace: '\\supset ' },
+    { re: /≤/g, replace: '\\leq ' },
+    { re: /≥/g, replace: '\\geq ' },
+    { re: /≠/g, replace: '\\neq ' },
+    { re: /≈/g, replace: '\\approx ' },
+    { re: /→/g, replace: '\\rightarrow ' },
+    { re: /←/g, replace: '\\leftarrow ' },
+    { re: /×/g, replace: '\\times ' },
+    { re: /·/g, replace: '\\cdot ' },
+    { re: /∞/g, replace: '\\infty ' },
+    { re: /√\s*([^\s]+)/g, replace: '\\sqrt{$1}' },
+
+    // fractions: a/b -> \frac{a}{b} but only on clear tokens to avoid converting dates etc.
+    { re: /(?<!\d)(\d+)\s*\/\s*(\d+)(?!\d)/g, replace: '\\frac{$1}{$2}' },
+    // parentheses fractions: (a+b)/c
+    { re: /\(([^()]+)\)\s*\/\s*(\d+)/g, replace: '\\frac{$1}{$2}' },
+
+    // exponents: x^2 or x^n => x^{n} (avoid when ^ already followed by {)
+    { re: /\^(\w+)/g, replace: '^{$1}' },
+    { re: /_(\w+)/g, replace: '_{$1}' },
+
+    // common functions -> \sin \cos etc.
+    { re: /\b(sin|cos|tan|log|ln|exp|lim|max|min|sup|arg)\b/gi, replace: (m) => '\\' + m.toLowerCase() },
+
+    // Greek names spelled out -> \alpha etc.
+    { re: /\b(alpha|beta|gamma|delta|epsilon|zeta|eta|theta|iota|kappa|lambda|mu|nu|xi|pi|rho|sigma|tau|phi|chi|psi|omega)\b/gi,
+      replace: (m) => '\\' + m.toLowerCase()
+    },
+
+    // integrals and sums: try to capture common patterns
+    { re: /∫/g, replace: '\\int ' },
+    { re: /∑/g, replace: '\\sum ' },
+    { re: /∏/g, replace: '\\prod ' },
+
+    // arrows and relational
+    { re: /⇒/g, replace: '\\Rightarrow ' },
+    { re: /⇔/g, replace: '\\Leftrightarrow ' },
+
+    // dots
+    { re: /…/g, replace: '\\dots ' },
+    { re: /\.\.\./g, replace: '\\dots ' },
+
+    // escape percent signs and backslashes (we keep single backslash for LaTeX)
+    { re: /%/g, replace: '\\%' },
+
+    // fallback: wrap obvious equation lines (simple heuristic)
+    // We'll detect lines that contain math-like characters and wrap them in $$ ... $$ when asked.
+  ];
+
+  // --- Utility helpers
+  function uid(prefix = 'f') {
+    return prefix + Math.random().toString(36).slice(2,9);
+  }
+
+  function setProgress(percent, text) {
+    progressContainer.classList.remove('hidden');
+    progressBar.style.width = percent + '%';
+    progressPercent.textContent = `${Math.round(percent)}%`;
+    progressDetail.textContent = text || '';
+  }
+
+  function resetProgress() {
+    setProgress(0, 'Idle');
+    progressContainer.classList.add('hidden');
+  }
+
+  function addFileToList(fileObj) {
+    filesContainer.classList.remove('hidden');
+    const row = document.createElement('div');
+    row.className = 'flex items-center justify-between bg-gray-50 p-2 rounded shadow-sm';
+    row.id = 'file-row-' + fileObj.id;
+    row.innerHTML = `
+      <div class="flex items-center gap-3">
+        <div class="text-sm text-gray-700 font-medium">${escapeHtml(fileObj.file.name)}</div>
+        <div class="text-xs text-gray-500">${Math.round(fileObj.file.size/1024)} KB</div>
+      </div>
+      <div class="flex items-center gap-2">
+        <div id="status-${fileObj.id}" class="text-xs text-gray-500">pending</div>
+        <button data-id="${fileObj.id}" class="btn-remove text-red-600 hover:underline text-xs">Remove</button>
+      </div>
+    `;
+    filesList.appendChild(row);
+    fileCountEl.textContent = uploadedFiles.length.toString();
+  }
+
+  function updateFileStatus(id, text) {
+    const s = document.getElementById('status-' + id);
+    if (s) s.textContent = text;
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"]/g, (m) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+  }
+
+  // --- Extraction functions per file type
+  async function extractFromPDF(file) {
+    // Uses pdf.js to extract plain text (per page textContent)
+    try {
+      const arrayBuffer = await file.arrayBuffer();
+      const loadingTask = pdfjsLib.getDocument({data: arrayBuffer});
+      const pdf = await loadingTask.promise;
+      const numPages = pdf.numPages;
+      let fullText = '';
+      for (let p = 1; p <= numPages; ++p) {
+        const page = await pdf.getPage(p);
+        const content = await page.getTextContent();
+        const pageText = content.items.map(i => i.str).join(' ');
+        fullText += pageText + '\n\n';
+      }
+      return { text: fullText.trim(), meta: { pages: numPages } };
+    } catch (err) {
+      console.warn('PDF extraction error', err);
+      throw new Error('PDF extraction failed: ' + (err.message || err));
+    }
+  }
+
+  async function extractFromImage(file) {
+    // Uses tesseract.js (web worker) with English + digits; math recognition is limited, but it is a fallback
+    try {
+      const worker = Tesseract.createWorker({
+        logger: m => {
+          // optionally, we could report progress
+        }
+      });
+      await worker.load();
+      await worker.loadLanguage('eng');
+      await worker.initialize('eng');
+      // if the image is large, tesseract may be slow; consider resizing in production
+      const result = await worker.recognize(URL.createObjectURL(file));
+      await worker.terminate();
+      return { text: (result && result.data && result.data.text) ? result.data.text : '' };
+    } catch (err) {
+      console.warn('Tesseract error', err);
+      throw new Error('Image OCR failed: ' + (err.message || err));
+    }
+  }
+
+  async function extractFromDocx(file) {
+    // Uses mammoth to convert to HTML, then strip tags for text
+    try {
+      const arrayBuffer = await file.arrayBuffer();
+      const result = await mammoth.convertToHtml({ arrayBuffer });
+      const html = result.value || '';
+      // Quick strip of HTML tags; keep block separators
+      const text = html.replace(/<\/(p|div|h[1-6]|li|br|tr)>/gi, '\n')
+                       .replace(/<[^>]+>/g, ' ')
+                       .replace(/\n\s+\n/g, '\n\n')
+                       .trim();
+      return { text, meta: {} };
+    } catch (err) {
+      console.warn('mammoth error', err);
+      throw new Error('DOCX extraction failed: ' + (err.message || err));
+    }
+  }
+
+  async function extractFromTextFile(file) {
+    try {
+      const txt = await file.text();
+      return { text: txt };
+    } catch (err) {
+      throw new Error('Text read failed: ' + (err.message || err));
+    }
+  }
+
+  // Generic fallback: attempt to read as text
+  async function extractFallback(file) {
+    try {
+      const txt = await file.text();
+      return { text: txt };
+    } catch (err) {
+      return { text: '' };
+    }
+  }
+
+  // Decide extractor by file.type or extension
+  async function extractFile(file) {
+    const name = file.name || '';
+    const ext = name.split('.').pop().toLowerCase();
+    if (ext === 'pdf' || file.type === 'application/pdf') {
+      return await extractFromPDF(file);
+    } else if (ext === 'docx' || file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+      return await extractFromDocx(file);
+    } else if (ext === 'txt' || file.type === 'text/plain') {
+      return await extractFromTextFile(file);
+    } else if (file.type && file.type.startsWith('image/')) {
+      return await extractFromImage(file);
+    } else {
+      // fallback: try to read as text
+      return await extractFallback(file);
+    }
+  }
+
+  // --- Conversion pipeline (apply ordered patterns and some heuristics)
+  function convertTextToLatex(rawText, options = {}) {
+    if (!rawText || !rawText.trim()) return { latex: '', stats: {} };
+
+    let text = String(rawText);
+
+    // Normalize common OCR mistakes: replace double curly quotes with normal quotes, etc.
+    text = text.replace(/[“”«»]/g, '"').replace(/[‘’]/g, "'");
+
+    // If user enabled math heuristics, try to detect equation-like lines and process line-by-line
+    const lines = text.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+
+    let eqCount = 0;
+    let tableCount = 0;
+    let uncertainCount = 0;
+
+    const processedLines = lines.map(line => {
+      let originalLine = line;
+      // heuristics: if line contains math-like chars, treat as math
+      const isLikelyMath = /[=∼∞∑∫\\^_×·←→π√]|\\frac|\/\s*\d|\b(sin|cos|tan)\b/i.test(line);
+      if (isLikelyMath) eqCount++;
+
+      // apply replacements in sequence
+      for (const p of latexPatterns) {
+        try {
+          if (typeof p.replace === 'function') line = line.replace(p.re, p.replace);
+          else line = line.replace(p.re, p.replace);
+        } catch (err) {
+          // ignore bad pattern
+          console.warn('pattern error', p, err);
+        }
+      }
+
+      // Additional heuristics: simple table detection (rows with repeated separators like | or & or tabs)
+      if (optTables.checked && (/^\s*\|.*\|\s*$/.test(originalLine) || originalLine.includes('\t'))) {
+        // we'll mark as possible table row; actual table conversion can be complex — increment count
+        tableCount++;
+      }
+
+      // Uncertainty marking (very basic): if original had unusual glyphs we didn't replace -> mark
+      const suspect = originalLine.match(/[^\x00-\x7F]/g) || [];
+      if (optHighlight.checked && suspect.length > 0) {
+        uncertainCount += suspect.length;
+        // surround suspicious tokens with comment markers so user can spot them
+        line = line.replace(/[^\x00-\x7F]+/g, (m) => `%[uncertain:${m}] ` + m);
+      }
+
+      // Wrap math lines in $$ ... $$ if heuristics say so and not already wrapped
+      if (isLikelyMath && !/^\$\$.*\$\$$/.test(line) && !/^\$.*\$/.test(line)) {
+        line = `$$ ${line} $$`;
+      }
+
+      return line;
+    });
+
+    // Join back
+    let latex = processedLines.join('\n');
+
+    // Final cleanup: collapse multiple spaces, ensure backslashes are single
+    latex = latex.replace(/[ \t]{2,}/g, ' ').replace(/\\\\/g, '\\');
+
+    return {
+      latex,
+      stats: { equations: eqCount, tables: tableCount, uncertain: uncertainCount, lines: lines.length }
+    };
+  }
+
+  // --- Main processing pipeline with concurrency
+  async function processFiles(files) {
+    if (!files || files.length === 0) {
+      alert('No files to process.');
+      return;
+    }
+    if (conversionInProgress) {
+      alert('Conversion already in progress. Wait or clear first.');
+      return;
+    }
+    conversionInProgress = true;
+    setProgress(0, 'Starting extraction...');
+
+    const results = []; // { id, file, extracted, latex, stats, error }
+    let processed = 0;
+    const total = files.length;
+
+    // concurrency queue
+    const pool = [];
+    const iterator = files[Symbol.iterator]();
+
+    async function worker() {
+      for (;;) {
+        const nxt = iterator.next();
+        if (nxt.done) return;
+        const fileObj = nxt.value;
+        updateFileStatus(fileObj.id, 'extracting');
+        try {
+          const extraction = await extractFile(fileObj.file);
+          fileObj.extractedText = extraction.text || '';
+          fileObj.meta = extraction.meta || {};
+          updateFileStatus(fileObj.id, 'converting');
+          const conv = convertTextToLatex(fileObj.extractedText, {});
+          fileObj.latex = conv.latex;
+          fileObj.stats = conv.stats;
+          updateFileStatus(fileObj.id, 'done');
+          results.push({ id: fileObj.id, ok: true, file: fileObj.file, latex: fileObj.latex, stats: fileObj.stats });
+        } catch (err) {
+          console.error('processing error', err);
+          updateFileStatus(fileObj.id, 'error');
+          results.push({ id: fileObj.id, ok: false, file: fileObj.file, error: err.message || String(err) });
+        }
+        processed++;
+        setProgress((processed / total) * 100, `Processed ${processed}/${total}`);
+      }
+    }
+
+    // start workers
+    const workers = [];
+    for (let i = 0; i < Math.min(MAX_CONCURRENCY, total); ++i) workers.push(worker());
+    await Promise.all(workers);
+
+    // Aggregate outputs: join latex blocks separated by newline and file separators
+    const good = results.filter(r => r.ok);
+    const bad = results.filter(r => !r.ok);
+
+    let combinedLatex = good.map((r, idx) => {
+      const header = `% === File ${idx+1}: ${r.file.name} ===\n`;
+      return header + r.latex + '\n\n';
+    }).join('\n');
+
+    // Update UI
+    if (combinedLatex.trim()) {
+      latexContent.textContent = combinedLatex;
+      latexContent.classList.remove('hidden');
+      emptyState.classList.add('hidden');
+    } else {
+      latexContent.textContent = '';
+      latexContent.classList.add('hidden');
+      emptyState.classList.remove('hidden');
+    }
+
+    // Stats
+    const sumEq = good.reduce((s, r) => s + (r.stats && r.stats.equations ? r.stats.equations : 0), 0);
+    const sumTable = good.reduce((s, r) => s + (r.stats && r.stats.tables ? r.stats.tables : 0), 0);
+    const sumUnc = good.reduce((s, r) => s + (r.stats && r.stats.uncertain ? r.stats.uncertain : 0), 0);
+    eqCountEl.textContent = sumEq.toString();
+    tableCountEl.textContent = sumTable.toString();
+    uncountEl.textContent = sumUnc.toString();
+    fileCountEl.textContent = uploadedFiles.length.toString();
+    stats.classList.remove('hidden');
+
+    // Show any errors
+    if (bad.length > 0) {
+      alert(`Some files failed to process (${bad.length}). See console for details.`);
+      console.warn('Failed files', bad);
+    }
+
+    setProgress(100, 'Conversion complete');
+    conversionInProgress = false;
+  }
+
+  // --- UI handlers
+  function handleFiles(fileList) {
+    // Accept FileList or array
+    const arr = Array.from(fileList || []);
+    for (const f of arr) {
+      const id = uid();
+      const fileObj = { id, file: f, status: 'pending' };
+      uploadedFiles.push(fileObj);
+      addFileToList(fileObj);
+    }
+  }
+
+  // drag/drop support
+  dropzone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    dropzone.classList.add('active');
+  });
+  dropzone.addEventListener('dragleave', (e) => {
+    dropzone.classList.remove('active');
+  });
+  dropzone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropzone.classList.remove('active');
+    if (e.dataTransfer && e.dataTransfer.files) handleFiles(e.dataTransfer.files);
+  });
+
+  fileUpload.addEventListener('change', (e) => {
+    if (e.target.files) handleFiles(e.target.files);
+    // reset input so same files can be chosen repeatedly
+    fileUpload.value = '';
+  });
+
+  // Remove file
+  filesList.addEventListener('click', (ev) => {
+    const btn = ev.target.closest('.btn-remove');
+    if (!btn) return;
+    const id = btn.dataset.id;
+    const idx = uploadedFiles.findIndex(x => x.id === id);
+    if (idx >= 0) {
+      uploadedFiles.splice(idx, 1);
+      const r = document.getElementById('file-row-' + id);
+      if (r) r.remove();
+      fileCountEl.textContent = uploadedFiles.length.toString();
+      if (uploadedFiles.length === 0) {
+        filesContainer.classList.add('hidden');
+      }
+    }
+  });
+
+  clearAllBtn.addEventListener('click', () => {
+    if (conversionInProgress) {
+      if (!confirm('Conversion is running. Clear anyway?')) return;
+    }
+    uploadedFiles = [];
+    filesList.innerHTML = '';
+    filesContainer.classList.add('hidden');
+    latexContent.textContent = '';
+    latexContent.classList.add('hidden');
+    emptyState.classList.remove('hidden');
+    stats.classList.add('hidden');
+    resetProgress();
+    fileCountEl.textContent = '0';
+  });
+
+  convertBtn.addEventListener('click', async () => {
+    if (uploadedFiles.length === 0) {
+      alert('No files uploaded.');
+      return;
+    }
+    await processFiles(uploadedFiles);
+  });
+
+  copyBtn.addEventListener('click', async () => {
+    const txt = latexContent.textContent || '';
+    if (!txt) { alert('No LaTeX to copy.'); return; }
+    try {
+      await navigator.clipboard.writeText(txt);
+      alert('LaTeX copied to clipboard.');
+    } catch (err) {
+      alert('Clipboard copy failed. (browser may block it)');
+    }
+  });
+
+  downloadBtn.addEventListener('click', () => {
+    const txt = latexContent.textContent || '';
+    if (!txt) { alert('No LaTeX to download.'); return; }
+    const blob = new Blob([txt], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'mathtex_output.tex';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  });
+
+  // small helper for initial welcome state
+  (function init() {
+    progressContainer.classList.add('hidden');
+    latexContent.classList.add('hidden');
+    fileCountEl.textContent = '0';
+    // Placeholders / safety: ensure pdfjs worker src is set in case pdf.js complains
+    if (pdfjsLib && pdfjsLib.GlobalWorkerOptions) {
+      // use CDN worker
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://unpkg.com/pdfjs-dist@2.16.105/build/pdf.worker.min.js';
+    }
+  })();
+
+})();
+</script>
+</body>
+</html>
