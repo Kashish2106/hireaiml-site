@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart Call AI - Recover Abandoned Carts with AI Calls</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
+    <style>
+        .hero-gradient {
+            background: linear-gradient(135deg, #4f46e5 0%, #8b5cf6 50%, #d946ef 100%);
+        }
+        .testimonial-card {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .platform-node {
+            transition: all 0.5s ease;
+        }
+        .platform-node:hover {
+            transform: scale(1.05);
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .animate-float {
+            animation: float 5s ease-in-out infinite;
+        }
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 5px rgba(79, 70, 229, 0.5); }
+            50% { box-shadow: 0 0 20px rgba(79, 70, 229, 0.8); }
+        }
+        .animate-pulse-glow {
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+        .progress-bar {
+            transition: width 1s ease-in-out;
+        }
+        .platform-connection {
+            stroke-dasharray: 10;
+            animation: dash 1s linear infinite;
+        }
+        @keyframes dash {
+            to {
+                stroke-dashoffset: 20;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans">
+    <!-- Hero Section -->
+    <div id="hero" class="hero-gradient text-white relative overflow-hidden">
+        <div class="absolute inset-0 z-0" id="vanta-globe"></div>
+        <div class="container mx-auto px-6 py-24 relative z-10">
+            <div class="max-w-3xl mx-auto text-center" data-aos="fade-up">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">Recover More Abandoned Carts with AI Agent Phone Calls</h1>
+                <p class="text-xl md:text-2xl mb-10 opacity-90">Turn abandoned carts into paying customers with <span class="font-semibold">personalised AI phone support</span>. On autopilot.</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#demo" class="bg-white text-indigo-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg transition duration-300 shadow-lg">Book a Demo</a>
+                    <a href="#how-it-works" class="border-2 border-white text-white hover:bg-white hover:bg-opacity-10 px-8 py-4 rounded-lg font-semibold text-lg transition duration-300">How It Works</a>
+                </div>
+                <div class="mt-16 flex flex-wrap justify-center gap-8 opacity-90">
+                    <div class="flex items-center gap-2">
+                        <i data-feather="check-circle" class="w-5 h-5"></i>
+                        <span>Seamless eCommerce integration</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i data-feather="check-circle" class="w-5 h-5"></i>
+                        <span>Pay only for recovered sales</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i data-feather="check-circle" class="w-5 h-5"></i>
+                        <span>No upfront fees</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interactive Platform Animation Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto text-center mb-16">
+                <h2 class="text-3xl font-bold mb-6" data-aos="fade-up">See Cart Call AI in Action</h2>
+                <p class="text-xl text-gray-600" data-aos="fade-up" data-aos-delay="100">Watch how we transform abandoned carts into revenue</p>
+            </div>
+            
+            <!-- Interactive Platform Animation -->
+            <div class="relative bg-gray-50 rounded-2xl p-8 shadow-lg" data-aos="zoom-in">
+                <div class="flex justify-center mb-8">
+                    <div class="flex space-x-2">
+                        <button id="animation-restart" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">Restart</button>
+                        <button id="animation-pause" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition">Pause</button>
+                    </div>
+                </div>
+                
+                <div class="platform-animation-container relative h-96 overflow-hidden">
+                    <svg id="platform-animation" viewBox="0 0 1000 400" class="w-full h-full">
+                        <!-- Platform visualization will be drawn here via JavaScript -->
+                    </svg>
+                    
+                    <!-- Progress indicator -->
+                    <div class="absolute bottom-4 left-0 right-0 flex justify-center">
+                        <div class="bg-white rounded-full px-4 py-2 shadow-md flex items-center">
+                            <span class="text-sm font-medium mr-2">Process:</span>
+                            <div class="flex space-x-1">
+                                <div class="w-2 h-2 bg-indigo-400 rounded-full animate-pulse" id="step-1"></div>
+                                <div class="w-2 h-2 bg-gray-300 rounded-full" id="step-2"></div>
+                                <div class="w-2 h-2 bg-gray-300 rounded-full" id="step-3"></div>
+                                <div class="w-2 h-2 bg-gray-300 rounded-full" id="step-4"></div>
+                                <div class="w-2 h-2 bg-gray-300 rounded-full" id="step-5"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Stats that update during animation -->
+                <div class="grid grid-cols-3 gap-6 mt-8">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-indigo-600" id="abandoned-count">0</div>
+                        <div class="text-gray-600">Abandoned Carts</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-green-600" id="recovered-count">0</div>
+                        <div class="text-gray-600">Recovered Sales</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-purple-600" id="revenue-count">$0</div>
+                        <div class="text-gray-600">Additional Revenue</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <div class="py-20 bg-gray-100">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-16" data-aos="fade-up">People can't stop raving about abandoned cart calls</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card p-8 rounded-xl border border-gray-200 shadow-sm" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-full mr-4 bg-indigo-100 flex items-center justify-center">
+                            <i data-feather="user" class="text-indigo-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Chris Koerner</h4>
+                            <p class="text-gray-600 text-sm">Business Mogul</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-4">"He had an INSANE conversion rate once he got someone on the phone and walked them through how it would go once the product arrived."</p>
+                    <div class="flex gap-1">
+                        <i data-feather="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                        <i data-feather="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                        <i data-feather="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                        <i data-feather="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                        <i data-feather="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card p-8 rounded-xl border border-gray-200 shadow-sm" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-full mr-4 bg-indigo-100 flex items-center justify-center">
+                            <i data-feather="user" class="text-indigo-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Shopify Community</h4>
+                            <p class="text-gray-600 text-sm">Reddit User</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-4">"Our conversion rate with automated emails via Klaviyo was around 5%. Calling them yielded 17%. Average order value went from $52 to $78. Repeat purchases doubled."</p>
+                    <div class="flex gap-1">
+                        <i data-feather="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                        <i data-feather="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                        <i data-feather="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                        <i data-feather="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                        <i data-feather="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card p-8 rounded-xl border border-gray-200 shadow-sm" data-aos="fade-up" data-aos-delay="300">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-full mr-4 bg-indigo-100 flex items-center justify-center">
+                            <i data-feather="user" class="text-indigo-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Ecommerce Fuel</h4>
+                            <p class="text-gray-600 text-sm">Industry Leader</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-4">"We saw a 40% recovery rate after our sales team started calling customers who abandoned carts. It helped us understand their hesitations and improve our services."</p>
+                    <div class="flex gap-1">
+                        <i data-feather="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                        <i data-feather="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                        <i data-feather="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                        <i data-feather="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                        <i data-feather="star" class="w-4 h-4 text-yellow-400"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features -->
+    <div class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="max-w-3xl mx-auto text-center mb-16">
+                <h2 class="text-3xl font-bold mb-6" data-aos="fade-up">Recover More Sales with Cart Call AI</h2>
+                <p class="text-xl text-gray-600" data-aos="fade-up" data-aos-delay="100">AI-powered phone calls that turn abandoned carts into customers – twice as effective as emails or SMS</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition duration-300" data-aos="fade-up">
+                    <div class="feature-icon mb-4">
+                        <i data-feather="phone" class="w-6 h-6 text-indigo-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Reach customers when they're most likely to buy</h3>
+                    <p class="text-gray-600">Our AI calls customers at optimal times based on their browsing behavior and purchase intent.</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition duration-300" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-icon mb-4">
+                        <i data-feather="trending-up" class="w-6 h-6 text-indigo-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Up to 55% recovery rates</h3>
+                    <p class="text-gray-600">3x more effective than traditional email or SMS recovery methods.</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition duration-300" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-icon mb-4">
+                        <i data-feather="cpu" class="w-6 h-6 text-indigo-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">AI-powered, human-like calls</h3>
+                    <p class="text-gray-600">Personalized interactions that feel natural and build customer trust.</p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition duration-300" data-aos="fade-up">
+                    <div class="feature-icon mb-4">
+                        <i data-feather="dollar-sign" class="w-6 h-6 text-indigo-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Pay only for recovered sales</h3>
+                    <p class="text-gray-600">No upfront fees, just results. We succeed when you succeed.</p>
+                </div>
+
+                <!-- Feature 5 -->
+                <div class="p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition duration-300" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-icon mb-4">
+                        <i data-feather="bar-chart-2" class="w-6 h-6 text-indigo-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Instant feedback and insights</h3>
+                    <p class="text-gray-600">Understand why customers abandon carts and improve your conversion funnel.</p>
+                </div>
+
+                <!-- Feature 6 -->
+                <div class="p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition duration-300" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-icon mb-4">
+                        <i data-feather="clock" class="w-6 h-6 text-indigo-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">24/7 operation</h3>
+                    <p class="text-gray-600">Works around the clock to recover carts while you focus on growing your business.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- How It Works -->
+    <div id="how-it-works" class="py-20 bg-gray-100">
+        <div class="container mx-auto px-6">
+            <div class="max-w-3xl mx-auto text-center mb-16">
+                <h2 class="text-3xl font-bold mb-6" data-aos="fade-up">How It Works</h2>
+                <p class="text-xl text-gray-600" data-aos="fade-up" data-aos-delay="100">Simple integration, powerful results</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
+                <div class="order-2 md:order-1" data-aos="fade-right">
+                    <div class="bg-white p-6 rounded-xl shadow-sm">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-indigo-100 text-indigo-600 w-10 h-10 rounded-full flex items-center justify-center font-bold mr-4">1</div>
+                            <h3 class="text-xl font-semibold">Tailor and Test</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">We'll customize Cart Call AI to match your brand's tone of voice, product information via documents, and integrate a custom discount code.</p>
+                        <p class="text-gray-600">We'll send you a demo to test and you can suggest changes until it's spot on.</p>
+                    </div>
+                </div>
+                <div class="order-1 md:order-2" data-aos="fade-left">
+                    <div class="bg-indigo-100 h-64 rounded-xl flex items-center justify-center">
+                        <i data-feather="settings" class="w-16 h-16 text-indigo-600"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
+                <div data-aos="fade-right">
+                    <div class="bg-indigo-100 h-64 rounded-xl flex items-center justify-center">
+                        <i data-feather="shopping-cart" class="w-16 h-16 text-indigo-600"></i>
+                    </div>
+                </div>
+                <div data-aos="fade-left">
+                    <div class="bg-white p-6 rounded-xl shadow-sm">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-indigo-100 text-indigo-600 w-10 h-10 rounded-full flex items-center justify-center font-bold mr-4">2</div>
+                            <h3 class="text-xl font-semibold">Connect Carts</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">We ensure your shop's Terms & Conditions are in order, then connect to your abandoned carts to determine the optimal times for calls.</p>
+                        <p class="text-gray-600">Seamless integration with all major eCommerce platforms.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
+                <div class="order-2 md:order-1" data-aos="fade-right">
+                    <div class="bg-white p-6 rounded-xl shadow-sm">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-indigo-100 text-indigo-600 w-10 h-10 rounded-full flex items-center justify-center font-bold mr-4">3</div>
+                            <h3 class="text-xl font-semibold">Cart Call Closes</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Cart Call contacts your customers, addressing any concerns and offering incentives to complete the purchase.</p>
+                        <p class="text-gray-600">Where appropriate, it asks for feedback on the shopping experience.</p>
+                    </div>
+                </div>
+                <div class="order-1 md:order-2" data-aos="fade-left">
+                    <div class="bg-indigo-100 h-64 rounded-xl flex items-center justify-center">
+                        <i data-feather="phone-call" class="w-16 h-16 text-indigo-600"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right">
+                    <div class="bg-indigo-100 h-64 rounded-xl flex items-center justify-center">
+                        <i data-feather="bar-chart" class="w-16 h-16 text-indigo-600"></i>
+                    </div>
+                </div>
+                <div data-aos="fade-left">
+                    <div class="bg-white p-6 rounded-xl shadow-sm">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-indigo-100 text-indigo-600 w-10 h-10 rounded-full flex items-center justify-center font-bold mr-4">4</div>
+                            <h3 class="text-xl font-semibold">Get Shop Insights</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">We don't just collect feedback—we turn it into actionable reports, free of charge.</p>
+                        <p class="text-gray-600">Use this data to refine your strategy, boost conversions, and improve the shopping experience.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Comparison -->
+    <div class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="max-w-3xl mx-auto text-center mb-16">
+                <h2 class="text-3xl font-bold mb-6" data-aos="fade-up">How does Cart Call AI compare to traditional methods?</h2>
+                <p class="text-xl text-gray-600" data-aos="fade-up" data-aos-delay="100">Cart Call AI performs far better than traditional methods in recovery rates and customer satisfaction</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <!-- Before -->
+                <div class="border border-red-200 rounded-xl p-8 bg-red-50" data-aos="fade-right">
+                    <div class="flex items-center justify-center mb-6">
+                        <div class="bg-red-100 text-red-600 w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                            <i data-feather="x" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">Before Cart Call AI</h3>
+                    </div>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <i data-feather="x" class="w-5 h-5 text-red-500 mr-3 mt-0.5"></i>
+                            <span>Low recovery rates, around 5-15%</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-feather="x" class="w-5 h-5 text-red-500 mr-3 mt-0.5"></i>
+                            <span>Emails and SMS are often ignored</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-feather="x" class="w-5 h-5 text-red-500 mr-3 mt-0.5"></i>
+                            <span>End up in spam or promotions tab</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-feather="x" class="w-5 h-5 text-red-500 mr-3 mt-0.5"></i>
+                            <span>No personal touch with your customers</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-feather="x" class="w-5 h-5 text-red-500 mr-3 mt-0.5"></i>
+                            <span>No direct feedback from abandoned carts</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- After -->
+                <div class="border border-green-200 rounded-xl p-8 bg-green-50" data-aos="fade-left">
+                    <div class="flex items-center justify-center mb-6">
+                        <div class="bg-green-100 text-green-600 w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                            <i data-feather="check" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">After Cart Call AI</h3>
+                    </div>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <i data-feather="check" class="w-5 h-5 text-green-500 mr-3 mt-0.5"></i>
+                            <span>3x recovery rates, up to 15-55%</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-feather="check" class="w-5 h-5 text-green-500 mr-3 mt-0.5"></i>
+                            <span>AI-powered, friendly personal calls</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-feather="check" class="w-5 h-5 text-green-500 mr-3 mt-0.5"></i>
+                            <span>Personalized, human-like interactions</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-feather="check" class="w-5 h-5 text-green-500 mr-3 mt-0.5"></i>
+                            <span>Real-time feedback from customers</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-feather="check" class="w-5 h-5 text-green-500 mr-3 mt-0.5"></i>
+                            <span>Pay only for recovered sales, no upfront fees</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="py-20 bg-gray-100">
+        <div class="container mx-auto px-6">
+            <div class="max-w-3xl mx-auto text-center mb-16">
+                <h2 class="text-3xl font-bold mb-6" data-aos="fade-up">Frequently Asked Questions</h2>
+                <p class="text-xl text-gray-600" data-aos="fade-up" data-aos-delay="100">Everything you need to know about Cart Call AI</p>
+            </div>
+
+            <div class="max-w-3xl mx-auto space-y-6">
+                <!-- FAQ 1 -->
+                <div class="bg-white p-6 rounded-xl shadow-sm" data-aos="fade-up">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center justify-between cursor-pointer" onclick="toggleFAQ(1)">
+                        <span>Will people want to talk to AI?</span>
+                        <i data-feather="chevron-down" class="w-6 h-6 text-indigo-600 transition-transform duration-300" id="faq-icon-1"></i>
+                    </h3>
+                    <div class="text-gray-600 hidden" id="faq-content-1">
+                        <p>Yes! AI technology, especially voice AI, has advanced significantly. It's now human-like, fast, and enjoyable to interact with. Customers appreciate real-time solutions, and Cart Call AI offers that.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="bg-white p-6 rounded-xl shadow-sm" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center justify-between cursor-pointer" onclick="toggleFAQ(2)">
+                        <span>How come I haven't heard about this before?</span>
+                        <i data-feather="chevron-down" class="w-6 h-6 text-indigo-600 transition-transform duration-300" id="faq-icon-2"></i>
+                    </h3>
+                    <div class="text-gray-600 hidden" id="faq-content-2">
+                        <p>Almost no one is calling customers because it didn't used to be possible. AI was once robotic and slow. But now, voice AI is human-like and fast enough to be genuinely useful. Cart recovery with phone calls has always been effective but was too resource-intensive. With Cart Call, it's on autopilot.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="bg-white p-6 rounded-xl shadow-sm" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center justify-between cursor-pointer" onclick="toggleFAQ(3)">
+                        <span>Does this make sense for my business?</span>
+                        <i data-feather="chevron-down" class="w-6 h-6 text-indigo-600 transition-transform duration-300" id="faq-icon-3"></i>
+                    </h3>
+                    <div class="text-gray-600 hidden" id="faq-content-3">
+                        <p>It depends on your product. Cart Call AI works best for businesses with higher-ticket items, recurring purchases (like supplements), or products that require some technical knowledge. If your business fits one of these, you're in a good spot. If you hit multiple, you're golden.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ 4 -->
+                <div class="bg-white p-6 rounded-xl shadow-sm" data-aos="fade-up" data-aos-delay="300">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center justify-between cursor-pointer" onclick="toggleFAQ(4)">
+                        <span>Won't this cheapen my brand?</span>
+                        <i data-feather="chevron-down" class="w-6 h-6 text-indigo-600 transition-transform duration-300" id="faq-icon-4"></i>
+                    </h3>
+                    <div class="text-gray-600 hidden" id="faq-content-4">
+                        <p>Not if used correctly. Don't overdo it. We recommend only calling once per customer. If they don't answer or reply, leave them be. We only call during business hours (9 AM - 5 PM) in their timezone to ensure professionalism.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ 5 -->
+                <div class="bg-white p-6 rounded-xl shadow-sm" data-aos="fade-up" data-aos-delay="400">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center justify-between cursor-pointer" onclick="toggleFAQ(5)">
+                        <span>How many people actually leave their phone numbers?</span>
+                        <i data-feather="chevron-down" class="w-6 h-6 text-indigo-600 transition-transform duration-300" id="faq-icon-5"></i>
+                    </h3>
+                    <div class="text-gray-600 hidden" id="faq-content-5">
+                        <p>Around 75% of customers provide their phone number, often because browsers auto-fill this information. If you're hiding the phone number field, you're leaving both money and valuable customer feedback on the table.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ 6 -->
+                <div class="bg-white p-6 rounded-xl shadow-sm" data-aos="fade-up" data-aos-delay="500">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center justify-between cursor-pointer" onclick="toggleFAQ(6)">
+                        <span>Don't people hate being bothered over the phone?</span>
+                        <i data-feather="chevron-down" class="w-6 h-6 text-indigo-600 transition-transform duration-300" id="faq-icon-6"></i>
+                    </h3>
+                    <div class="text-gray-600 hidden" id="faq-content-6">
+                        <p>Not in this case. They're okay with it if you're solving their problem. These aren't cold calls – they're HOT calls. Customers have already shown interest by filling out forms on your website, so you're simply following up on their needs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA -->
+    <div id="demo" class="py-20 hero-gradient text-white">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6" data-aos="fade-up">Ready to effortlessly get those customers back?</h2>
+                <p class="text-xl mb-10 opacity-90" data-aos="fade-up" data-aos-delay="100">Get started today with zero risk. Only pay when you get paid.</p>
+                <a href="https://cal.com/ivan-westerhof/15min" class="inline-block bg-white text-indigo-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg transition duration-300 shadow-lg" data-aos="fade-up" data-aos-delay="200">Get Your Customers Back</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <h3 class="text-2xl font-bold">Cart Call AI</h3>
+                    <p class="text-gray-400 mt-2">Recover abandoned carts with AI-powered calls</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                        <i data-feather="twitter" class="w-5 h-5"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                        <i data-feather="facebook" class="w-5 h-5"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                        <i data-feather="linkedin" class="w-5 h-5"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                        <i data-feather="instagram" class="w-5 h-5"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 mb-4 md:mb-0">© 2023 Cart Call AI. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">Privacy Policy</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">Terms of Service</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize animations
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+
+        // Initialize Vanta.js globe
+        VANTA.GLOBE({
+            el: "#vanta-globe",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x7c3aed,
+            backgroundColor: 0x4f46e5,
+            size: 0.8
+        });
+
+        // Initialize feather icons
+        feather.replace();
+
+        // FAQ toggle functionality
+        function toggleFAQ(id) {
+            const content = document.getElementById(`faq-content-${id}`);
+            const icon = document.getElementById(`faq-icon-${id}`);
+            
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                content.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // Platform Animation Script
+        document.addEventListener('DOMContentLoaded', function() {
+            const svg = document.getElementById('platform-animation');
+            const abandonedCount = document.getElementById('abandoned-count');
+            const recoveredCount = document.getElementById('recovered-count');
+            const revenueCount = document.getElementById('revenue-count');
+            const restartBtn = document.getElementById('animation-restart');
+            const pauseBtn = document.getElementById('animation-pause');
+            
+            let animationPaused = false;
+            let animationInterval;
+            
+            // Initialize animation
+            function initAnimation() {
+                svg.innerHTML = '';
+                
+                // Draw platform base
+                const platform = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                platform.setAttribute('x', 50);
+                platform.setAttribute('y', 50);
+                platform.setAttribute('width', 900);
+                platform.setAttribute('height', 300);
+                platform.setAttribute('rx', 10);
+                platform.setAttribute('fill', '#f9fafb');
+                platform.setAttribute('stroke', '#e5e7eb');
+                svg.appendChild(platform);
+                
+                // Draw platform sections
+                const sections = [
+                    { x: 70, y: 70, width: 200, height: 260, title: 'Abandoned Carts', id: 'carts-section', color: '#f3f4f6' },
+                    { x: 290, y: 70, width: 200, height: 260, title: 'Customer Insights', id: 'insights-section', color: '#fef3c7' },
+                    { x: 510, y: 70, width: 200, height: 260, title: 'AI Analysis', id: 'analysis-section', color: '#dbeafe' },
+                    { x: 730, y: 70, width: 200, height: 260, title: 'Results', id: 'results-section', color: '#dcfce7' }
+                ];
+                
+                sections.forEach(section => {
+                    const sectionRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                    sectionRect.setAttribute('x', section.x);
+                    sectionRect.setAttribute('y', section.y);
+                    sectionRect.setAttribute('width', section.width);
+                    sectionRect.setAttribute('height', section.height);
+                    sectionRect.setAttribute('rx', 5);
+                    sectionRect.setAttribute('fill', section.color);
+                    sectionRect.setAttribute('stroke', '#e5e7eb');
+                    sectionRect.setAttribute('id', section.id);
+                    svg.appendChild(sectionRect);
+                    
+                    const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    text.setAttribute('x', section.x + section.width/2);
+                    text.setAttribute('y', section.y + 20);
+                    text.setAttribute('text-anchor', 'middle');
+                    text.setAttribute('font-weight', 'bold');
+                    text.setAttribute('fill', '#374151');
+                    text.textContent = section.title;
+                    svg.appendChild(text);
+                });
+                
+                // Reset counters
+                abandonedCount.textContent = '0';
+                recoveredCount.textContent = '0';
+                revenueCount.textContent = '$0';
+                
+                // Reset step indicators
+                for (let i = 1; i <= 5; i++) {
+                    const step = document.getElementById(`step-${i}`);
+                    step.className = i === 1 ? 
+                        'w-2 h-2 bg-indigo-400 rounded-full animate-pulse' : 
+                        'w-2 h-2 bg-gray-300 rounded-full';
+                }
+                
+                // Start animation sequence
+                startAnimationSequence();
+            }
+            
+            function startAnimationSequence() {
+                let step = 1;
+                
+                clearInterval(animationInterval);
+                animationInterval = setInterval(() => {
+                    if (animationPaused) return;
+                    
+                    // Update step indicators
+                    for (let i = 1; i <= 5; i++) {
+                        const stepIndicator = document.getElementById(`step-${i}`);
+                        if (i === step) {
+                            stepIndicator.className = 'w-2 h-2 bg-indigo-400 rounded-full animate-pulse';
+                        } else if (i < step) {
+                            stepIndicator.className = 'w-2 h-2 bg-indigo-600 rounded-full';
+                        } else {
+                            stepIndicator.className = 'w-2 h-2 bg-gray-300 rounded-full';
+                        }
+                    }
+                    
+                    // Execute step
+                    switch(step) {
+                        case 1:
+                            showAbandonedCarts();
+                            break;
+                        case 2:
+                            showCustomerInsights();
+                            break;
+                        case 3:
+                            showAIAnalysis();
+                            break;
+                        case 4:
+                            showOutreach();
+                            break;
+                        case 5:
+                            showResults();
+                            // Stop at final step
+                            clearInterval(animationInterval);
+                            break;
+                    }
+                    
+                    step++;
+                    if (step > 5) step = 1;
+                }, 3000);
+            }
+            
+            function showAbandonedCarts() {
+                // Clear previous elements
+                clearSections();
+                
+                // Add abandoned cart icons
+                for (let i = 0; i < 5; i++) {
+                    const cart = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                    cart.setAttribute('cx', 100 + (i * 30));
+                    cart.setAttribute('cy', 150);
+                    cart.setAttribute('r', 15);
+                    cart.setAttribute('fill', '#ef4444');
+                    cart.setAttribute('class', 'animate-pulse platform-node');
+                    svg.appendChild(cart);
+                }
+                
+                // Update counter with animation
+                animateCounter(abandonedCount, 0, 127, 1000);
+            }
+            
+            function showCustomerInsights() {
+                clearSections();
+                
+                // Add insight bubbles
+                const insights = [
+                    { x: 350, y: 120, text: 'Price Concern' },
+                    { x: 390, y: 180, text: 'Shipping Cost' },
+                    { x: 330, y: 240, text: 'Need Info' }
+                ];
+                
+                insights.forEach(insight => {
+                    const bubble = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                    bubble.setAttribute('cx', insight.x);
+                    bubble.setAttribute('cy', insight.y);
+                    bubble.setAttribute('r', 25);
+                    bubble.setAttribute('fill', '#f59e0b');
+                    bubble.setAttribute('class', 'platform-node');
+                    svg.appendChild(bubble);
+                    
+                    const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    text.setAttribute('x', insight.x);
+                    text.setAttribute('y', insight.y + 5);
+                    text.setAttribute('text-anchor', 'middle');
+                    text.setAttribute('fill', 'white');
+                    text.setAttribute('font-size', '10px');
+                    text.textContent = insight.text;
+                    svg.appendChild(text);
+                });
+            }
+            
+            function showAIAnalysis() {
+                clearSections();
+                
+                // Add AI processing animation
+                const aiCore = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                aiCore.setAttribute('cx', 610);
+                aiCore.setAttribute('cy', 180);
+                aiCore.setAttribute('r', 40);
+                aiCore.setAttribute('fill', '#3b82f6');
+                aiCore.setAttribute('class', 'animate-ping platform-node');
+                svg.appendChild(aiCore);
+                
+                const aiIcon = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                aiIcon.setAttribute('x', 610);
+                aiIcon.setAttribute('y', 185);
+                aiIcon.setAttribute('text-anchor', 'middle');
+                aiIcon.setAttribute('fill', 'white');
+                aiIcon.setAttribute('font-size', '20px');
+                aiIcon.setAttribute('font-weight', 'bold');
+                aiIcon.textContent = 'AI';
+                svg.appendChild(aiIcon);
+                
+                // Add connecting lines to show analysis
+                for (let i = 0; i < 3; i++) {
+                    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    line.setAttribute('x1', 610);
+                    line.setAttribute('y1', 180);
+                    line.setAttribute('x2', 610 + (60 * Math.cos(i * 2 * Math.PI / 3)));
+                    line.setAttribute('y2', 180 + (60 * Math.sin(i * 2 * Math.PI / 3)));
+                    line.setAttribute('stroke', '#3b82f6');
+                    line.setAttribute('stroke-width', 2);
+                    line.setAttribute('class', 'animate-draw-line');
+                    svg.appendChild(line);
+                }
+            }
+            
+            function showOutreach() {
+                clearSections();
+                
+                // Show phone call animation
+                const phone = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                phone.setAttribute('d', 'M750,150 C780,130 820,160 820,200 C820,240 780,270 750,250');
+                phone.setAttribute('fill', 'none');
+                phone.setAttribute('stroke', '#10b981');
+                phone.setAttribute('stroke-width', 3);
+                svg.appendChild(phone);
+                
+                const soundWaves = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+                for (let i = 0; i < 3; i++) {
+                    const wave = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    wave.setAttribute('d', `M720,${150 + i*20} C710,${140 + i*20} 710,${160 + i*20} 720,${150 + i*20}`);
+                    wave.setAttribute('fill', 'none');
+                    wave.setAttribute('stroke', '#10b981');
+                    wave.setAttribute('stroke-width', 2);
+                    wave.setAttribute('class', 'animate-pulse');
+                    soundWaves.appendChild(wave);
+                }
+                svg.appendChild(soundWaves);
+                
+                // Add discount tag
+                const discount = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                discount.setAttribute('x', 780);
+                discount.setAttribute('y', 220);
+                discount.setAttribute('width', 60);
+                discount.setAttribute('height', 30);
+                discount.setAttribute('rx', 5);
+                discount.setAttribute('fill', '#f97316');
+                discount.setAttribute('class', 'platform-node');
+                svg.appendChild(discount);
+                
+                const discountText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                discountText.setAttribute('x', 810);
+                discountText.setAttribute('y', 240);
+                discountText.setAttribute('text-anchor', 'middle');
+                discountText.setAttribute('fill', 'white');
+                discountText.setAttribute('font-size', '12px');
+                discountText.textContent = '15% OFF';
+                svg.appendChild(discountText);
+            }
+            
+            function showResults() {
+                clearSections();
+                
+                // Show recovered carts
+                for (let i = 0; i < 4; i++) {
+                    const cart = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                    cart.setAttribute('cx', 780 + (i * 30));
+                    cart.setAttribute('cy', 150);
+                    cart.setAttribute('r', 15);
+                    cart.setAttribute('fill', '#10b981');
+                    cart.setAttribute('class', 'platform-node');
+                    svg.appendChild(cart);
+                    
+                    // Add checkmark
+                    const check = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    check.setAttribute('x', 780 + (i * 30));
+                    check.setAttribute('y', 155);
+                    check.setAttribute('text-anchor', 'middle');
+                    check.setAttribute('fill', 'white');
+                    check.setAttribute('font-size', '16px');
+                    check.setAttribute('font-weight', 'bold');
+                    check.textContent = '✓';
+                    svg.appendChild(check);
+                }
+                
+                // Show revenue growth chart
+                const chart = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+                chart.setAttribute('points', '750,250 770,220 790,240 810,200 830,230 850,210');
+                chart.setAttribute('fill', 'none');
+                chart.setAttribute('stroke', '#8b5cf6');
+                chart.setAttribute('stroke-width', 3);
+                svg.appendChild(chart);
+                
+                // Update counters with animation
+                animateCounter(recoveredCount, 0, 84, 1000);
+                animateCounter(revenueCount, 0, 4230, 1500, '$');
+            }
+            
+            function clearSections() {
+                // Remove all elements except the base platform and sections
+                const elements = svg.querySelectorAll('*');
+                elements.forEach(el => {
+                    if (!el.id && !['platform', 'carts-section', 'insights-section', 'analysis-section', 'results-section'].includes(el.id)) {
+                        svg.removeChild(el);
+                    }
+                });
+            }
+            
+            function animateCounter(element, start, end, duration, prefix = '') {
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    const value = Math.floor(progress * (end - start) + start);
+                    element.textContent = prefix + value.toLocaleString();
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                };
+                window.requestAnimationFrame(step);
+            }
+            
+            // Event listeners
+            restartBtn.addEventListener('click', initAnimation);
+            pauseBtn.addEventListener('click', function() {
+                animationPaused = !animationPaused;
+                this.textContent = animationPaused ? 'Resume' : 'Pause';
+            });
+            
+            // Initialize animation
+            initAnimation();
+            
+            // Add CSS animations
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes drawLine {
+                    to { stroke-dashoffset: 0; }
+                }
+                .animate-draw-line {
+                    stroke-dasharray: 100;
+                    stroke-dashoffset: 100;
+                    animation: drawLine 1.5s forwards;
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+</html>
