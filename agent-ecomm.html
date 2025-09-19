@@ -97,21 +97,93 @@
         .star-rating {
             color: #FFD700;
         }
-    </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              primary: '#4F46E5',
-            }
-          }
+        
+        /* New styles for the updated header */
+        .header-container {
+            margin-top: 1cm;
+            margin-left: 1rem;
+            margin-right: 1rem;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
-      }
-    </script>
+        
+        @media (min-width: 768px) {
+            .header-container {
+                margin-left: 2rem;
+                margin-right: 2rem;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .header-container {
+                margin-left: 3rem;
+                margin-right: 3rem;
+            }
+        }
+    </style>
 </head>
+<body>
+    <!-- Updated Header Section -->
+    <header class="header-container">
+        <div class="hero-background">
+            <div class="hero-gradient py-16 md:py-24">
+                <div class="max-w-6xl mx-auto px-4 md:px-8 flex flex-col md:flex-row items-center">
+                    <div class="md:w-1/2 mb-10 md:mb-0 md:pr-10" data-aos="fade-right">
+                        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Recover Abandoned Carts with AI-Powered Calls</h1>
+                        <p class="text-xl text-indigo-100 mb-8">Eeri converts abandoned carts into completed purchases with personalized AI phone calls that offer tailored solutions.</p>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <button class="bg-white text-indigo-600 font-semibold py-3 px-6 rounded-lg hover:bg-indigo-50 transition-colors duration-300 shadow-lg">Get Started</button>
+                            <button class="bg-transparent border-2 border-white text-white font-semibold py-3 px-6 rounded-lg hover:bg-white/10 transition-colors duration-300">Watch Demo</button>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2" data-aos="fade-left" data-aos-delay="200">
+                        <div class="bg-white rounded-xl p-6 shadow-lg max-w-md mx-auto">
+                            <div class="flex items-center mb-4">
+                                <div class="flex text-amber-400 mr-2">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="text-gray-700 font-medium">4.8/5 stars</span>
+                            </div>
+                            <p class="text-gray-600 italic mb-4">"Eeri recovered $12,000 in abandoned cart revenue for us in the first month alone. Their AI agents sound completely human and know exactly what offers will convert each customer."</p>
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 font-bold mr-3">JD</div>
+                                <div>
+                                    <p class="font-semibold text-gray-900">James Donovan</p>
+                                    <p class="text-sm text-gray-500">E-commerce Director, TechGadgets</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Rest of your page content would go here -->
+    
+    <script>
+        // Initialize AOS
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof AOS !== 'undefined') {
+                AOS.init({
+                    duration: 800,
+                    easing: 'ease-in-out',
+                    once: true
+                });
+            }
+            
+            // Initialize Feather Icons
+            if (typeof feather !== 'undefined') {
+                feather.replace();
+            }
+        });
+    </script>
+</body>
 <body class="bg-gray-50 text-gray-900 font-sans">
     <!-- Hero Section -->
     <div id="hero" class="hero-gradient text-white relative overflow-hidden">
