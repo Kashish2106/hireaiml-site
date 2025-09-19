@@ -12,7 +12,18 @@
     <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
     <style>
         .hero-gradient {
-            background: linear-gradient(135deg, #4f46e5 0%, #8b5cf6 50%, #d946ef 100%);
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.85) 0%, rgba(139, 92, 246, 0.85) 50%, rgba(217, 70, 239, 0.85) 100%);
+        }
+        .hero-background {
+            background-image: url('https://raw.githubusercontent.com/Kashish2106/hireaiml-site/main/electronics_cart');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        @media (max-width: 768px) {
+            .hero-background {
+                background-position: 60% center;
+            }
         }
         .testimonial-card {
             backdrop-filter: blur(10px);
@@ -30,32 +41,6 @@
     </style>
 </head>
 <body class="bg-gray-50 text-gray-900 font-sans">
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recover Abandoned Carts with AI Agent Phone Calls</title>
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <style>
-        .hero-gradient {
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.9) 0%, rgba(168, 85, 247, 0.85) 100%);
-        }
-        .hero-background {
-            background-image: url('https://raw.githubusercontent.com/Kashish2106/hireaiml-site/main/electronics_cart');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-        @media (max-width: 768px) {
-            .hero-background {
-                background-position: 60% center;
-            }
-        }
-    </style>
-</head>
-<body>
     <!-- Hero Section -->
     <div id="hero" class="hero-gradient text-white relative overflow-hidden">
         <div class="absolute inset-0 z-0 hero-background"></div>
@@ -85,12 +70,6 @@
             </div>
         </div>
     </div>
-
-    <script>
-        feather.replace();
-    </script>
-</body>
-</html>
 
     <!-- Testimonials -->
     <div class="py-20 bg-gray-100">
