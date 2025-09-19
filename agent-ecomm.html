@@ -3,19 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eeri - Recover Abandoned Carts with AI Calls</title>
+    <title>Eeri - Recover Abandoned Carts with AI Agent Phone Calls</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <script src="https://unpkg.com/feather-icons"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
         .hero-gradient {
             background: linear-gradient(135deg, rgba(79, 70, 229, 0.85) 0%, rgba(139, 92, 246, 0.85) 50%, rgba(217, 70, 239, 0.85) 100%);
         }
         .hero-background {
-            background-image: url('https://raw.githubusercontent.com/Kashish2106/hireaiml-site/main/electronics_cart.png');
+            background-image: url('https://raw.githubusercontent.com/Kashish2106/hireaiml-site/main/electronics_cart');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -25,6 +31,7 @@
                 background-position: 60% center;
             }
         }
+        
         .testimonial-card {
             backdrop-filter: blur(10px);
             background: rgba(255, 255, 255, 0.1);
@@ -37,6 +44,58 @@
             justify-content: center;
             border-radius: 12px;
             background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .how-it-works-bg {
+            background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+        }
+        
+        .how-it-works-card {
+            transition: all 0.3s ease;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .how-it-works-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .mobile-img {
+            max-width: 320px;
+            filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.2));
+        }
+        
+        .step-number {
+            background: rgba(255, 255, 255, 0.2);
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin-right: 1rem;
+        }
+        
+        .testimonial-slide {
+            transition: all 0.5s ease;
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+        }
+        
+        .testimonial-slide.active {
+            opacity: 1;
+            position: relative;
+        }
+        
+        .star-rating {
+            color: #FFD700;
         }
     </style>
 </head>
@@ -201,79 +260,261 @@
         </div>
     </div>
 
-    <!-- How It Works -->
-    <div id="how-it-works" class="py-20 bg-gray-100">
-        <div class="container mx-auto px-6">
+    <!-- How It Works Section with AirGarage Style -->
+    <section id="how-it-works" class="py-16 px-4 how-it-works-bg text-white">
+        <div class="container mx-auto max-w-6xl">
             <div class="max-w-3xl mx-auto text-center mb-16">
-                <h2 class="text-3xl font-bold mb-6" data-aos="fade-up">How It Works</h2>
-                <p class="text-xl text-gray-600" data-aos="fade-up" data-aos-delay="100">Simple integration, powerful results</p>
+                <h2 class="text-3xl md:text-4xl font-bold mb-6" data-aos="fade-up">How Eeri Works</h2>
+                <p class="text-xl text-blue-100 opacity-90" data-aos="fade-up" data-aos-delay="100">Simple integration, powerful results - Recover abandoned carts with AI-powered calls</p>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
-                <div class="order-2 md:order-1" data-aos="fade-right">
-                    <div class="bg-white p-6 rounded-xl shadow-sm">
-                        <div class="flex items-center mb-4">
-                            <div class="bg-indigo-100 text-indigo-600 w-10 h-10 rounded-full flex items-center justify-center font-bold mr-4">1</div>
-                            <h3 class="text-xl font-semibold">Tailor and Test</h3>
+            <!-- Step 1 -->
+            <div class="flex flex-col lg:flex-row items-center justify-between mb-16">
+                <div class="lg:w-1/2 mb-10 lg:mb-0 lg:pr-12" data-aos="fade-right">
+                    <div class="how-it-works-card p-8">
+                        <div class="flex items-center mb-6">
+                            <div class="step-number">1</div>
+                            <h3 class="text-2xl font-semibold">Tailor and Test</h3>
                         </div>
-                        <p class="text-gray-600 mb-4">We'll customize Eeri to match your brand's tone of voice, product information via documents, and integrate a custom discount code.</p>
-                        <p class="text-gray-600">We'll send you a demo to test and you can suggest changes until it's spot on.</p>
+                        <p class="text-blue-100 mb-4">We'll customize Eeri to match your brand's tone of voice, product information via documents, and integrate a custom discount code.</p>
+                        <p class="text-blue-100">We'll send you a demo to test and you can suggest changes until it's spot on.</p>
                     </div>
                 </div>
-                <div class="order-1 md:order-2" data-aos="fade-left">
-                    <img src="http://static.photos/technology/640x360/1" alt="Tailor and Test" class="rounded-xl shadow-lg w-full">
+                <div class="lg:w-1/2 flex justify-center" data-aos="fade-left">
+                    <img src="https://raw.githubusercontent.com/Kashish2106/hireaiml-site/main/mobile_cart.png" alt="Tailor and Test" class="rounded-xl mobile-img">
                 </div>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
-                <div data-aos="fade-right">
-                    <img src="http://static.photos/technology/640x360/2" alt="Connect Carts" class="rounded-xl shadow-lg w-full">
+            <!-- Step 2 -->
+            <div class="flex flex-col lg:flex-row items-center justify-between mb-16">
+                <div class="lg:w-1/2 order-2 lg:order-1 flex justify-center" data-aos="fade-right">
+                    <img src="https://raw.githubusercontent.com/Kashish2106/hireaiml-site/main/mobile_cart.png" alt="Connect Carts" class="rounded-xl mobile-img">
                 </div>
-                <div data-aos="fade-left">
-                    <div class="bg-white p-6 rounded-xl shadow-sm">
-                        <div class="flex items-center mb-4">
-                            <div class="bg-indigo-100 text-indigo-600 w-10 h-10 rounded-full flex items-center justify-center font-bold mr-4">2</div>
-                            <h3 class="text-xl font-semibold">Connect Carts</h3>
+                <div class="lg:w-1/2 order-1 lg:order-2 mb-10 lg:mb-0 lg:pl-12" data-aos="fade-left">
+                    <div class="how-it-works-card p-8">
+                        <div class="flex items-center mb-6">
+                            <div class="step-number">2</div>
+                            <h3 class="text-2xl font-semibold">Connect Carts</h3>
                         </div>
-                        <p class="text-gray-600 mb-4">We ensure your shop's Terms & Conditions are in order, then connect to your abandoned carts to determine the optimal times for calls.</p>
-                        <p class="text-gray-600">Seamless integration with all major eCommerce platforms.</p>
+                        <p class="text-blue-100 mb-4">We ensure your shop's Terms & Conditions are in order, then connect to your abandoned carts to determine the optimal times for calls.</p>
+                        <p class="text-blue-100">Seamless integration with all major eCommerce platforms.</p>
                     </div>
                 </div>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
-                <div class="order-2 md:order-1" data-aos="fade-right">
-                    <div class="bg-white p-6 rounded-xl shadow-sm">
-                        <div class="flex items-center mb-4">
-                            <div class="bg-indigo-100 text-indigo-600 w-10 h-10 rounded-full flex items-center justify-center font-bold mr-4">3</div>
-                            <h3 class="text-xl font-semibold">Eeri Closes</h3>
+            <!-- Step 3 -->
+            <div class="flex flex-col lg:flex-row items-center justify-between mb-16">
+                <div class="lg:w-1/2 mb-10 lg:mb-0 lg:pr-12" data-aos="fade-right">
+                    <div class="how-it-works-card p-8">
+                        <div class="flex items-center mb-6">
+                            <div class="step-number">3</div>
+                            <h3 class="text-2xl font-semibold">Eeri Closes</h3>
                         </div>
-                        <p class="text-gray-600 mb-4">Eeri contacts your customers, addressing any concerns and offering incentives to complete the purchase.</p>
-                        <p class="text-gray-600">Where appropriate, it asks for feedback on the shopping experience.</p>
+                        <p class="text-blue-100 mb-4">Eeri contacts your customers, addressing any concerns and offering incentives to complete the purchase.</p>
+                        <p class="text-blue-100">Where appropriate, it asks for feedback on the shopping experience.</p>
                     </div>
                 </div>
-                <div class="order-1 md:order-2" data-aos="fade-left">
-                    <img src="http://static.photos/technology/640x360/3" alt="Cart Call Closes" class="rounded-xl shadow-lg w-full">
+                <div class="lg:w-1/2 flex justify-center" data-aos="fade-left">
+                    <img src="https://raw.githubusercontent.com/Kashish2106/hireaiml-site/main/mobile_cart.png" alt="Eeri Closes" class="rounded-xl mobile-img">
                 </div>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div data-aos="fade-right">
-                    <img src="http://static.photos/technology/640x360/4" alt="Get Shop Insights" class="rounded-xl shadow-lg w-full">
+            <!-- Step 4 -->
+            <div class="flex flex-col lg:flex-row items-center justify-between">
+                <div class="lg:w-1/2 order-2 lg:order-1 flex justify-center" data-aos="fade-right">
+                    <img src="https://raw.githubusercontent.com/Kashish2106/hireaiml-site/main/mobile_cart.png" alt="Get Shop Insights" class="rounded-xl mobile-img">
                 </div>
-                <div data-aos="fade-left">
-                    <div class="bg-white p-6 rounded-xl shadow-sm">
-                        <div class="flex items-center mb-4">
-                            <div class="bg-indigo-100 text-indigo-600 w-10 h-10 rounded-full flex items-center justify-center font-bold mr-4">4</div>
-                            <h3 class="text-xl font-semibold">Get Shop Insights</h3>
+                <div class="lg:w-1/2 order-1 lg:order-2 mb-10 lg:mb-0 lg:pl-12" data-aos="fade-left">
+                    <div class="how-it-works-card p-8">
+                        <div class="flex items-center mb-6">
+                            <div class="step-number">4</div>
+                            <h3 class="text-2xl font-semibold">Get Shop Insights</h3>
                         </div>
-                        <p class="text-gray-600 mb-4">We don't just collect feedback—we turn it into actionable reports, free of charge.</p>
-                        <p class="text-gray-600">Use this data to refine your strategy, boost conversions, and improve the shopping experience.</p>
+                        <p class="text-blue-100 mb-4">We don't just collect feedback—we turn it into actionable reports, free of charge.</p>
+                        <p class="text-blue-100">Use this data to refine your strategy, boost conversions, and improve the shopping experience.</p>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+
+    <!-- Customer Testimonials Section -->
+    <section class="py-16 px-4 bg-gradient-to-br from-indigo-50 to-purple-50">
+        <div class="container mx-auto max-w-6xl">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Customers Love Eeri</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Discover what customers have to say about their experience with our AI shopping assistant.</p>
+            </div>
+
+            <!-- Testimonials Container -->
+            <div class="relative">
+                <div class="grid md:grid-cols-3 gap-8 relative h-96 md:h-auto">
+                    <!-- Testimonial Set 1 (Active by default) -->
+                    <div class="testimonial-slide active">
+                        <div class="bg-white p-6 rounded-xl shadow-md h-full">
+                            <div class="star-rating text-xl mb-4">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p class="text-gray-700 mb-4">"I was confused between two audio interfaces for my home studio. Eeri called and asked about my specific needs, then recommended the perfect one. Completed my purchase right during the call!"</p>
+                            <div class="mt-auto">
+                                <h4 class="font-semibold">Marcus T.</h4>
+                                <p class="text-gray-600 text-sm">Music Producer, Los Angeles</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-slide active">
+                        <div class="bg-white p-6 rounded-xl shadow-md h-full">
+                            <div class="star-rating text-xl mb-4">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p class="text-gray-700 mb-4">"Couldn't decide between two juicers - one with more features but higher price. Eeri explained the practical differences and helped me choose based on my actual usage needs. So helpful!"</p>
+                            <div class="mt-auto">
+                                <h4 class="font-semibold">Sarah L.</h4>
+                                <p class="text-sm text-gray-600">Health Enthusiast, Portland</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-slide active">
+                        <div class="bg-white p-6 rounded-xl shadow-md h-full">
+                            <div class="star-rating text-xl mb-4">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <p class="text-gray-700 mb-4">"Was comparing two diamond necklaces for my anniversary. Eeri helped me understand the 4Cs better and choose the best value. My wife loved it!"</p>
+                            <div class="mt-auto">
+                                <h4 class="font-semibold">David R.</h4>
+                                <p class="text-sm text-gray-600">Software Engineer, Austin</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial Set 2 -->
+                    <div class="testimonial-slide">
+                        <div class="bg-white p-6 rounded-xl shadow-md h-full">
+                            <div class="star-rating text-xl mb-4">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p class="text-gray-700 mb-4">"Abandoned my cart with two competing gaming monitors. Eeri called and explained the response time differences that actually matter for competitive gaming. Sold!"</p>
+                            <div class="mt-auto">
+                                <h4 class="font-semibold">Jake P.</h4>
+                                <p class="text-sm text-gray-600">Gamer, Seattle</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-slide">
+                        <div class="bg-white p-6 rounded-xl shadow-md h-full">
+                            <div class="star-rating text-xl mb-4">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p class="text-gray-700 mb-4">"Eeri helped me choose between two DSLR cameras by asking about my photography style. The personalized recommendation was spot on!"</p>
+                            <div class="mt-auto">
+                                <h4 class="font-semibold">Emma W.</h4>
+                                <p class="text-sm text-gray-600">Photographer, New York</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-slide">
+                        <div class="bg-white p-6 rounded-xl shadow-md h-full">
+                            <div class="star-rating text-xl mb-4">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p class="text-gray-700 mb-4">"Couldn't decide between two stand mixers. Eeri explained the motor power differences and attachments available. Completed my purchase during the call!"</p>
+                            <div class="mt-auto">
+                                <h4 class="font-semibold">Michelle B.</h4>
+                                <p class="text-sm text-gray-600">Baker, Chicago</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial Set 3 -->
+                    <div class="testimonial-slide">
+                        <div class="bg-white p-6 rounded-xl shadow-md h-full">
+                            <div class="star-rating text-xl mb-4">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p class="text-gray-700 mb-4">"Was comparing two smartwatches with similar features. Eeri helped me understand which one had better battery life and compatibility with my phone."</p>
+                            <div class="mt-auto">
+                                <h4 class="font-semibold">Alex K.</h4>
+                                <p class="text-sm text-gray-600">Tech Enthusiast, San Francisco</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-slide">
+                        <div class="bg-white p-6 rounded-xl shadow-md h-full">
+                            <div class="star-rating text-xl mb-4">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p class="text-gray-700 mb-4">"Eeri helped me choose between two hiking backpacks by asking about the length of my trips and the climate I hike in. Perfect recommendation!"</p>
+                            <div class="mt-auto">
+                                <h4 class="font-semibold">Ryan T.</h4>
+                                <p class="text-sm text-gray-600">Outdoor Adventurer, Denver</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-slide">
+                        <div class="bg-white p-6 rounded-xl shadow-md h-full">
+                            <div class="star-rating text-xl mb-4">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p class="text-gray-700 mb-4">"Confused between two coffee machines. Eeri explained the differences in brewing technology and helped me choose based on my morning routine."</p>
+                            <div class="mt-auto">
+                                <h4 class="font-semibold">Olivia M.</h4>
+                                <p class="text-sm text-gray-600">Coffee Lover, Boston</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Navigation Dots -->
+                <div class="flex justify-center mt-8 space-x-2">
+                    <button class="dot w-3 h-3 rounded-full bg-indigo-300" data-index="0"></button>
+                    <button class="dot w-3 h-3 rounded-full bg-indigo-300" data-index="1"></button>
+                    <button class="dot w-3 h-3 rounded-full bg-indigo-300" data-index="2"></button>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Comparison -->
     <div class="py-20 bg-white">
