@@ -28,10 +28,10 @@
 
 /* Hero headline reveal */
 #hero-headline {
-  display: flex;              /* flex for horizontal centering */
-  justify-content: center;    /* center content horizontally */
-  align-items: center;        /* center vertically */
-  flex-wrap: wrap;            /* wrap if phrases are long */
+  display: flex;              
+  justify-content: center;    
+  align-items: center;        
+  flex-wrap: wrap;            
   width: 100%;
   opacity: 0;
   transform: translateY(8px);
@@ -46,19 +46,18 @@
 /* Typed text wrapper */
 #typed-text-wrapper {
   display: inline-flex;       /* inline-flex to fit next to static text */
-  justify-content: center;    /* center phrases horizontally */
+  justify-content: center;    
   position: relative;
   height: 1.2em;
   text-align: center;
-  margin-left: 0.25ch;        /* small spacing from static text */
+  margin-left: 0.25ch;        
   font-weight: 600;
-  color: #FFFFFF;              /* ensure typed text is visible */
+  color: #FFFFFF;             
 }
 
-/* Typewriter text span */
+/* The single span that the JS updates */
 #typed-text-wrapper span {
   white-space: nowrap;
-  opacity: 1;                  /* show characters progressively via JS */
 }
 
 /* Blinking cursor */
@@ -75,6 +74,7 @@
   0%, 50% { opacity: 1; }
   50.1%, 100% { opacity: 0; }
 }
+
 
 /* Magnetic CTA microinteraction */
 .magnetic {
