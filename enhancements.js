@@ -12,7 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
       "a human touch at scale"
     ];
 
-    // create span for each phrase
+    // Determine longest phrase length
+    const maxLength = Math.max(...phrases.map(p => p.length));
+    typedWrapper.style.minWidth = `${maxLength}ch`;
+
+    // Create span for each phrase
     phrases.forEach((p, i) => {
       const span = document.createElement('span');
       span.textContent = p;
@@ -23,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const spans = typedWrapper.querySelectorAll('span');
     let idx = 0;
 
-    // reveal headline smoothly
+    // Reveal headline smoothly
     headline.classList.add('visible');
 
     setInterval(() => {
@@ -37,7 +41,6 @@ document.addEventListener('DOMContentLoaded', () => {
   function initMagnetic(selector, strength = 10) {
     const items = document.querySelectorAll(selector);
     items.forEach(item => {
-      // disable on touch devices
       if ('ontouchstart' in window) return;
       item.addEventListener('mousemove', (e) => {
         const rect = item.getBoundingClientRect();
