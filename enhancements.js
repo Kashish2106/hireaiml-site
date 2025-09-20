@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let typingForward = true;
 
     const span = document.createElement('span');
+    span.classList.add('active'); 
     typedWrapper.appendChild(span);
 
     // Reveal headline
