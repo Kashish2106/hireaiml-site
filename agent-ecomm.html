@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +9,6 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <script src="https://unpkg.com/feather-icons"></script>
-    <link rel="stylesheet" href="enhancements.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
@@ -100,8 +101,182 @@
         .logo-margin-top {
             margin-top: 32px; /* 2rem */
         }
+        
+        /* ---- ENHANCEMENTS CSS ---- */
+        /* Ensure hero's pseudo-element sits above background but below content */
+        #hero {
+            position: relative;
+            overflow: visible;
+        }
+
+        /* Animated gradient overlay (subtle, human-feel) */
+        #hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 5; /* above background (z-0) but below the hero content (z-10) */
+            background: linear-gradient(115deg, rgba(79,70,229,0.9), rgba(139,92,246,0.9), rgba(217,70,239,0.9));
+            background-size: 400% 400%;
+            animation: gradientShift 12s ease infinite;
+            mix-blend-mode: overlay;
+            pointer-events: none;
+            opacity: 0.92;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Hero headline reveal */
+        #hero-headline {
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            text-align: center; /* center whole block */
+        }
+        #hero-headline.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Overlay swap method for typed text */
+        #typed-text-wrapper {
+            display: inline-block;
+            position: relative;
+            min-width: 25ch; /* fallback width for shortest phrase */
+            height: 1.2em;   /* fixes height to prevent bouncing */
+            vertical-align: bottom;
+            margin: 0 auto; /* Center the wrapper itself */
+        }
+        #typed-text-wrapper span {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            text-align: center;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            margin: 0 auto;
+            width: 100%;
+        }
+        #typed-text-wrapper span.active {
+            opacity: 1;
+        }
+
+        /* Magnetic CTA microinteraction */
+        .magnetic {
+            transition: transform 0.12s ease, box-shadow 0.12s ease;
+            will-change: transform;
+            transform-origin: center;
+        }
+
+        /* Pulse effect for primary CTA */
+        .pulse {
+            animation: pulseGlow 2.8s infinite;
+        }
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 0 rgba(79,70,229,0.0); }
+            50% { box-shadow: 0 8px 30px 6px rgba(79,70,229,0.06); }
+            100% { box-shadow: 0 0 0 0 rgba(79,70,229,0.0); }
+        }
+
+        /* RIPPLE */
+        .ripple-button { position: relative; overflow: hidden; display: inline-block; }
+        .ripple-effect {
+            position: absolute;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            width: 8px;
+            height: 8px;
+            background: rgba(0,0,0,0.08);
+            animation: ripple 600ms ease-out forwards;
+            pointer-events: none;
+        }
+        @keyframes ripple { to { width: 400px; height: 400px; opacity: 0; } }
+
+        /* Recovered counter style */
+        #recovered-counter {
+            display: inline-block;
+            margin-top: 12px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: rgba(255,255,255,0.95);
+        }
+
+        /* Tidy hover lift for testimonial/feature cards if needed */
+        .testimonial-card, .feature-card {
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .testimonial-card:hover, .feature-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(16,24,40,0.08);
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+            #typed-text-wrapper { 
+                font-size: 1.1rem; 
+                min-width: 20ch; /* Adjust for smaller screens */
+            }
+        }
+
+        /* ---- Testimonial Enhancements ---- */
+
+        /* Voice Wave */
+        .voice-wave {
+            display: inline-flex;
+            align-items: center;
+            margin-left: 6px;
+        }
+        .voice-wave span {
+            display: block;
+            width: 3px;
+            height: 10px;
+            margin: 0 1px;
+            background: #4F46E5;
+            border-radius: 2px;
+            animation: waveAnim 1.2s infinite ease-in-out;
+        }
+        .voice-wave span:nth-child(2) { animation-delay: 0.2s; }
+        .voice-wave span:nth-child(3) { animation-delay: 0.4s; }
+        .voice-wave span:nth-child(4) { animation-delay: 0.6s; }
+        .voice-wave span:nth-child(5) { animation-delay: 0.8s; }
+
+        @keyframes waveAnim {
+            0%, 100% { height: 6px; }
+            50% { height: 16px; }
+        }
+
+        /* ---- Testimonial Tilt (whole card) ---- */
+        .testimonial-card {
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+        .testimonial-card:hover {
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .carousel-container {
+            transition: transform 0.5s ease-in-out;
+        }
+        
+        .testimonial-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .dot.active {
+            background-color: #4F46E5;
+            transform: scale(1.2);
+        }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -157,7 +332,6 @@
             </div>
         </div>
     </div>
-
     <!-- Testimonials -->
     <div class="py-20 bg-gray-100">
         <div class="container mx-auto px-6">
