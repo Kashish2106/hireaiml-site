@@ -117,13 +117,14 @@
 }
 
 /* 3D Tilt */
+/* ---- Testimonial Tilt (whole card) ---- */
 .testimonial-card {
-  perspective: 1000px;
-}
-.testimonial-inner {
   transition: transform 0.25s ease, box-shadow 0.25s ease;
   transform-style: preserve-3d;
+  will-change: transform;
 }
-.testimonial-card:hover .testimonial-inner {
-  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+
+.testimonial-card:hover {
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
 }
+
