@@ -1,51 +1,36 @@
-// enhancements.js — typed headline, magnetic buttons, counter, ripple
+// enhancements.js — hero text swap, magnetic buttons, counter, ripple
 document.addEventListener('DOMContentLoaded', () => {
 
-  /* ---------- Typed headline ---------- */
-  const typedEl = document.getElementById('typed-text');
+  /* ---------- Hero headline (overlay swap, no bounce) ---------- */
+  const typedWrapper = document.getElementById('typed-text-wrapper');
   const headline = document.getElementById('hero-headline');
 
-if (typedEl && headline) {
+  if (typedWrapper && headline) {
     const phrases = [
       "AI Agent Phone Calls",
       "personalised phone support",
       "a human touch at scale"
     ];
 
-    // measure longest phrase to reserve space
-    const longest = phrases.reduce((a,b) => a.length > b.length ? a : b, "");
-    typedEl.style.minWidth = longest.length + "ch";
+    // create span for each phrase
+    phrases.forEach((p, i) => {
+      const span = document.createElement('span');
+      span.textContent = p;
+      if (i === 0) span.classList.add('active');
+      typedWrapper.appendChild(span);
+    });
 
-    const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+    const spans = typedWrapper.querySelectorAll('span');
+    let idx = 0;
 
-    async function typeWord(el, word, speed=50) {
-      for (let i=0;i<=word.length;i++){
-        el.textContent = word.slice(0,i);
-        await sleep(speed);
-      }
-    }
-    async function deleteWord(el, speed=30) {
-      let cur = el.textContent;
-      for (let i=cur.length;i>=0;i--){
-        el.textContent = cur.slice(0,i);
-        await sleep(speed);
-      }
-    }
+    // reveal headline smoothly
+    headline.classList.add('visible');
 
-    (async function loopType() {
-      // reveal headline container smoothly
-      headline.classList.add('visible');
-
-      let idx = 0;
-      while(true){
-        const word = phrases[idx % phrases.length];
-        await typeWord(typedEl, word, 45);
-        await sleep(1300);
-        await deleteWord(typedEl, 28);
-        await sleep(300);
-        idx++;
-      }
-    })();
+    setInterval(() => {
+      spans[idx].classList.remove('active');
+      idx = (idx + 1) % spans.length;
+      spans[idx].classList.add('active');
+    }, 2500); // switch every 2.5s
   }
 
   /* ---------- Magnetic CTA ---------- */
@@ -98,7 +83,7 @@ if (typedEl && headline) {
   }
 
 });
-/* ---------- Testimonial Tilt ---------- */
+
 /* ---------- Testimonial Tilt (whole card) ---------- */
 document.querySelectorAll('.testimonial-card').forEach(card => {
   card.addEventListener('mousemove', (e) => {
@@ -114,5 +99,3 @@ document.querySelectorAll('.testimonial-card').forEach(card => {
     card.style.transform = '';
   });
 });
-
-
