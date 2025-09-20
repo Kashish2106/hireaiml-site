@@ -6,7 +6,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const headline = document.getElementById('hero-headline');
 
   if (typedWrapper && headline) {
+    // Include static text as the first phrase
     const phrases = [
+      "Recover More Abandoned Carts with",
       "AI Agent Phone Calls",
       "personalised phone support",
       "a human touch at scale"
@@ -20,23 +22,18 @@ document.addEventListener('DOMContentLoaded', () => {
       typedWrapper.appendChild(span);
     });
 
-    // Calculate the width of the longest phrase
+    // Measure longest phrase for consistent width
     const spans = typedWrapper.querySelectorAll('span');
     let maxWidth = 0;
-
-    // Temporarily display spans to measure
     spans.forEach(span => {
       span.style.display = 'inline-block';
       span.style.position = 'absolute';
       span.style.visibility = 'hidden';
     });
-
     spans.forEach(span => {
       const width = span.offsetWidth;
       if (width > maxWidth) maxWidth = width;
     });
-
-    // Reset spans to normal
     spans.forEach((span, i) => {
       span.style.display = '';
       span.style.position = '';
@@ -44,15 +41,15 @@ document.addEventListener('DOMContentLoaded', () => {
       if (i !== 0) span.classList.remove('active');
     });
 
-    // Set wrapper width and center it
+    // Center wrapper
     typedWrapper.style.width = `${maxWidth}px`;
     typedWrapper.style.display = 'flex';
     typedWrapper.style.justifyContent = 'center';
 
-    // Reveal headline smoothly
+    // Reveal headline
     headline.classList.add('visible');
 
-    // Cycle through phrases
+    // Cycle phrases
     let idx = 0;
     setInterval(() => {
       spans[idx].classList.remove('active');
@@ -101,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function step(ts) {
       if (!start) start = ts;
       const progress = Math.min((ts - start) / duration, 1);
-      const ease = 1 - Math.pow(1 - progress, 3); // easeOut
+      const ease = 1 - Math.pow(1 - progress, 3);
       const value = Math.floor(ease * target);
       counter.textContent = value.toLocaleString() + ' carts recovered today';
       if (progress < 1) requestAnimationFrame(step);
@@ -117,7 +114,7 @@ document.querySelectorAll('.testimonial-card').forEach(card => {
     const rect = card.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    const rotateY = ((x / rect.width) - 0.5) * 12; // tilt range
+    const rotateY = ((x / rect.width) - 0.5) * 12;
     const rotateX = ((y / rect.height) - 0.5) * -12;
     card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
   });
