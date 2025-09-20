@@ -89,3 +89,41 @@
 @media (max-width: 768px) {
   #typed-text { font-size: 1.1rem; border-right-width: 1.5px; }
 }
+/* ---- Testimonial Enhancements ---- */
+
+/* Voice Wave */
+.voice-wave {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 6px;
+}
+.voice-wave span {
+  display: block;
+  width: 3px;
+  height: 10px;
+  margin: 0 1px;
+  background: #4F46E5;
+  border-radius: 2px;
+  animation: waveAnim 1.2s infinite ease-in-out;
+}
+.voice-wave span:nth-child(2) { animation-delay: 0.2s; }
+.voice-wave span:nth-child(3) { animation-delay: 0.4s; }
+.voice-wave span:nth-child(4) { animation-delay: 0.6s; }
+.voice-wave span:nth-child(5) { animation-delay: 0.8s; }
+
+@keyframes waveAnim {
+  0%, 100% { height: 6px; }
+  50% { height: 16px; }
+}
+
+/* 3D Tilt */
+.testimonial-card {
+  perspective: 1000px;
+}
+.testimonial-inner {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transform-style: preserve-3d;
+}
+.testimonial-card:hover .testimonial-inner {
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+}
