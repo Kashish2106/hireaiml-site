@@ -75,7 +75,6 @@
   50.1%, 100% { opacity: 0; }
 }
 
-
 /* Magnetic CTA microinteraction */
 .magnetic {
   transition: transform 0.12s ease, box-shadow 0.12s ease;
