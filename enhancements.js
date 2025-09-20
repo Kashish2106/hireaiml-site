@@ -30,11 +30,13 @@ document.addEventListener('DOMContentLoaded', () => {
       if (typingForward) {
         charIndex++;
         span.textContent = currentPhrase.slice(0, charIndex);
+        // Introduce a slight random delay to mimic human typing
+        const typingDelay = typingSpeed + (Math.random() * 50 - 25);
         if (charIndex === currentPhrase.length) {
           typingForward = false;
           setTimeout(type, pauseDelay);
         } else {
-          setTimeout(type, typingSpeed);
+          setTimeout(type, typingDelay);
         }
       } else {
         charIndex--;
