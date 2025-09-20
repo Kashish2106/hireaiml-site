@@ -120,9 +120,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const howItWorksDotsContainer = document.getElementById('how-it-works-dots');
   
   if (howItWorksCarousel && howItWorksDotsContainer) {
+    const howItWorksSection = document.getElementById('how-it-works');
     const slides = howItWorksCarousel.querySelectorAll('.how-it-works-slide');
     const totalSlides = slides.length;
     let currentSlide = 0;
+    let autoRotateInterval;
 
     // Function to update the carousel position and dot status
     function updateHowItWorksCarousel() {
@@ -146,24 +148,48 @@ document.addEventListener('DOMContentLoaded', () => {
         dot.addEventListener('click', () => {
           currentSlide = i;
           updateHowItWorksCarousel();
+          resetAutoRotate();
         });
         howItWorksDotsContainer.appendChild(dot);
       }
     }
-
+    
+    // Function to start automatic rotation
+    function startAutoRotate() {
+      autoRotateInterval = setInterval(() => {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        updateHowItWorksCarousel();
+      }, 5000); // Change slide every 5 seconds
+    }
+    
+    // Function to reset the automatic rotation timer
+    function resetAutoRotate() {
+      clearInterval(autoRotateInterval);
+      startAutoRotate();
+    }
+    
+    // Add event listeners for hover and touch to pause rotation
+    howItWorksSection.addEventListener('mouseenter', () => clearInterval(autoRotateInterval));
+    howItWorksSection.addEventListener('mouseleave', () => startAutoRotate());
+    howItWorksSection.addEventListener('touchstart', () => clearInterval(autoRotateInterval), { passive: true });
+    howItWorksSection.addEventListener('touchend', () => startAutoRotate());
+    
     // Add keyboard navigation for accessibility
     document.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowRight') {
         currentSlide = (currentSlide + 1) % totalSlides;
         updateHowItWorksCarousel();
+        resetAutoRotate();
       } else if (e.key === 'ArrowLeft') {
         currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
         updateHowItWorksCarousel();
+        resetAutoRotate();
       }
     });
 
     // Initialize the carousel
     generateHowItWorksDots();
     updateHowItWorksCarousel();
+    startAutoRotate();
   }
 });
