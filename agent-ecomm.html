@@ -7,6 +7,7 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="enhancements.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
@@ -127,12 +128,18 @@
         <div class="absolute inset-0 z-0 bg-black opacity-40"></div>
         <div class="container mx-auto px-6 py-24 relative z-10">
             <div class="max-w-3xl mx-auto text-center" data-aos="fade-up">
-                <h1 class="text-4xl md:text-6xl font-bold mb-6">Recover More Abandoned Carts with AI Agent Phone Calls</h1>
+                <h1 id="hero-headline" class="text-4xl md:text-6xl font-bold mb-6">
+                  Recover More Abandoned Carts with&nbsp;
+                  <span id="typed-text" class="inline-block">AI Agent Phone Calls</span>
+                </h1>
                 <p class="text-xl md:text-2xl mb-10 opacity-90">Turn abandoned carts into paying customers with <span class="font-semibold">personalised AI phone support</span>. On autopilot.</p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="#demo" class="bg-white text-indigo-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg transition duration-300 shadow-lg">Book a Demo</a>
-                    <a href="#how-it-works" class="border-2 border-white text-white hover:bg-white hover:bg-opacity-10 px-8 py-4 rounded-lg font-semibold text-lg transition duration-300">How It Works</a>
-                </div>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                      <a href="#demo" id="primary-cta" class="bg-white text-indigo-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg transition duration-300 shadow-lg magnetic pulse ripple-button">Book a Demo</a>
+                      <a href="#how-it-works" id="secondary-cta" class="border-2 border-white text-white hover:bg-white hover:bg-opacity-10 px-8 py-4 rounded-lg font-semibold text-lg transition duration-300 magnetic ripple-button">How It Works</a>
+                    </div>
+                    <div class="mt-6 text-center">
+                      <div id="recovered-counter" data-target="4200">0 carts recovered today</div>
+                    </div>
                 <div class="mt-16 flex flex-wrap justify-center gap-8 opacity-90">
                     <div class="flex items-center gap-2">
                         <i data-feather="check-circle" class="w-5 h-5"></i>
@@ -776,4 +783,5 @@
         }
     </script>
 </body>
+<script src="enhancements.js"></script>
 </html>
