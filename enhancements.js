@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Create span for typewriter text
     const span = document.createElement('span');
+    span.style.textAlign = 'center';  // ensure centering
     typedWrapper.appendChild(span);
 
     // Reveal headline
