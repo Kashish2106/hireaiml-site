@@ -1,4 +1,4 @@
-// enhancements.js
+// enhancements.js — hero text typewriter, magnetic buttons, ripple, counter, testimonial tilt
 document.addEventListener('DOMContentLoaded', () => {
 
   /* ---------- Typewriter effect ---------- */
@@ -11,9 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
       "a human touch at scale"
     ];
 
-    const typingSpeed = 100;
-    const pauseDelay = 1500;
-    const deletingSpeed = 50;
+    const typingSpeed = 100;    // ms per character
+    const pauseDelay = 1500;    // ms pause at full phrase
+    const deletingSpeed = 50;   // ms per character
     let phraseIndex = 0;
     let charIndex = 0;
     let typingForward = true;
@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const span = document.createElement('span');
     typedWrapper.appendChild(span);
 
+    // Reveal headline
     headline.classList.add('visible');
 
     function type() {
@@ -46,7 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
     }
-
     type();
   }
 
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   initMagnetic('.magnetic', 10);
 
-  /* ---------- Ripple ---------- */
+  /* ---------- Ripple effect ---------- */
   document.querySelectorAll('.ripple-button').forEach(btn => {
     btn.addEventListener('click', e => {
       const rect = btn.getBoundingClientRect();
@@ -84,6 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const target = parseInt(counter.dataset.target || '4200', 10);
     const duration = 1800;
     let start = null;
+
     function step(ts) {
       if (!start) start = ts;
       const progress = Math.min((ts - start)/duration, 1);
