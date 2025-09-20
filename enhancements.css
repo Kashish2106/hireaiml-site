@@ -45,16 +45,21 @@
   min-width: 25ch; /* fallback width for shortest phrase */
   height: 1.2em;   /* fixes height to prevent bouncing */
   vertical-align: bottom;
-  text-align: center; /* center the text inside wrapper */
+  /* Removed text-align: center - this was causing issues */
+  margin: 0 auto; /* Center the wrapper itself */
 }
 #typed-text-wrapper span {
   position: absolute;
   top: 0;
-  left: 50%;
-  transform: translateX(-50%); /* center absolutely positioned span */
+  left: 0;
+  right: 0;
+  text-align: center;
   white-space: nowrap;
   opacity: 0;
   transition: opacity 0.4s ease;
+  /* Center the text properly */
+  margin: 0 auto;
+  width: 100%;
 }
 #typed-text-wrapper span.active {
   opacity: 1;
@@ -111,7 +116,10 @@
 
 /* Mobile adjustments */
 @media (max-width: 768px) {
-  #typed-text-wrapper { font-size: 1.1rem; }
+  #typed-text-wrapper { 
+    font-size: 1.1rem; 
+    min-width: 20ch; /* Adjust for smaller screens */
+  }
 }
 
 /* ---- Testimonial Enhancements ---- */
