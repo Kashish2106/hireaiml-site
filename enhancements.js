@@ -1,10 +1,9 @@
-// enhancements.js — hero text swap with typewriter effect, magnetic buttons, counter, ripple
+// enhancements.js
 document.addEventListener('DOMContentLoaded', () => {
 
-  /* ---------- Hero headline (typewriter-style) ---------- */
+  /* ---------- Typewriter effect ---------- */
   const typedWrapper = document.getElementById('typed-text-wrapper');
   const headline = document.getElementById('hero-headline');
-
   if (typedWrapper && headline) {
     const phrases = [
       "AI Agent Phone Calls",
@@ -12,20 +11,16 @@ document.addEventListener('DOMContentLoaded', () => {
       "a human touch at scale"
     ];
 
-    // Typewriter parameters
-    const typingSpeed = 100;    // ms per character
-    const pauseDelay = 1500;    // pause before deleting
-    const deletingSpeed = 50;   // ms per character
+    const typingSpeed = 100;
+    const pauseDelay = 1500;
+    const deletingSpeed = 50;
     let phraseIndex = 0;
     let charIndex = 0;
     let typingForward = true;
 
-    // Create span for typewriter text
     const span = document.createElement('span');
-    span.style.textAlign = 'center';  // ensure centering
     typedWrapper.appendChild(span);
 
-    // Reveal headline
     headline.classList.add('visible');
 
     function type() {
@@ -55,38 +50,35 @@ document.addEventListener('DOMContentLoaded', () => {
     type();
   }
 
-  /* ---------- Magnetic CTA ---------- */
+  /* ---------- Magnetic buttons ---------- */
   function initMagnetic(selector, strength = 10) {
-    const items = document.querySelectorAll(selector);
-    items.forEach(item => {
+    document.querySelectorAll(selector).forEach(item => {
       if ('ontouchstart' in window) return;
-      item.addEventListener('mousemove', (e) => {
+      item.addEventListener('mousemove', e => {
         const rect = item.getBoundingClientRect();
-        const relX = (e.clientX - rect.left) / rect.width - 0.5;
-        const relY = (e.clientY - rect.top) / rect.height - 0.5;
-        item.style.transform = `translate(${relX * strength}px, ${relY * strength}px) scale(1.02)`;
+        const relX = (e.clientX - rect.left)/rect.width - 0.5;
+        const relY = (e.clientY - rect.top)/rect.height - 0.5;
+        item.style.transform = `translate(${relX*strength}px, ${relY*strength}px) scale(1.02)`;
       });
-      item.addEventListener('mouseleave', () => {
-        item.style.transform = '';
-      });
+      item.addEventListener('mouseleave', () => { item.style.transform = ''; });
     });
   }
   initMagnetic('.magnetic', 10);
 
-  /* ---------- CTA ripple ---------- */
+  /* ---------- Ripple ---------- */
   document.querySelectorAll('.ripple-button').forEach(btn => {
-    btn.addEventListener('click', function(e){
+    btn.addEventListener('click', e => {
       const rect = btn.getBoundingClientRect();
       const span = document.createElement('span');
       span.className = 'ripple-effect';
       span.style.left = (e.clientX - rect.left) + 'px';
       span.style.top = (e.clientY - rect.top) + 'px';
       btn.appendChild(span);
-      setTimeout(()=> span.remove(), 650);
+      setTimeout(() => span.remove(), 650);
     });
   });
 
-  /* ---------- Animated recovered counter ---------- */
+  /* ---------- Recovered counter ---------- */
   const counter = document.getElementById('recovered-counter');
   if (counter) {
     const target = parseInt(counter.dataset.target || '4200', 10);
@@ -94,29 +86,28 @@ document.addEventListener('DOMContentLoaded', () => {
     let start = null;
     function step(ts) {
       if (!start) start = ts;
-      const progress = Math.min((ts - start) / duration, 1);
-      const ease = 1 - Math.pow(1 - progress, 3);
-      const value = Math.floor(ease * target);
+      const progress = Math.min((ts - start)/duration, 1);
+      const ease = 1 - Math.pow(1-progress, 3);
+      const value = Math.floor(ease*target);
       counter.textContent = value.toLocaleString() + ' carts recovered today';
       if (progress < 1) requestAnimationFrame(step);
     }
     requestAnimationFrame(step);
   }
 
-});
-
-/* ---------- Testimonial Tilt (whole card) ---------- */
-document.querySelectorAll('.testimonial-card').forEach(card => {
-  card.addEventListener('mousemove', (e) => {
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const rotateY = ((x / rect.width) - 0.5) * 12;
-    const rotateX = ((y / rect.height) - 0.5) * -12;
-    card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+  /* ---------- Testimonial card tilt ---------- */
+  document.querySelectorAll('.testimonial-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const rotateY = ((x/rect.width)-0.5)*12;
+      const rotateX = ((y/rect.height)-0.5)*-12;
+      card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+    });
+    card.addEventListener('mouseleave', () => { card.style.transform = ''; });
   });
 
-  card.addEventListener('mouseleave', () => {
-    card.style.transform = '';
-  });
+  /* ---------- Feather icons ---------- */
+  if (window.feather) feather.replace();
 });
