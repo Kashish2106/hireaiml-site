@@ -26,17 +26,36 @@
   100% { background-position: 0% 50%; }
 }
 
-/* Typewriter cursor and headline reveal */
-#typed-text {
-  border-right: 2px solid rgba(255,255,255,0.85);
-  padding-right: 6px;
-  white-space: nowrap;
-  display: inline-block;
-  min-width: 20ch; /* reserve width ~ longest phrase */
-  text-align: left;
+/* Hero headline reveal */
+#hero-headline {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
 }
-#hero-headline { opacity: 0; transform: translateY(8px); transition: opacity 0.6s ease, transform 0.6s ease; }
-#hero-headline.visible { opacity: 1; transform: translateY(0); }
+#hero-headline.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Overlay swap method for typed text */
+#typed-text-wrapper {
+  display: inline-block;
+  position: relative;
+  min-width: 25ch; /* reserve enough width for longest phrase */
+  height: 1.2em;   /* fixes height so no up/down bouncing */
+  vertical-align: bottom;
+}
+#typed-text-wrapper span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+#typed-text-wrapper span.active {
+  opacity: 1;
+}
 
 /* Magnetic CTA microinteraction */
 .magnetic {
@@ -89,8 +108,9 @@
 
 /* Mobile adjustments */
 @media (max-width: 768px) {
-  #typed-text { font-size: 1.1rem; border-right-width: 1.5px; }
+  #typed-text-wrapper { font-size: 1.1rem; }
 }
+
 /* ---- Testimonial Enhancements ---- */
 
 /* Voice Wave */
@@ -118,7 +138,6 @@
   50% { height: 16px; }
 }
 
-/* 3D Tilt */
 /* ---- Testimonial Tilt (whole card) ---- */
 .testimonial-card {
   transition: transform 0.25s ease, box-shadow 0.25s ease;
@@ -129,4 +148,3 @@
 .testimonial-card:hover {
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
 }
-
