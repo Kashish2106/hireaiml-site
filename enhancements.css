@@ -51,21 +51,29 @@
   height: 1.2em;
   text-align: center;
   margin-left: 0.25ch;        /* small spacing from static text */
+  font-weight: 600;
+  color: #FFFFFF;              /* ensure typed text is visible */
 }
 
+/* Typewriter text span */
 #typed-text-wrapper span {
-  position: absolute;         /* overlay all phrases */
-  top: 0;
-  left: 0;
-  width: 100%;
-  text-align: center;
-  opacity: 0;
   white-space: nowrap;
-  transition: opacity 0.4s ease;
+  opacity: 1;                  /* show characters progressively via JS */
 }
 
-#typed-text-wrapper span.active {
+/* Blinking cursor */
+#typed-text-wrapper::after {
+  content: '|';
+  margin-left: 2px;
   opacity: 1;
+  animation: blinkCursor 1s steps(1) infinite;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+@keyframes blinkCursor {
+  0%, 50% { opacity: 1; }
+  50.1%, 100% { opacity: 0; }
 }
 
 /* Magnetic CTA microinteraction */
