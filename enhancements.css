@@ -31,6 +31,7 @@
   opacity: 0;
   transform: translateY(8px);
   transition: opacity 0.6s ease, transform 0.6s ease;
+  text-align: center; /* center whole block */
 }
 #hero-headline.visible {
   opacity: 1;
@@ -41,14 +42,16 @@
 #typed-text-wrapper {
   display: inline-block;
   position: relative;
-  min-width: 25ch; /* reserve enough width for longest phrase */
-  height: 1.2em;   /* fixes height so no up/down bouncing */
+  min-width: 25ch; /* fallback width for shortest phrase */
+  height: 1.2em;   /* fixes height to prevent bouncing */
   vertical-align: bottom;
+  text-align: center; /* center the text inside wrapper */
 }
 #typed-text-wrapper span {
   position: absolute;
   top: 0;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%); /* center absolutely positioned span */
   white-space: nowrap;
   opacity: 0;
   transition: opacity 0.4s ease;
@@ -144,7 +147,6 @@
   transform-style: preserve-3d;
   will-change: transform;
 }
-
 .testimonial-card:hover {
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
 }
