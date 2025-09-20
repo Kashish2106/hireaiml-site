@@ -5,12 +5,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const typedEl = document.getElementById('typed-text');
   const headline = document.getElementById('hero-headline');
 
-  if (typedEl && headline) {
+if (typedEl && headline) {
     const phrases = [
       "AI Agent Phone Calls",
       "personalised phone support",
       "a human touch at scale"
     ];
+
+    // measure longest phrase to reserve space
+    const longest = phrases.reduce((a,b) => a.length > b.length ? a : b, "");
+    typedEl.style.minWidth = longest.length + "ch";
 
     const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
