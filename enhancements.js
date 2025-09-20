@@ -114,4 +114,56 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ---------- Feather icons ---------- */
   if (window.feather) feather.replace();
+
+  /* ---------- How-It-Works Carousel ---------- */
+  const howItWorksCarousel = document.getElementById('how-it-works-carousel');
+  const howItWorksDotsContainer = document.getElementById('how-it-works-dots');
+  
+  if (howItWorksCarousel && howItWorksDotsContainer) {
+    const slides = howItWorksCarousel.querySelectorAll('.how-it-works-slide');
+    const totalSlides = slides.length;
+    let currentSlide = 0;
+
+    // Function to update the carousel position and dot status
+    function updateHowItWorksCarousel() {
+      howItWorksCarousel.style.transform = `translateX(-${currentSlide * 100}%)`;
+      
+      document.querySelectorAll('.how-it-works-dot').forEach((dot, index) => {
+        dot.classList.remove('active');
+        if (index === currentSlide) {
+          dot.classList.add('active');
+        }
+      });
+    }
+
+    // Function to generate navigation dots
+    function generateHowItWorksDots() {
+      howItWorksDotsContainer.innerHTML = '';
+      for (let i = 0; i < totalSlides; i++) {
+        const dot = document.createElement('button');
+        dot.className = 'how-it-works-dot w-3 h-3 rounded-full bg-blue-300 transition-all duration-300';
+        dot.setAttribute('data-index', i);
+        dot.addEventListener('click', () => {
+          currentSlide = i;
+          updateHowItWorksCarousel();
+        });
+        howItWorksDotsContainer.appendChild(dot);
+      }
+    }
+
+    // Add keyboard navigation for accessibility
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        updateHowItWorksCarousel();
+      } else if (e.key === 'ArrowLeft') {
+        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+        updateHowItWorksCarousel();
+      }
+    });
+
+    // Initialize the carousel
+    generateHowItWorksDots();
+    updateHowItWorksCarousel();
+  }
 });
