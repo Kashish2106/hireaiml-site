@@ -53,6 +53,10 @@
   color: #FFFFFF;
 }
 
+#typed-text-wrapper span {
+  position: relative; /* <-- changed from absolute */
+}
+
 #typed-text-wrapper::after {
   content: '|';
   margin-left: 2px;
