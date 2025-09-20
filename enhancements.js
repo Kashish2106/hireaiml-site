@@ -1,7 +1,7 @@
 // enhancements.js — hero text swap, magnetic buttons, counter, ripple
 document.addEventListener('DOMContentLoaded', () => {
 
-  /* ---------- Hero headline (overlay swap, no bounce) ---------- */
+  /* ---------- Hero headline (overlay swap, centered) ---------- */
   const typedWrapper = document.getElementById('typed-text-wrapper');
   const headline = document.getElementById('hero-headline');
 
@@ -20,45 +20,45 @@ document.addEventListener('DOMContentLoaded', () => {
       typedWrapper.appendChild(span);
     });
 
-    // Calculate the width based on the longest phrase
+    // Calculate the width of the longest phrase
     const spans = typedWrapper.querySelectorAll('span');
     let maxWidth = 0;
-    
-    // Temporarily make all spans visible to measure their width
+
+    // Temporarily display spans to measure
     spans.forEach(span => {
-      span.style.display = 'block';
+      span.style.display = 'inline-block';
       span.style.position = 'absolute';
       span.style.visibility = 'hidden';
     });
-    
-    // Find the maximum width
+
     spans.forEach(span => {
       const width = span.offsetWidth;
       if (width > maxWidth) maxWidth = width;
     });
-    
-    // Reset spans to their original state
+
+    // Reset spans to normal
     spans.forEach((span, i) => {
       span.style.display = '';
       span.style.position = '';
       span.style.visibility = '';
       if (i !== 0) span.classList.remove('active');
     });
-    
-    // Set the wrapper width to match the longest phrase
-    typedWrapper.style.width = `${maxWidth}px`;
 
-    const spansFinal = typedWrapper.querySelectorAll('span');
-    let idx = 0;
+    // Set wrapper width and center it
+    typedWrapper.style.width = `${maxWidth}px`;
+    typedWrapper.style.display = 'flex';
+    typedWrapper.style.justifyContent = 'center';
 
     // Reveal headline smoothly
     headline.classList.add('visible');
 
+    // Cycle through phrases
+    let idx = 0;
     setInterval(() => {
-      spansFinal[idx].classList.remove('active');
-      idx = (idx + 1) % spansFinal.length;
-      spansFinal[idx].classList.add('active');
-    }, 2500); // switch every 2.5s
+      spans[idx].classList.remove('active');
+      idx = (idx + 1) % spans.length;
+      spans[idx].classList.add('active');
+    }, 2500);
   }
 
   /* ---------- Magnetic CTA ---------- */
