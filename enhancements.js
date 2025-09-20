@@ -1,14 +1,12 @@
 // enhancements.js — hero text swap, magnetic buttons, counter, ripple
 document.addEventListener('DOMContentLoaded', () => {
 
-  /* ---------- Hero headline (overlay swap, centered) ---------- */
+  /* ---------- Hero headline (centered, static + dynamic) ---------- */
   const typedWrapper = document.getElementById('typed-text-wrapper');
   const headline = document.getElementById('hero-headline');
 
   if (typedWrapper && headline) {
-    // Include static text as the first phrase
     const phrases = [
-      "Recover More Abandoned Carts with",
       "AI Agent Phone Calls",
       "personalised phone support",
       "a human touch at scale"
@@ -41,10 +39,10 @@ document.addEventListener('DOMContentLoaded', () => {
       if (i !== 0) span.classList.remove('active');
     });
 
-    // Center wrapper
+    // Center wrapper under static text
     typedWrapper.style.width = `${maxWidth}px`;
-    typedWrapper.style.display = 'flex';
-    typedWrapper.style.justifyContent = 'center';
+    typedWrapper.style.display = 'inline-block';
+    typedWrapper.style.textAlign = 'center';
 
     // Reveal headline
     headline.classList.add('visible');
