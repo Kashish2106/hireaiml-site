@@ -12,10 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
       "a human touch at scale"
     ];
 
-    // Determine longest phrase length
-    const maxLength = Math.max(...phrases.map(p => p.length));
-    typedWrapper.style.minWidth = `${maxLength}ch`;
-
     // Create span for each phrase
     phrases.forEach((p, i) => {
       const span = document.createElement('span');
@@ -24,16 +20,44 @@ document.addEventListener('DOMContentLoaded', () => {
       typedWrapper.appendChild(span);
     });
 
+    // Calculate the width based on the longest phrase
     const spans = typedWrapper.querySelectorAll('span');
+    let maxWidth = 0;
+    
+    // Temporarily make all spans visible to measure their width
+    spans.forEach(span => {
+      span.style.display = 'block';
+      span.style.position = 'absolute';
+      span.style.visibility = 'hidden';
+    });
+    
+    // Find the maximum width
+    spans.forEach(span => {
+      const width = span.offsetWidth;
+      if (width > maxWidth) maxWidth = width;
+    });
+    
+    // Reset spans to their original state
+    spans.forEach((span, i) => {
+      span.style.display = '';
+      span.style.position = '';
+      span.style.visibility = '';
+      if (i !== 0) span.classList.remove('active');
+    });
+    
+    // Set the wrapper width to match the longest phrase
+    typedWrapper.style.width = `${maxWidth}px`;
+
+    const spansFinal = typedWrapper.querySelectorAll('span');
     let idx = 0;
 
     // Reveal headline smoothly
     headline.classList.add('visible');
 
     setInterval(() => {
-      spans[idx].classList.remove('active');
-      idx = (idx + 1) % spans.length;
-      spans[idx].classList.add('active');
+      spansFinal[idx].classList.remove('active');
+      idx = (idx + 1) % spansFinal.length;
+      spansFinal[idx].classList.add('active');
     }, 2500); // switch every 2.5s
   }
 
