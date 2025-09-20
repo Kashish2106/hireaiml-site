@@ -1,7 +1,7 @@
-// enhancements.js — hero text swap, magnetic buttons, counter, ripple
+// enhancements.js — hero text swap with typewriter effect, magnetic buttons, counter, ripple
 document.addEventListener('DOMContentLoaded', () => {
 
-  /* ---------- Hero headline (centered, static + dynamic) ---------- */
+  /* ---------- Hero headline (typewriter-style) ---------- */
   const typedWrapper = document.getElementById('typed-text-wrapper');
   const headline = document.getElementById('hero-headline');
 
@@ -12,48 +12,46 @@ document.addEventListener('DOMContentLoaded', () => {
       "a human touch at scale"
     ];
 
-    // Create span for each phrase
-    phrases.forEach((p, i) => {
-      const span = document.createElement('span');
-      span.textContent = p;
-      if (i === 0) span.classList.add('active');
-      typedWrapper.appendChild(span);
-    });
+    // Typewriter parameters
+    const typingSpeed = 100;    // ms per character
+    const pauseDelay = 1500;    // pause before deleting
+    const deletingSpeed = 50;   // ms per character
+    let phraseIndex = 0;
+    let charIndex = 0;
+    let typingForward = true;
 
-    // Measure longest phrase for consistent width
-    const spans = typedWrapper.querySelectorAll('span');
-    let maxWidth = 0;
-    spans.forEach(span => {
-      span.style.display = 'inline-block';
-      span.style.position = 'absolute';
-      span.style.visibility = 'hidden';
-    });
-    spans.forEach(span => {
-      const width = span.offsetWidth;
-      if (width > maxWidth) maxWidth = width;
-    });
-    spans.forEach((span, i) => {
-      span.style.display = '';
-      span.style.position = '';
-      span.style.visibility = '';
-      if (i !== 0) span.classList.remove('active');
-    });
-
-    // Center wrapper under static text
-    typedWrapper.style.width = `${maxWidth}px`;
-    typedWrapper.style.display = 'inline-block';
-    typedWrapper.style.textAlign = 'center';
+    // Create span for typewriter text
+    const span = document.createElement('span');
+    typedWrapper.appendChild(span);
 
     // Reveal headline
     headline.classList.add('visible');
 
-    // Cycle phrases
-    let idx = 0;
-    setInterval(() => {
-      spans[idx].classList.remove('active');
-      idx = (idx + 1) % spans.length;
-      spans[idx].classList.add('active');
-    }, 2500);
+    function type() {
+      const currentPhrase = phrases[phraseIndex];
+      if (typingForward) {
+        charIndex++;
+        span.textContent = currentPhrase.slice(0, charIndex);
+        if (charIndex === currentPhrase.length) {
+          typingForward = false;
+          setTimeout(type, pauseDelay);
+        } else {
+          setTimeout(type, typingSpeed);
+        }
+      } else {
+        charIndex--;
+        span.textContent = currentPhrase.slice(0, charIndex);
+        if (charIndex === 0) {
+          typingForward = true;
+          phraseIndex = (phraseIndex + 1) % phrases.length;
+          setTimeout(type, typingSpeed);
+        } else {
+          setTimeout(type, deletingSpeed);
+        }
+      }
+    }
+
+    type();
   }
 
   /* ---------- Magnetic CTA ---------- */
