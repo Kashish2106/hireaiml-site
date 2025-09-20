@@ -32,6 +32,8 @@
   padding-right: 6px;
   white-space: nowrap;
   display: inline-block;
+  min-width: 20ch; /* reserve width ~ longest phrase */
+  text-align: left;
 }
 #hero-headline { opacity: 0; transform: translateY(8px); transition: opacity 0.6s ease, transform 0.6s ease; }
 #hero-headline.visible { opacity: 1; transform: translateY(0); }
