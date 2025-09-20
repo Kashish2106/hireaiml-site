@@ -12,10 +12,10 @@
   z-index: 5;
   background: linear-gradient(115deg, rgba(79,70,229,0.9), rgba(139,92,246,0.9), rgba(217,70,239,0.9));
   background-size: 400% 400%;
-  animation: gradientShift 12s ease infinite;
-  mix-blend-mode: overlay;
+  animation: gradientShift 15s ease infinite;
+  mix-blend-mode: color-burn;
   pointer-events: none;
-  opacity: 0.92;
+  opacity: 0.95;
 }
 
 @keyframes gradientShift {
