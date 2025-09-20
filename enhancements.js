@@ -94,3 +94,22 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 });
+/* ---------- Testimonial Tilt ---------- */
+document.querySelectorAll('.testimonial-card').forEach(card => {
+  const inner = card.querySelector('.testimonial-inner');
+  if (!inner) return;
+
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const rotateY = ((x / rect.width) - 0.5) * 12; // tilt range
+    const rotateX = ((y / rect.height) - 0.5) * -12;
+    inner.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  });
+
+  card.addEventListener('mouseleave', () => {
+    inner.style.transform = '';
+  });
+});
+
