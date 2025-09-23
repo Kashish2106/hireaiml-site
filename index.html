@@ -11,13 +11,12 @@
     <script src="https://unpkg.com/feather-icons"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <style>
-        /* Define your color palette as CSS variables */
+        /* Define your new color palette as CSS variables */
         :root {
-            --color-bright-cyan: #51E2F5;
-            --color-light-cyan: #9DF3EF;
-            --color-off-white: #EDF7F6;
-            --color-soft-pink: #FFABB6;
-            --color-muted-mauve: #A28089;
+            --color-off-white: #F2F0EF;
+            --color-light-gray: #BBBDBC;
+            --color-deep-teal: #245F73;
+            --color-warm-brown: #733E24;
         }
         
         .video-background {
@@ -31,7 +30,7 @@
         }
         .hero-overlay {
             /* Adjusting the gradient to incorporate the new palette */
-            background: linear-gradient(to bottom, rgba(0,0,0,0.4), var(--color-muted-mauve));
+            background: linear-gradient(to bottom, rgba(0,0,0,0.6), var(--color-warm-brown));
         }
         .mobile-menu {
             transition: all 0.3s ease;
@@ -54,30 +53,30 @@
         }
     </style>
 </head>
-<body class="font-sans antialiased bg-[var(--color-off-white)] text-[var(--color-muted-mauve)]">
-    <nav class="fixed w-full z-50 bg-[var(--color-off-white)] bg-opacity-90 backdrop-blur-sm">
+<body class="font-sans antialiased bg-[var(--color-off-white)] text-[var(--color-warm-brown)]">
+    <nav class="fixed w-full z-50 bg-[var(--color-off-white)] bg-opacity-90 backdrop-blur-sm shadow-sm">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="text-2xl font-bold text-[var(--color-muted-mauve)]">
-                <span class="text-[var(--color-bright-cyan)]">Rilith</span>
+            <div class="text-2xl font-bold text-[var(--color-warm-brown)]">
+                <span class="text-[var(--color-deep-teal)]">Rilith</span>
             </div>
             
             <div class="md:hidden">
-                <button id="menu-toggle" class="text-[var(--color-muted-mauve)] focus:outline-none">
+                <button id="menu-toggle" class="text-[var(--color-warm-brown)] focus:outline-none">
                     <i data-feather="menu"></i>
                 </button>
             </div>
             
             <div class="relative dropdown">
-                <button class="text-[var(--color-bright-cyan)] hover:text-[var(--color-soft-pink)] px-4 py-3 rounded-md text-sm font-medium flex items-center">
+                <button class="text-[var(--color-deep-teal)] hover:text-[var(--color-warm-brown)] px-4 py-3 rounded-md text-sm font-medium flex items-center">
                     Explore
                     <i data-feather="chevron-down" class="ml-1 h-4 w-4"></i>
                 </button>
                 <div class="hidden dropdown-menu absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
                     <div class="py-1">
-                        <a href="#" class="block px-4 py-2 text-sm text-[var(--color-muted-mauve)] hover:bg-[var(--color-light-cyan)]">Application Development</a>
-                        <a href="hire.html" class="block px-4 py-2 text-sm text-[var(--color-muted-mauve)] hover:bg-[var(--color-light-cyan)]">Hire Talent</a>
-                        <a href="agent-ecomm.html" class="block px-4 py-2 text-sm text-[var(--color-muted-mauve)] hover:bg-[var(--color-light-cyan)]">Increase E-Commerce Sales</a>
-                        <a href="AI_Data_Sol.html" class="block px-4 py-2 text-sm text-[var(--color-muted-mauve)] hover:bg-[var(--color-light-cyan)]">Data Annotation</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-[var(--color-warm-brown)] hover:bg-[var(--color-light-gray)]">Application Development</a>
+                        <a href="hire.html" class="block px-4 py-2 text-sm text-[var(--color-warm-brown)] hover:bg-[var(--color-light-gray)]">Hire Talent</a>
+                        <a href="agent-ecomm.html" class="block px-4 py-2 text-sm text-[var(--color-warm-brown)] hover:bg-[var(--color-light-gray)]">Increase E-Commerce Sales</a>
+                        <a href="AI_Data_Sol.html" class="block px-4 py-2 text-sm text-[var(--color-warm-brown)] hover:bg-[var(--color-light-gray)]">Data Annotation</a>
                     </div>
                 </div>
             </div>
@@ -85,10 +84,10 @@
         
         <div id="mobile-menu" class="mobile-menu md:hidden bg-[var(--color-off-white)]">
             <div class="container mx-auto px-6 py-4 flex flex-col space-y-4">
-                <a href="#" class="text-[var(--color-muted-mauve)] hover:text-[var(--color-bright-cyan)] transition">Application Development</a>
-                <a href="hire.html" class="text-[var(--color-muted-mauve)] hover:text-[var(--color-bright-cyan)] transition">Hire Talent</a>
-                <a href="agent-ecomm.html" class="text-[var(--color-muted-mauve)] hover:text-[var(--color-bright-cyan)] transition">Increase E-Commerce Sales</a>
-                <a href="AI_Data_Sol.html" class="text-[var(--color-muted-mauve)] hover:text-[var(--color-bright-cyan)] transition">AI Data Services</a>
+                <a href="#" class="text-[var(--color-warm-brown)] hover:text-[var(--color-deep-teal)] transition">Application Development</a>
+                <a href="hire.html" class="text-[var(--color-warm-brown)] hover:text-[var(--color-deep-teal)] transition">Hire Talent</a>
+                <a href="agent-ecomm.html" class="text-[var(--color-warm-brown)] hover:text-[var(--color-deep-teal)] transition">Increase E-Commerce Sales</a>
+                <a href="AI_Data_Sol.html" class="text-[var(--color-warm-brown)] hover:text-[var(--color-deep-teal)] transition">AI Data Services</a>
             </div>
         </div>
     </nav>
@@ -102,29 +101,29 @@
         
         <div class="container mx-auto px-6 z-10 text-center" data-aos="fade-up">
             <h1 class="text-5xl md:text-7xl font-bold mb-6 text-white">
-                <span class="text-[var(--color-bright-cyan)]">Innovative</span> Digital Solutions
+                <span class="text-[var(--color-deep-teal)]">Innovative</span> Digital Solutions
             </h1>
             <p class="text-xl md:text-2xl mb-10 max-w-3xl mx-auto text-white">
                 We build cutting-edge software, web & mobile applications, and intelligent AI systems that transform businesses.
             </p>
             <div class="flex justify-center space-x-4">
-                <a href="#services" class="px-8 py-3 bg-[var(--color-bright-cyan)] hover:bg-[var(--color-light-cyan)] rounded-full font-medium transition text-white">
+                <a href="#services" class="px-8 py-3 bg-[var(--color-deep-teal)] hover:bg-[var(--color-warm-brown)] rounded-full font-medium transition text-white">
                     Explore Services
                 </a>
-                <a href="#contact" class="px-8 py-3 bg-transparent border-2 border-white hover:bg-white hover:text-[var(--color-muted-mauve)] rounded-full font-medium transition text-white">
+                <a href="#contact" class="px-8 py-3 bg-transparent border-2 border-white hover:bg-[var(--color-off-white)] hover:text-[var(--color-warm-brown)] rounded-full font-medium transition text-white">
                     Get in Touch
                 </a>
             </div>
         </div>
     </section>
     
-    <section id="services" class="py-20 bg-[var(--color-light-cyan)]">
+    <section id="services" class="py-20 bg-[var(--color-light-gray)]">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-4xl font-extrabold mb-4 text-[var(--color-muted-mauve)]">
-                    Our <span class="text-[var(--color-bright-cyan)]">Services</span>
+                <h2 class="text-4xl font-extrabold mb-4 text-[var(--color-warm-brown)]">
+                    Our <span class="text-[var(--color-deep-teal)]">Services</span>
                 </h2>
-                <p class="text-xl text-[var(--color-muted-mauve)] max-w-2xl mx-auto">
+                <p class="text-xl text-[var(--color-warm-brown)] max-w-2xl mx-auto">
                     Comprehensive digital solutions to help your business thrive.
                 </p>
             </div>
@@ -135,13 +134,13 @@
                     data-aos="fade-up"
                     data-aos-delay="100"
                 >
-                    <div class="text-[var(--color-bright-cyan)] mb-6">
+                    <div class="text-[var(--color-deep-teal)] mb-6">
                         <i class="fas fa-code fa-3x"></i>
                     </div>
-                    <h3 class="text-2xl font-bold mb-3 text-[var(--color-muted-mauve)]">
+                    <h3 class="text-2xl font-bold mb-3 text-[var(--color-warm-brown)]">
                         Custom Software Development
                     </h3>
-                    <p class="text-[var(--color-muted-mauve)]">
+                    <p class="text-[var(--color-warm-brown)]">
                         From concept to deployment, we build robust software solutions that
                         align with your business objectives.
                     </p>
@@ -152,13 +151,13 @@
                     data-aos="fade-up"
                     data-aos-delay="200"
                 >
-                    <div class="text-[var(--color-bright-cyan)] mb-6">
+                    <div class="text-[var(--color-deep-teal)] mb-6">
                         <i class="fas fa-cloud fa-3x"></i>
                     </div>
-                    <h3 class="text-2xl font-bold mb-3 text-[var(--color-muted-mauve)]">
+                    <h3 class="text-2xl font-bold mb-3 text-[var(--color-warm-brown)]">
                         Cloud Solutions
                     </h3>
-                    <p class="text-[var(--color-muted-mauve)]">
+                    <p class="text-[var(--color-warm-brown)]">
                         Scalable cloud infrastructure and services to optimize your operations.
                     </p>
                 </div>
@@ -168,13 +167,13 @@
                     data-aos="fade-up"
                     data-aos-delay="300"
                 >
-                    <div class="text-[var(--color-bright-cyan)] mb-6">
+                    <div class="text-[var(--color-deep-teal)] mb-6">
                         <i class="fas fa-chart-line fa-3x"></i>
                     </div>
-                    <h3 class="text-2xl font-bold mb-3 text-[var(--color-muted-mauve)]">
+                    <h3 class="text-2xl font-bold mb-3 text-[var(--color-warm-brown)]">
                         Data Analytics
                     </h3>
-                    <p class="text-[var(--color-muted-mauve)]">
+                    <p class="text-[var(--color-warm-brown)]">
                         Transform your data into actionable insights with our analytics
                         solutions.
                     </p>
@@ -185,13 +184,13 @@
                     data-aos="fade-up"
                     data-aos-delay="400"
                 >
-                    <div class="text-[var(--color-bright-cyan)] mb-6">
+                    <div class="text-[var(--color-deep-teal)] mb-6">
                         <i class="fas fa-shield-alt fa-3x"></i>
                     </div>
-                    <h3 class="text-2xl font-bold mb-3 text-[var(--color-muted-mauve)]">
+                    <h3 class="text-2xl font-bold mb-3 text-[var(--color-warm-brown)]">
                         Cybersecurity
                     </h3>
-                    <p class="text-[var(--color-muted-mauve)]">
+                    <p class="text-[var(--color-warm-brown)]">
                         Comprehensive security solutions to protect your digital assets.
                     </p>
                 </div>
@@ -201,13 +200,13 @@
                     data-aos="fade-up"
                     data-aos-delay="500"
                 >
-                    <div class="text-[var(--color-bright-cyan)] mb-6">
+                    <div class="text-[var(--color-deep-teal)] mb-6">
                         <i class="fas fa-users fa-3x"></i>
                     </div>
-                    <h3 class="text-2xl font-bold mb-3 text-[var(--color-muted-mauve)]">
+                    <h3 class="text-2xl font-bold mb-3 text-[var(--color-warm-brown)]">
                         Consulting
                     </h3>
-                    <p class="text-[var(--color-muted-mauve)]">
+                    <p class="text-[var(--color-warm-brown)]">
                         Expert guidance to help you navigate the digital transformation journey.
                     </p>
                 </div>
@@ -217,13 +216,13 @@
                     data-aos="fade-up"
                     data-aos-delay="600"
                 >
-                    <div class="text-[var(--color-bright-cyan)] mb-6">
+                    <div class="text-[var(--color-deep-teal)] mb-6">
                         <i class="fas fa-tools fa-3x"></i>
                     </div>
-                    <h3 class="text-2xl font-bold mb-3 text-[var(--color-muted-mauve)]">
+                    <h3 class="text-2xl font-bold mb-3 text-[var(--color-warm-brown)]">
                         Maintenance & Support
                     </h3>
-                    <p class="text-[var(--color-muted-mauve)]">
+                    <p class="text-[var(--color-warm-brown)]">
                         Ongoing support to ensure your systems run smoothly.
                     </p>
                 </div>
@@ -231,13 +230,13 @@
         </div>
     </section>
 
-    <section id="contact" class="py-20 bg-[var(--color-muted-mauve)]">
+    <section id="contact" class="py-20 bg-[var(--color-warm-brown)]">
         <div class="container mx-auto px-6 text-center" data-aos="fade-up">
             <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white">Ready to Transform Your Business?</h2>
             <p class="text-xl mb-10 max-w-2xl mx-auto text-white">
                 Let's discuss how Rilith can help you achieve your digital goals.
             </p>
-            <a href="#" class="px-10 py-4 bg-[var(--color-bright-cyan)] text-white hover:bg-[var(--color-light-cyan)] rounded-full font-bold text-lg transition">
+            <a href="#" class="px-10 py-4 bg-[var(--color-deep-teal)] text-white hover:bg-[var(--color-light-gray)] hover:text-[var(--color-warm-brown)] rounded-full font-bold text-lg transition">
                 Get in Touch
             </a>
         </div>
@@ -247,39 +246,39 @@
         <div class="container mx-auto px-6">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="mb-6 md:mb-0">
-                    <div class="text-2xl font-bold text-[var(--color-muted-mauve)]">
-                        <span class="text-[var(--color-bright-cyan)]">Rilith</span>
+                    <div class="text-2xl font-bold text-[var(--color-warm-brown)]">
+                        <span class="text-[var(--color-deep-teal)]">Rilith</span>
                     </div>
-                    <p class="text-[var(--color-muted-mauve)] mt-2">
+                    <p class="text-[var(--color-warm-brown)] mt-2">
                         Innovating the future of digital solutions
                     </p>
                 </div>
                 
                 <div class="flex space-x-6">
-                    <a href="#" class="text-[var(--color-muted-mauve)] hover:text-[var(--color-bright-cyan)] transition">
+                    <a href="#" class="text-[var(--color-warm-brown)] hover:text-[var(--color-deep-teal)] transition">
                         <i data-feather="facebook"></i>
                     </a>
-                    <a href="#" class="text-[var(--color-muted-mauve)] hover:text-[var(--color-bright-cyan)] transition">
+                    <a href="#" class="text-[var(--color-warm-brown)] hover:text-[var(--color-deep-teal)] transition">
                         <i data-feather="twitter"></i>
                     </a>
-                    <a href="#" class="text-[var(--color-muted-mauve)] hover:text-[var(--color-bright-cyan)] transition">
+                    <a href="#" class="text-[var(--color-warm-brown)] hover:text-[var(--color-deep-teal)] transition">
                         <i data-feather="linkedin"></i>
                     </a>
-                    <a href="#" class="text-[var(--color-muted-mauve)] hover:text-[var(--color-bright-cyan)] transition">
+                    <a href="#" class="text-[var(--color-warm-brown)] hover:text-[var(--color-deep-teal)] transition">
                         <i data-feather="github"></i>
                     </a>
                 </div>
             </div>
             
-            <div class="border-t border-[var(--color-light-cyan)] mt-10 pt-10 flex flex-col md:flex-row justify-between">
-                <div class="text-[var(--color-muted-mauve)] mb-6 md:mb-0">
+            <div class="border-t border-[var(--color-light-gray)] mt-10 pt-10 flex flex-col md:flex-row justify-between">
+                <div class="text-[var(--color-warm-brown)] mb-6 md:mb-0">
                     &copy; 2023 Rilith. All rights reserved.
                 </div>
                 
                 <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8">
-                    <a href="#" class="text-[var(--color-muted-mauve)] hover:text-[var(--color-bright-cyan)] transition">Privacy Policy</a>
-                    <a href="#" class="text-[var(--color-muted-mauve)] hover:text-[var(--color-bright-cyan)] transition">Terms of Service</a>
-                    <a href="#" class="text-[var(--color-muted-mauve)] hover:text-[var(--color-bright-cyan)] transition">Contact Us</a>
+                    <a href="#" class="text-[var(--color-warm-brown)] hover:text-[var(--color-deep-teal)] transition">Privacy Policy</a>
+                    <a href="#" class="text-[var(--color-warm-brown)] hover:text-[var(--color-deep-teal)] transition">Terms of Service</a>
+                    <a href="#" class="text-[var(--color-warm-brown)] hover:text-[var(--color-deep-teal)] transition">Contact Us</a>
                 </div>
             </div>
         </div>
