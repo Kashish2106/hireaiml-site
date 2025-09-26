@@ -230,104 +230,119 @@
         </div>
     </section>
 
-    <section id="contact" class="py-20 bg-[var(--color-warm-brown)]">
-        <div class="container mx-auto px-6 text-center" data-aos="fade-up">
-            <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white">Ready to Transform Your Business?</h2>
-            <p class="text-xl mb-10 max-w-2xl mx-auto text-white">
-                Let's discuss how Rilith can help you achieve your digital goals.
-            </p>
-            <a href="#" class="px-10 py-4 bg-[var(--color-deep-teal)] text-white hover:bg-[var(--color-light-gray)] hover:text-[var(--color-warm-brown)] rounded-full font-bold text-lg transition">
-                Get in Touch
-            </a>
-        </div>
-    </section>
+    <!-- ... your existing code ... -->
 
-    <footer class="bg-[var(--color-off-white)] py-12">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="mb-6 md:mb-0">
-                    <div class="text-2xl font-bold text-[var(--color-warm-brown)]">
-                        <span class="text-[var(--color-deep-teal)]">Rilith</span>
-                    </div>
-                    <p class="text-[var(--color-warm-brown)] mt-2">
-                        Innovating the future of digital solutions
-                    </p>
-                </div>
-                
-                <div class="flex space-x-6">
-                    <a href="#" class="text-[var(--color-warm-brown)] hover:text-[var(--color-deep-teal)] transition">
-                        <i data-feather="facebook"></i>
-                    </a>
-                    <a href="#" class="text-[var(--color-warm-brown)] hover:text-[var(--color-deep-teal)] transition">
-                        <i data-feather="twitter"></i>
-                    </a>
-                    <a href="#" class="text-[var(--color-warm-brown)] hover:text-[var(--color-deep-teal)] transition">
-                        <i data-feather="linkedin"></i>
-                    </a>
-                    <a href="#" class="text-[var(--color-warm-brown)] hover:text-[var(--color-deep-teal)] transition">
-                        <i data-feather="github"></i>
-                    </a>
-                </div>
-            </div>
-            
-            <div class="border-t border-[var(--color-light-gray)] mt-10 pt-10 flex flex-col md:flex-row justify-between">
-                <div class="text-[var(--color-warm-brown)] mb-6 md:mb-0">
-                    &copy; 2023 Rilith. All rights reserved.
-                </div>
-                
-                <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8">
-                    <a href="#" class="text-[var(--color-warm-brown)] hover:text-[var(--color-deep-teal)] transition">Privacy Policy</a>
-                    <a href="#" class="text-[var(--color-warm-brown)] hover:text-[var(--color-deep-teal)] transition">Terms of Service</a>
-                    <a href="#" class="text-[var(--color-warm-brown)] hover:text-[var(--color-deep-teal)] transition">Contact Us</a>
-                </div>
-            </div>
+    <section id="contact" class="py-20 bg-[var(--color-warm-brown)]">
+      <div class="container mx-auto px-6 text-center" data-aos="fade-up">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white">Ready to Transform Your Business?</h2>
+        <p class="text-xl mb-10 max-w-2xl mx-auto text-white">
+          Let's discuss how Rilith can help you achieve your digital goals.
+        </p>
+        <!-- 🔹 Updated button to open modal -->
+        <button id="open-demo-modal"
+          class="px-10 py-4 bg-[var(--color-deep-teal)] text-white hover:bg-[var(--color-light-gray)] hover:text-[var(--color-warm-brown)] rounded-full font-bold text-lg transition">
+          Get in Touch
+        </button>
+      </div>
+    </section>
+    
+    <!-- 🔹 Demo Request Modal -->
+    <div id="demo-modal"
+      class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 modal-overlay bg-black bg-opacity-50">
+      <div class="bg-white rounded-xl shadow-xl w-full max-w-md modal-content">
+        <div class="flex justify-between items-center border-b p-4">
+          <h3 id="demo-modal-title" class="text-xl font-bold">Request Demo</h3>
+          <button id="close-demo-modal" class="text-gray-500 hover:text-gray-700">
+            <i class="fas fa-times"></i>
+          </button>
         </div>
+        <div class="p-6">
+          <form id="quick-demo-form" action="https://formspree.io/f/xdkdvwly" method="POST">
+            <div class="mb-4">
+              <label for="quick-name" class="block text-gray-700 font-medium mb-2">Name</label>
+              <input type="text" id="quick-name" name="name" required
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg form-input focus:border-blue-500">
+            </div>
+    
+            <div class="mb-4">
+              <label for="quick-email" class="block text-gray-700 font-medium mb-2">Email</label>
+              <input type="email" id="quick-email" name="email" required
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg form-input focus:border-blue-500">
+            </div>
+    
+            <div class="mb-4">
+              <label for="quick-message" class="block text-gray-700 font-medium mb-2">Message (Optional)</label>
+              <textarea id="quick-message" name="message" rows="3"
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg form-input focus:border-blue-500"></textarea>
+            </div>
+    
+            <button type="submit"
+              class="w-full bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 transition">
+              Submit Request
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+    
+    <footer class="bg-[var(--color-off-white)] py-12">
+      <!-- existing footer code -->
     </footer>
+    
     <script>
-        // Mobile menu toggle
-        document.getElementById('menu-toggle').addEventListener('click', function() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('open');
+      // Mobile menu toggle
+      document.getElementById('menu-toggle').addEventListener('click', function () {
+        const menu = document.getElementById('mobile-menu');
+        menu.classList.toggle('open');
+      });
+    
+      // Close mobile menu when clicking on a link
+      document.querySelectorAll('#mobile-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+          document.getElementById('mobile-menu').classList.remove('open');
         });
-        
-        // Close mobile menu when clicking on a link
-        document.querySelectorAll('#mobile-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                document.getElementById('mobile-menu').classList.remove('open');
-            });
+      });
+    
+      // Dropdown + AOS + Icons
+      document.addEventListener('DOMContentLoaded', function () {
+        AOS.init({
+          duration: 800,
+          easing: 'ease-in-out',
+          once: true
         });
-        
-        // Dropdown menu functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize AOS and Feather Icons
-            AOS.init({
-                duration: 800,
-                easing: 'ease-in-out',
-                once: true
-            });
-            feather.replace();
-            
-            // Dropdown functionality
-            const dropdownButton = document.querySelector('.dropdown button');
-            const dropdownMenu = document.querySelector('.dropdown-menu');
-            
-            if (dropdownButton && dropdownMenu) {
-                dropdownButton.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    dropdownMenu.classList.toggle('hidden');
-                });
-                
-                // Close dropdown when clicking outside
-                document.addEventListener('click', function() {
-                    dropdownMenu.classList.add('hidden');
-                });
-                
-                // Prevent dropdown from closing when clicking inside it
-                dropdownMenu.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                });
-            }
+        feather.replace();
+    
+        const dropdownButton = document.querySelector('.dropdown button');
+        const dropdownMenu = document.querySelector('.dropdown-menu');
+    
+        if (dropdownButton && dropdownMenu) {
+          dropdownButton.addEventListener('click', function (e) {
+            e.stopPropagation();
+            dropdownMenu.classList.toggle('hidden');
+          });
+    
+          document.addEventListener('click', function () {
+            dropdownMenu.classList.add('hidden');
+          });
+    
+          dropdownMenu.addEventListener('click', function (e) {
+            e.stopPropagation();
+          });
+        }
+    
+        // 🔹 Modal functionality
+        const modal = document.getElementById('demo-modal');
+        const openBtn = document.getElementById('open-demo-modal');
+        const closeBtn = document.getElementById('close-demo-modal');
+    
+        openBtn.addEventListener('click', () => modal.classList.remove('hidden'));
+        closeBtn.addEventListener('click', () => modal.classList.add('hidden'));
+        modal.addEventListener('click', (e) => {
+          if (e.target.classList.contains('modal-overlay')) {
+            modal.classList.add('hidden');
+          }
         });
+      });
     </script>
-</body>
-</html>
+    </body>
+    </html>
