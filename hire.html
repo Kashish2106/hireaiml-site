@@ -1,132 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rilith | AI/ML Talent as a Service</title>
+  <title>Rilith | AI & ML Talent on Demand</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
-    :root{
-      --blue-900: #0B1F3B;
-      --blue-800: #102749;
-      --blue-700: #0A66C2;
-      --blue-600: #1D4ED8;
-      --blue-300: #93C5FD;
-      --blue-100: #E6F0FF;
-      --white: #FFFFFF;
-    }
-
     body {
       font-family: 'Inter', sans-serif;
-      background-color: var(--blue-100);
+      background-color: #f8fafc;
       scroll-behavior: smooth;
-      color: var(--blue-900);
     }
 
-    .card-shadow {
-      box-shadow: 0 8px 30px rgba(11,31,59,0.06);
-      transition: transform .2s ease, box-shadow .2s ease;
+    .hero-gradient {
+      background:
+        radial-gradient(circle at top right, rgba(124,58,237,0.25), transparent 40%),
+        linear-gradient(135deg, #312e81 0%, #4f46e5 50%, #7c3aed 100%);
     }
 
-    .card-shadow:hover {
+    .glass-card {
+      background: rgba(255,255,255,0.82);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.6);
+    }
+
+    .soft-card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.03);
+      transition: all .2s ease;
+    }
+    .soft-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 16px 40px rgba(11,31,59,0.1);
+      box-shadow: 0 16px 35px rgba(0,0,0,0.06);
     }
 
     .btn-primary {
-      background-color: var(--blue-700);
+      background: #4f46e5;
       color: white;
-      padding: .75rem 1.5rem;
-      border-radius: 999px;
+      padding: .85rem 1.8rem;
+      border-radius: 0.75rem;
       font-weight: 600;
       transition: all .2s ease;
     }
-
-    .btn-primary:hover { background: var(--blue-600); transform: translateY(-1px); }
+    .btn-primary:hover { background:#4338ca; transform:translateY(-1px); }
 
     .btn-secondary {
-      background: transparent;
-      color: var(--blue-700);
-      border: 1px solid var(--blue-700);
-      padding: .75rem 1.5rem;
-      border-radius: 999px;
-      font-weight: 600;
-      transition: all .2s ease;
+      background:#eef2ff;
+      color:#4f46e5;
+      padding:.85rem 1.8rem;
+      border-radius:.75rem;
+      font-weight:600;
+      border:1px solid #4f46e5;
+      transition:all .2s ease;
+    }
+    .btn-secondary:hover { background:#e0e7ff; }
+
+    .badge {
+      background: rgba(255,255,255,0.15);
+      border:1px solid rgba(255,255,255,0.25);
+      padding:.4rem 1rem;
+      border-radius:999px;
+      font-size:.75rem;
+      font-weight:600;
+      letter-spacing:.18em;
+      text-transform: uppercase;
+      backdrop-filter: blur(6px);
     }
 
-    .btn-secondary:hover { background: var(--blue-100); transform: translateY(-1px); }
-
-    .hero-gradient {
-      background: linear-gradient(135deg, rgba(10,102,194,0.85), rgba(11,31,59,0.95));
-    }
-
-    .feature-icon {
-      background: var(--blue-100);
-      color: var(--blue-700);
-      width:48px; height:48px;
-      border-radius:12px;
-      display:flex; align-items:center; justify-content:center;
-    }
-
-    .stats-divider::after {
-      content:'';
-      position:absolute; right:0; top:50%;
+    .divider {
+      height: 60%;
+      width:1px;
+      background: rgba(255,255,255,0.18);
+      position:absolute;
+      right:0; top:50%;
       transform:translateY(-50%);
-      height:60%; width:1px;
-      background: rgba(255,255,255,0.3);
     }
-    .stats-divider:last-child::after { display:none; }
   </style>
 </head>
 
-<body>
+<body class="text-gray-800">
 
-<!-- HEADER -->
-<header class="bg-white shadow-sm py-4 sticky top-0 z-50">
-  <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
-    <a href="index.html" class="text-2xl font-bold text-[var(--blue-900)] flex items-center">
-      <i class="fas fa-brain text-[var(--blue-700)] mr-2"></i> Rilith
+<!-- NAV (cleaner) -->
+<header class="bg-white/90 backdrop-blur shadow-sm sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+    <a href="index.html" class="text-xl font-bold flex items-center gap-2 text-gray-900">
+      <i class="fas fa-brain text-indigo-600"></i> Rilith
     </a>
 
-    <nav class="hidden md:flex space-x-8 text-sm font-medium">
-      <a href="#companies" class="hover:text-[var(--blue-700)]">Companies</a>
-      <a href="#talent" class="hover:text-[var(--blue-700)]">Talent</a>
-      <a href="#how-it-works" class="hover:text-[var(--blue-700)]">How it works</a>
-      <a href="#testimonials" class="hover:text-[var(--blue-700)]">Stories</a>
-      <a href="#contact" class="btn-primary">Contact</a>
+    <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+      <a href="#companies" class="hover:text-indigo-600">Companies</a>
+      <a href="#talent" class="hover:text-indigo-600">Talent</a>
+      <a href="#how-it-works" class="hover:text-indigo-600">Process</a>
+      <a href="#contact" class="btn-primary text-sm">Contact</a>
     </nav>
   </div>
 </header>
 
 <!-- HERO -->
-<section class="hero-gradient text-white py-20 px-4">
-  <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
-
+<section class="hero-gradient text-white py-20">
+  <div class="max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-12 items-center">
     <div>
-      <span class="inline-block bg-white/10 px-4 py-1 rounded-full text-xs tracking-wider uppercase mb-6">AI Talent as a Service</span>
-      <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-6">
-        Build your AI future with world-class talent
+      <span class="badge">AI / ML Talent Platform</span>
+
+      <h1 class="text-4xl md:text-6xl font-extrabold mt-5 leading-tight">
+        Elite AI & ML Talent, On Demand
       </h1>
-      <p class="text-lg opacity-90 mb-8">
-        Access pre-vetted machine learning and AI engineers on demand, without the hiring headaches.
+
+      <p class="mt-6 text-lg text-white/90 max-w-xl">
+        Build faster with senior, pre-vetted AI engineers, ML engineers, and applied researchers — without hiring overhead.
       </p>
-      <div class="flex gap-4 flex-wrap">
+
+      <div class="mt-10 flex gap-4 flex-wrap">
         <a href="#companies" class="btn-primary">Hire Talent</a>
-        <a href="#talent" class="btn-secondary">Join as Talent</a>
+        <a href="#talent" class="btn-secondary">Join Network</a>
+      </div>
+
+      <div class="flex items-center mt-12 gap-4">
+        <div class="flex -space-x-2">
+          <img src="https://randomuser.me/api/portraits/women/44.jpg" class="w-10 h-10 rounded-full border-2 border-white">
+          <img src="https://randomuser.me/api/portraits/men/32.jpg" class="w-10 h-10 rounded-full border-2 border-white">
+          <img src="https://randomuser.me/api/portraits/women/68.jpg" class="w-10 h-10 rounded-full border-2 border-white">
+        </div>
+        <div>
+          <div class="flex text-yellow-400">
+            ★★★★★
+          </div>
+          <p class="text-xs text-white/90">Trusted by 50+ global teams</p>
+        </div>
       </div>
     </div>
 
-    <div class="bg-white/10 backdrop-blur rounded-2xl p-6 border border-white/20 card-shadow">
-      <div class="bg-[var(--blue-900)] rounded-xl p-4 text-white">
-        <p class="font-semibold mb-3">AI Talent Matching</p>
-        <div class="flex gap-2 text-xs">
-          <span class="bg-white/10 px-3 py-1 rounded-full">Computer Vision</span>
-          <span class="bg-white/10 px-3 py-1 rounded-full">NLP</span>
-          <span class="bg-white/10 px-3 py-1 rounded-full">MLOps</span>
+    <!-- Right visual -->
+    <div class="glass-card rounded-2xl p-6">
+      <div class="bg-gray-900 text-white rounded-lg p-5 space-y-3">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center">
+            <i class="fas fa-robot"></i>
+          </div>
+          <h3 class="font-semibold">AI Talent Matching</h3>
+        </div>
+        <p class="text-sm text-gray-300">Finding senior AI talent for your product...</p>
+        <div class="flex flex-wrap gap-2 text-xs">
+          <span class="bg-gray-800 px-2 py-1 rounded">Computer Vision</span>
+          <span class="bg-gray-800 px-2 py-1 rounded">LLMs</span>
+          <span class="bg-gray-800 px-2 py-1 rounded">MLOps</span>
         </div>
       </div>
     </div>
@@ -135,104 +158,122 @@
 
 <!-- STATS -->
 <section class="bg-white py-16">
-  <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+  <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 text-center gap-6">
     <div>
-      <div class="text-3xl font-bold text-[var(--blue-700)]">50+</div>
-      <p class="text-sm text-[var(--blue-900)]/70">Companies Served</p>
+      <div class="text-4xl font-bold text-indigo-600">50+</div>
+      <p class="text-gray-600">Companies</p>
     </div>
     <div>
-      <div class="text-3xl font-bold text-[var(--blue-700)]">98%</div>
-      <p class="text-sm text-[var(--blue-900)]/70">Retention Rate</p>
+      <div class="text-4xl font-bold text-indigo-600">98%</div>
+      <p class="text-gray-600">Retention</p>
     </div>
     <div>
-      <div class="text-3xl font-bold text-[var(--blue-700)]">3,000+</div>
-      <p class="text-sm text-[var(--blue-900)]/70">Experts</p>
+      <div class="text-4xl font-bold text-indigo-600">3,000+</div>
+      <p class="text-gray-600">AI Experts</p>
     </div>
     <div>
-      <div class="text-3xl font-bold text-[var(--blue-700)]">24h</div>
-      <p class="text-sm text-[var(--blue-900)]/70">Avg Match Time</p>
+      <div class="text-4xl font-bold text-indigo-600">24h</div>
+      <p class="text-gray-600">Matching Speed</p>
     </div>
   </div>
 </section>
 
-<!-- SECTIONS BELOW KEEP SAME STRUCTURE, ONLY COLOR UPDATED -->
+<!-- COMPANIES -->
+<section id="companies" class="py-16 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <span class="badge !text-indigo-600 !bg-indigo-100 !border-indigo-200">For Companies</span>
+      <h2 class="text-3xl md:text-4xl font-extrabold mt-4">
+        Hire world-class AI teams without HR complexity
+      </h2>
+      <p class="mt-3 text-gray-600">
+        Plug in elite AI talent without payroll, recruiting, or compliance headaches.
+      </p>
+    </div>
 
-<!-- CONTACT SECTION -->
-<section id="contact" class="bg-[var(--blue-700)] text-white py-20 px-4">
-  <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12">
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="soft-card p-7 rounded-2xl">
+        <h3 class="font-bold text-lg mb-2 text-indigo-700">Pre-Vetted Talent</h3>
+        <p class="text-sm text-gray-600">Rigorous screening. Only senior-level profiles.</p>
+      </div>
+      <div class="soft-card p-7 rounded-2xl">
+        <h3 class="font-bold text-lg mb-2 text-indigo-700">Flexible Team Models</h3>
+        <p class="text-sm text-gray-600">Scale teams up or down without contracts.</p>
+      </div>
+      <div class="soft-card p-7 rounded-2xl">
+        <h3 class="font-bold text-lg mb-2 text-indigo-700">Global Coverage</h3>
+        <p class="text-sm text-gray-600">Access talent across time zones.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- TALENT -->
+<section id="talent" class="py-16 bg-white">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="max-w-3xl mx-auto text-center mb-12">
+      <span class="badge !text-indigo-600 !bg-indigo-100 !border-indigo-200">For Talent</span>
+      <h2 class="text-3xl md:text-4xl font-extrabold mt-4">
+        Work on meaningful AI problems
+      </h2>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="soft-card rounded-2xl p-6">
+        <h3 class="font-semibold text-indigo-700">High-Impact Projects</h3>
+        <p class="text-sm mt-2 text-gray-600">Real-world applied AI use cases.</p>
+      </div>
+      <div class="soft-card rounded-2xl p-6">
+        <h3 class="font-semibold text-indigo-700">Flexible Lifestyle</h3>
+        <p class="text-sm mt-2 text-gray-600">Remote-first, async friendly.</p>
+      </div>
+      <div class="soft-card rounded-2xl p-6">
+        <h3 class="font-semibold text-indigo-700">Elite Network</h3>
+        <p class="text-sm mt-2 text-gray-600">Curated global AI community.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="py-16 bg-gradient-to-br from-indigo-700 to-purple-700 text-white">
+  <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 px-4 items-center">
     <div>
-      <h2 class="text-4xl font-bold mb-6">Let’s talk</h2>
-      <p class="opacity-90 mb-6">Hire AI talent or join our global expert network.</p>
+      <h2 class="text-4xl font-extrabold mb-4">Let’s talk</h2>
+      <p class="text-lg text-white/90">
+        Tell us what you're building. We’ll map out the right talent path.
+      </p>
 
-      <div class="space-y-4">
+      <div class="mt-6 space-y-3 text-sm text-white/90">
         <p><i class="fas fa-envelope mr-2"></i> rohit@rilith.com</p>
-        <p><i class="fas fa-phone mr-2"></i> +91 97729 35776</p>
+        <p><i class="fas fa-phone-alt mr-2"></i> +91 97729 35776</p>
+        <p><i class="fas fa-map-marker-alt mr-2"></i> San Francisco, USA</p>
       </div>
     </div>
 
-    <div class="bg-white text-[var(--blue-900)] p-8 rounded-2xl card-shadow">
-      <form id="contact-form" action="https://formspree.io/f/mblkqlyg" method="POST" class="space-y-4">
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <input required name="first-name" placeholder="First name" class="border p-3 rounded-lg w-full">
-          <input required name="last-name" placeholder="Last name" class="border p-3 rounded-lg w-full">
+    <div class="bg-white text-gray-900 rounded-2xl p-8 soft-card">
+      <form id="contact-form" action="https://formspree.io/f/mblkqlyg" method="POST" class="space-y-5">
+        <div class="grid sm:grid-cols-2 gap-4">
+          <input type="text" name="first-name" placeholder="First name *" required class="border px-4 py-3 rounded-lg">
+          <input type="text" name="last-name" placeholder="Last name *" required class="border px-4 py-3 rounded-lg">
         </div>
-
-        <input required type="email" name="email" placeholder="Email" class="border p-3 rounded-lg w-full">
-
-        <select name="interest" required class="border p-3 rounded-lg w-full">
-          <option value="">I'm interested in...</option>
-          <option value="hiring">Hiring Talent</option>
-          <option value="joining">Joining as Talent</option>
+        <input type="email" name="email" placeholder="Email *" required class="border px-4 py-3 rounded-lg w-full">
+        <select name="interest" required class="border px-4 py-3 rounded-lg w-full">
+          <option value="">I'm interested in *</option>
+          <option>Hiring AI/ML Talent</option>
+          <option>Joining as Talent</option>
+          <option>Partnership</option>
         </select>
-
-        <textarea name="message" rows="4" placeholder="Tell us about your project..." class="border p-3 rounded-lg w-full"></textarea>
-
-        <button type="submit" class="btn-primary w-full">Send Message</button>
-
+        <textarea name="message" rows="4" placeholder="Your message *" required class="border px-4 py-3 rounded-lg w-full"></textarea>
+        <button type="submit" class="btn-primary w-full">Send message</button>
       </form>
     </div>
-
   </div>
 </section>
 
 <!-- FOOTER -->
-<footer class="bg-[var(--blue-900)] text-white py-12 px-4">
-  <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-10 text-sm">
-
-    <div>
-      <h3 class="text-lg font-bold mb-4">Rilith</h3>
-      <p class="text-white/70">AI talent platforms and enterprise AI solutions.</p>
-    </div>
-
-    <div>
-      <h3 class="font-semibold mb-4">For Companies</h3>
-      <ul class="space-y-2 text-white/70">
-        <li>Hire AI Talent</li>
-        <li>AI Data Services</li>
-      </ul>
-    </div>
-
-    <div>
-      <h3 class="font-semibold mb-4">For Talent</h3>
-      <ul class="space-y-2 text-white/70">
-        <li>Join Network</li>
-        <li>Opportunities</li>
-      </ul>
-    </div>
-
-    <div>
-      <h3 class="font-semibold mb-4">Company</h3>
-      <ul class="space-y-2 text-white/70">
-        <li>About</li>
-        <li>Contact</li>
-      </ul>
-    </div>
-
-  </div>
-
-  <div class="border-t border-white/10 mt-10 pt-6 text-center text-xs text-white/60">
+<footer class="bg-gray-900 text-gray-400 py-12">
+  <div class="max-w-7xl mx-auto px-4 text-center text-sm">
     © 2024 Rilith. All rights reserved.
   </div>
 </footer>
