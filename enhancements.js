@@ -30,7 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (typingForward) {
         charIndex++;
         span.textContent = currentPhrase.slice(0, charIndex);
-        // Slight random delay to mimic human typing
         const typingDelay = typingSpeed + (Math.random() * 50 - 25);
         if (charIndex === currentPhrase.length) {
           typingForward = false;
@@ -85,7 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ---------- Recovered counter ---------- */
-  // Optional: only runs if an element with id="recovered-counter" exists
   const counter = document.getElementById('recovered-counter');
   if (counter) {
     const target = parseInt(counter.dataset.target || '4200', 10);
@@ -97,8 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const progress = Math.min((ts - start) / duration, 1);
       const ease = 1 - Math.pow(1 - progress, 3);
       const value = Math.floor(ease * target);
-      // You can change the text here to whatever makes sense for this site
-      counter.textContent = value.toLocaleString() + ' carts recovered today';
+      counter.textContent = value.toLocaleString() + ' carts recovered today'; // update text if needed
       if (progress < 1) requestAnimationFrame(step);
     }
     requestAnimationFrame(step);
@@ -133,16 +130,13 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentSlide = 0;
     let autoRotateInterval;
 
-    // Update carousel position and dot status
     function updateHowItWorksCarousel() {
       howItWorksCarousel.style.transform = `translateX(-${currentSlide * 100}%)`;
-
       document.querySelectorAll('.how-it-works-dot').forEach((dot, index) => {
         dot.classList.toggle('active', index === currentSlide);
       });
     }
 
-    // Generate navigation dots
     function generateHowItWorksDots() {
       howItWorksDotsContainer.innerHTML = '';
       for (let i = 0; i < totalSlides; i++) {
@@ -158,7 +152,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    // Start automatic rotation
     function startAutoRotate() {
       autoRotateInterval = setInterval(() => {
         currentSlide = (currentSlide + 1) % totalSlides;
@@ -166,19 +159,16 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 5000);
     }
 
-    // Reset automatic rotation timer
     function resetAutoRotate() {
       clearInterval(autoRotateInterval);
       startAutoRotate();
     }
 
-    // Pause / resume on hover and touch
     howItWorksSection.addEventListener('mouseenter', () => clearInterval(autoRotateInterval));
     howItWorksSection.addEventListener('mouseleave', () => startAutoRotate());
     howItWorksSection.addEventListener('touchstart', () => clearInterval(autoRotateInterval), { passive: true });
     howItWorksSection.addEventListener('touchend', () => startAutoRotate());
 
-    // Keyboard navigation
     document.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowRight') {
         currentSlide = (currentSlide + 1) % totalSlides;
@@ -191,47 +181,67 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Initialize the carousel
     generateHowItWorksDots();
     updateHowItWorksCarousel();
     startAutoRotate();
   }
 
   /* ---------- Animated stats on scroll (Global Footprint) ---------- */
-  const statSection = document.getElementById('global-stats');
-  const statNumbers = document.querySelectorAll('.stat-number');
-  let statsAnimated = false;
+  try {
+    const statSection = document.getElementById('global-stats');
+    const statNumbers = document.querySelectorAll('.stat-number');
+    let statsAnimated = false;
 
-  function animateNumber(el) {
-    const raw = parseInt(el.dataset.target, 10);
-    const target = Number.isFinite(raw) ? raw : 0;
-    const duration = 900; // ms
-    const start = performance.now();
+    function animateNumber(el) {
+      const raw = parseInt(el.dataset.target, 10);
+      const target = Number.isFinite(raw) ? raw : 0;
+      const duration = 900; // ms
+      const start = performance.now();
 
-    function update(timestamp) {
-      const progress = Math.min((timestamp - start) / duration, 1);
-      const value = Math.floor(progress * target);
-      el.textContent = value.toLocaleString();
-      if (progress < 1) {
-        requestAnimationFrame(update);
+      function update(timestamp) {
+        const progress = Math.min((timestamp - start) / duration, 1);
+        const value = Math.floor(progress * target);
+        el.textContent = value.toLocaleString();
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        }
+      }
+      requestAnimationFrame(update);
+    }
+
+    if (statSection && statNumbers.length) {
+      const runAnimation = () => {
+        if (statsAnimated) return;
+        statsAnimated = true;
+        statNumbers.forEach(animateNumber);
+      };
+
+      // Prefer IntersectionObserver, but fall back to immediate run
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting && !statsAnimated) {
+                runAnimation();
+                observer.disconnect();
+              }
+            });
+          },
+          { threshold: 0.3 }
+        );
+        observer.observe(statSection);
+
+        // Safety fallback: if for some reason the observer never fires, run after a delay
+        setTimeout(() => {
+          if (!statsAnimated) runAnimation();
+        }, 2000);
+      } else {
+        // Older browsers: just run immediately
+        runAnimation();
       }
     }
-    requestAnimationFrame(update);
-  }
-
-  if (statSection && statNumbers.length) {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && !statsAnimated) {
-            statsAnimated = true;
-            statNumbers.forEach(animateNumber);
-            observer.disconnect();
-          }
-        });
-      },
-      { threshold: 0.3 }
-    );
-    observer.observe(statSection);
+  } catch (err) {
+    // Fail silently so other parts of the page still work
+    console.error('Stats animation error:', err);
   }
 });
