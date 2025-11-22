@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>AI Data Solutions | Annotation & Synthetic Data Services</title>
+  <title>Rilith | AI Data Solutions for Annotation & Synthetic Data</title>
   
   <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -12,191 +12,453 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 
   <style>
+    :root {
+      color-scheme: light;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
     .hero-gradient {
-      background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+      background: radial-gradient(circle at top left, rgba(129, 140, 248, 0.4), transparent 55%),
+                  radial-gradient(circle at bottom right, rgba(56, 189, 248, 0.35), transparent 55%),
+                  linear-gradient(135deg, #1d4ed8 0%, #4f46e5 45%, #0f172a 100%);
     }
     .card-hover {
-      transition: all 0.3s ease;
+      transition: all 0.25s ease;
       transform: translateY(0);
     }
     .card-hover:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      transform: translateY(-6px);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.15);
     }
     .service-icon {
-      width: 50px;
-      height: 50px;
+      width: 52px;
+      height: 52px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 12px;
+      border-radius: 14px;
       font-size: 20px;
       color: white;
     }
     .form-input {
-      transition: all 0.3s;
+      transition: all 0.18s ease;
     }
     .form-input:focus {
       border-color: #3b82f6;
       box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+      outline: none;
     }
     .modal-overlay {
-      background-color: rgba(0, 0, 0, 0.7);
+      background-color: rgba(15, 23, 42, 0.75);
     }
     .modal-content {
       max-height: 90vh;
       overflow-y: auto;
     }
+    .nav-blur {
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      background: rgba(255, 255, 255, 0.92);
+    }
   </style>
 </head>
-<body class="bg-gray-50 min-h-screen">
+<body class="bg-slate-950/2 min-h-screen text-slate-900">
   <!-- Navigation -->
-  <nav class="bg-white shadow-sm">
-    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-      <div class="flex items-center">
-        <i class="fas fa-robot text-blue-600 text-2xl mr-2"></i>
-        <span class="text-xl font-bold text-gray-800">Rilith</span>
+  <nav class="fixed top-0 inset-x-0 z-40 border-b border-slate-200/70 bg-white/95 nav-blur">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center py-3">
+        <!-- Logo -->
+        <div class="flex items-center space-x-2">
+          <div class="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center">
+            <i class="fas fa-robot text-white text-lg"></i>
+          </div>
+          <div class="flex flex-col leading-tight">
+            <span class="text-lg font-bold text-slate-900 tracking-tight">Rilith</span>
+            <span class="text-xs text-slate-500">AI Data Solutions</span>
+          </div>
+        </div>
+
+        <!-- Desktop Nav -->
+        <div class="hidden md:flex items-center space-x-8 text-sm font-medium">
+          <a href="#solutions" class="text-slate-600 hover:text-blue-600">Solutions</a>
+          <a href="#services" class="text-slate-600 hover:text-blue-600">Services</a>
+          <a href="#process" class="text-slate-600 hover:text-blue-600">Our Process</a>
+          <a href="#contact" class="text-slate-600 hover:text-blue-600">Contact</a>
+        </div>
+
+        <!-- Desktop CTA -->
+        <div class="hidden md:flex items-center space-x-3">
+          <button 
+            class="text-sm font-semibold text-slate-700 hover:text-slate-900 request-demo-btn"
+            data-solution="General Demo Request">
+            Request demo
+          </button>
+          <a href="#contact" class="inline-flex items-center text-sm font-semibold bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 shadow-sm">
+            Talk to us
+          </a>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-toggle" class="md:hidden text-slate-700 focus:outline-none" aria-label="Toggle navigation">
+          <i class="fas fa-bars text-xl"></i>
+        </button>
       </div>
-      <div class="hidden md:flex space-x-6">
-        <a href="#solutions" class="text-gray-600 hover:text-blue-600 font-medium">Solutions</a>
-        <a href="#services" class="text-gray-600 hover:text-blue-600 font-medium">Services</a>
-        <a href="#process" class="text-gray-600 hover:text-blue-600 font-medium">Our Process</a>
-        <a href="#contact" class="text-gray-600 hover:text-blue-600 font-medium">Contact</a>
+
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="md:hidden pb-4 hidden border-t border-slate-200">
+        <div class="pt-3 space-y-2 text-sm font-medium">
+          <a href="#solutions" class="block text-slate-700 hover:text-blue-600">Solutions</a>
+          <a href="#services" class="block text-slate-700 hover:text-blue-600">Services</a>
+          <a href="#process" class="block text-slate-700 hover:text-blue-600">Our Process</a>
+          <a href="#contact" class="block text-slate-700 hover:text-blue-600">Contact</a>
+          <button 
+            class="mt-2 w-full text-left text-slate-700 hover:text-blue-600 request-demo-btn"
+            data-solution="General Demo Request">
+            Request demo
+          </button>
+        </div>
       </div>
-      <button class="md:hidden text-gray-600">
-        <i class="fas fa-bars text-xl"></i>
-      </button>
     </div>
   </nav>
 
   <!-- Hero Section -->
-  <section class="hero-gradient text-white">
-    <div class="container mx-auto px-4 py-20">
-      <div class="max-w-4xl mx-auto text-center">
-        <h1 class="text-4xl md:text-5xl font-bold mb-6">Power Your AI Models with High-Quality Training Data</h1>
-        <p class="text-xl md:text-2xl mb-8 opacity-90">
-          Expert data annotation, validation, and synthetic data generation services to accelerate your AI development
-        </p>
-        <div class="flex flex-col sm:flex-row justify-center gap-4">
-          <a href="#contact" class="bg-white text-blue-600 font-bold px-8 py-3 rounded-lg hover:bg-gray-100 transition duration-300 text-center">
-            Request Demo
-          </a>
-          <a href="#services" class="bg-transparent border-2 border-white text-white font-bold px-8 py-3 rounded-lg hover:bg-white hover:text-blue-600 transition duration-300 text-center">
-            Explore Services
-          </a>
+  <section class="hero-gradient text-white pt-28 pb-20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-2 gap-10 items-center">
+        <div>
+          <div class="inline-flex items-center text-xs font-semibold bg-white/10 border border-white/15 text-blue-100 rounded-full px-3 py-1 mb-4">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-2"></span>
+            Trusted AI data partner for fast-moving teams
+          </div>
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-5">
+            High-quality training data for enterprise-grade AI models
+          </h1>
+          <p class="text-base sm:text-lg text-blue-100/90 mb-6">
+            Rilith combines expert human annotators with robust QA workflows and synthetic data pipelines to deliver
+            production-ready datasets for computer vision, NLP, and generative AI.
+          </p>
+
+          <!-- Stats -->
+          <div class="flex flex-wrap gap-6 mb-8 text-sm">
+            <div>
+              <p class="text-2xl font-bold">98.5%</p>
+              <p class="text-blue-100/80">Average annotation accuracy</p>
+            </div>
+            <div>
+              <p class="text-2xl font-bold">50M+</p>
+              <p class="text-blue-100/80">Data points processed</p>
+            </div>
+            <div>
+              <p class="text-2xl font-bold">3x</p>
+              <p class="text-blue-100/80">Faster delivery cycles</p>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+            <button 
+              class="bg-white text-blue-700 font-semibold px-6 py-3 rounded-lg hover:bg-slate-50 transition shadow-sm request-demo-btn text-sm sm:text-base"
+              data-solution="General Demo Request">
+              Request a live demo
+            </button>
+            <a href="#services" class="inline-flex items-center justify-center border border-white/70 text-white font-semibold px-6 py-3 rounded-lg hover:bg-white/5 text-sm sm:text-base">
+              View services
+              <i class="fas fa-arrow-right ml-2 text-xs"></i>
+            </a>
+          </div>
+          <p class="mt-3 text-xs text-blue-100/80">
+            No long-term contracts. Start with a small pilot in under 7 days.
+          </p>
+        </div>
+
+        <!-- Hero Right: Pill cards -->
+        <div class="space-y-4">
+          <div class="bg-slate-900/50 border border-white/10 rounded-2xl p-4 sm:p-5 shadow-xl">
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center space-x-3">
+                <div class="w-9 h-9 rounded-xl bg-emerald-500/90 flex items-center justify-center">
+                  <i class="fas fa-database text-white text-lg"></i>
+                </div>
+                <div>
+                  <p class="text-sm font-semibold">Enterprise data annotation</p>
+                  <p class="text-xs text-blue-100/80">Human-in-the-loop with multi-layer QA</p>
+                </div>
+              </div>
+              <span class="text-xs px-2 py-1 rounded-full bg-emerald-500/15 text-emerald-200 border border-emerald-400/40">
+                SLA-backed
+              </span>
+            </div>
+            <div class="grid grid-cols-3 gap-3 text-xs text-blue-100/85">
+              <div>
+                <p class="font-semibold text-sm">CV</p>
+                <p>Bounding boxes, masks, keypoints, polygons</p>
+              </div>
+              <div>
+                <p class="font-semibold text-sm">NLP</p>
+                <p>NER, classification, conversation, intent</p>
+              </div>
+              <div>
+                <p class="font-semibold text-sm">Autonomy</p>
+                <p>3D / LiDAR, tracking, sensor fusion</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-slate-900/40 border border-white/10 rounded-2xl p-4 sm:p-5">
+            <div class="flex items-center space-x-3 mb-3">
+              <div class="w-9 h-9 rounded-xl bg-indigo-500 flex items-center justify-center">
+                <i class="fas fa-cubes text-white text-lg"></i>
+              </div>
+              <div>
+                <p class="text-sm font-semibold">Synthetic data & augmentation</p>
+                <p class="text-xs text-blue-100/80">Stress-test your models before production</p>
+              </div>
+            </div>
+            <ul class="text-xs text-blue-100/85 space-y-1.5">
+              <li class="flex items-start">
+                <i class="fas fa-check mt-0.5 mr-2 text-emerald-400"></i>
+                <span>Domain-specific scenarios your real data rarely covers</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check mt-0.5 mr-2 text-emerald-400"></i>
+                <span>Privacy-safe alternatives when raw data is sensitive</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="bg-slate-900/30 border border-white/5 rounded-2xl p-4 text-xs text-blue-100/85">
+            <p class="font-semibold mb-1">Built for product & research teams</p>
+            <p>We integrate with your workflows, tools, and formats (COCO, Pascal VOC, TFRecord, JSON, custom schemas).</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Trusted By -->
-  <section class="bg-gray py-12">
-    <div class="container mx-auto px-4">
-      <p class="text-center text-gray-500 mb-8">TRUSTED BY INNOVATIVE TEAMS BUILDING</p>
-      <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16">
-        <div class="text-3xl font-bold text-gray-700">Computer Vision</div>
-        <div class="text-3xl font-bold text-gray-700">NLP</div>
-        <div class="text-3xl font-bold text-gray-700">Generative AI</div>
-        <div class="text-3xl font-bold text-gray-700">Autonomous Systems</div>
+  <section class="bg-slate-50 py-10 border-b border-slate-100">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <p class="text-center text-xs font-semibold text-slate-500 tracking-[0.18em] mb-6">
+        USED BY TEAMS BUILDING
+      </p>
+      <div class="flex flex-wrap justify-center items-center gap-x-10 gap-y-4 text-sm sm:text-base font-semibold text-slate-600">
+        <div class="inline-flex items-center space-x-2">
+          <i class="fas fa-camera text-blue-500"></i>
+          <span>Computer Vision</span>
+        </div>
+        <div class="inline-flex items-center space-x-2">
+          <i class="fas fa-language text-indigo-500"></i>
+          <span>NLP & LLMs</span>
+        </div>
+        <div class="inline-flex items-center space-x-2">
+          <i class="fas fa-wand-magic-sparkles text-purple-500"></i>
+          <span>Generative AI</span>
+        </div>
+        <div class="inline-flex items-center space-x-2">
+          <i class="fas fa-car-side text-emerald-500"></i>
+          <span>Autonomous Systems</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solutions Section -->
+  <section id="solutions" class="py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
+        <div>
+          <h2 class="text-3xl font-bold text-slate-900 mb-2">Solutions for your AI lifecycle</h2>
+          <p class="text-base text-slate-600 max-w-2xl">
+            From one-off pilots to production pipelines, Rilith plugs into your stack to provide the datasets
+            and workflows you need to ship reliable models faster.
+          </p>
+        </div>
+        <p class="text-xs text-slate-500">
+          Prefer a custom workflow? 
+          <button 
+            class="text-blue-600 font-semibold hover:underline request-demo-btn"
+            data-solution="Custom Workflow / Consulting">
+            Talk to our solutions team
+          </button>
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Solution 1 -->
+        <article class="bg-slate-50 rounded-2xl border border-slate-200/70 p-5 card-hover">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-semibold text-blue-600 uppercase tracking-wide">For ML teams</span>
+            <span class="inline-flex items-center text-[11px] px-2 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-100">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5"></span>
+              In production
+            </span>
+          </div>
+          <h3 class="text-lg font-semibold text-slate-900 mb-2">Model training & evaluation datasets</h3>
+          <p class="text-sm text-slate-600 mb-3">
+            Curated, labeled, and versioned datasets for training, validation, and regression testing across
+            computer vision and NLP use cases.
+          </p>
+          <ul class="text-xs text-slate-600 space-y-1.5 mb-4">
+            <li class="flex items-start"><i class="fas fa-check mt-0.5 mr-2 text-emerald-500"></i>Multi-tiered QA with consensus & review</li>
+            <li class="flex items-start"><i class="fas fa-check mt-0.5 mr-2 text-emerald-500"></i>Edge-case discovery & coverage planning</li>
+            <li class="flex items-start"><i class="fas fa-check mt-0.5 mr-2 text-emerald-500"></i>Change-log and versioning for every batch</li>
+          </ul>
+          <button 
+            class="text-xs font-semibold text-blue-600 hover:text-blue-700 request-demo-btn"
+            data-solution="Training & Evaluation Datasets">
+            Explore this solution →
+          </button>
+        </article>
+
+        <!-- Solution 2 -->
+        <article class="bg-slate-50 rounded-2xl border border-slate-200/70 p-5 card-hover">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-semibold text-blue-600 uppercase tracking-wide">For product teams</span>
+            <span class="inline-flex items-center text-[11px] px-2 py-1 rounded-full bg-sky-50 text-sky-700 border border-sky-100">
+              API-first
+            </span>
+          </div>
+          <h3 class="text-lg font-semibold text-slate-900 mb-2">Human-in-the-loop pipelines</h3>
+          <p class="text-sm text-slate-600 mb-3">
+            Embed human reviews at key points in your AI product – content safety, search relevance, personalization, and more.
+          </p>
+          <ul class="text-xs text-slate-600 space-y-1.5 mb-4">
+            <li class="flex items-start"><i class="fas fa-check mt-0.5 mr-2 text-emerald-500"></i>Near real-time annotation & feedback</li>
+            <li class="flex items-start"><i class="fas fa-check mt-0.5 mr-2 text-emerald-500"></i>Custom SLAs & coverage windows</li>
+            <li class="flex items-start"><i class="fas fa-check mt-0.5 mr-2 text-emerald-500"></i>Dashboards for quality & impact</li>
+          </ul>
+          <button 
+            class="text-xs font-semibold text-blue-600 hover:text-blue-700 request-demo-btn"
+            data-solution="Human-in-the-loop Pipelines">
+            Design a pipeline →
+          </button>
+        </article>
+
+        <!-- Solution 3 -->
+        <article class="bg-slate-50 rounded-2xl border border-slate-200/70 p-5 card-hover">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-semibold text-blue-600 uppercase tracking-wide">For R&D</span>
+            <span class="inline-flex items-center text-[11px] px-2 py-1 rounded-full bg-violet-50 text-violet-700 border border-violet-100">
+              Synthetic & simulated
+            </span>
+          </div>
+          <h3 class="text-lg font-semibold text-slate-900 mb-2">Scenario & stress-test datasets</h3>
+          <p class="text-sm text-slate-600 mb-3">
+            Generate rare, risky, or long-tail scenarios safely using synthetic and simulated data tailored to your domain.
+          </p>
+          <ul class="text-xs text-slate-600 space-y-1.5 mb-4">
+            <li class="flex items-start"><i class="fas fa-check mt-0.5 mr-2 text-emerald-500"></i>3D scenes, environment variations, occlusions</li>
+            <li class="flex items-start"><i class="fas fa-check mt-0.5 mr-2 text-emerald-500"></i>Prompt-driven synthetic text datasets</li>
+            <li class="flex items-start"><i class="fas fa-check mt-0.5 mr-2 text-emerald-500"></i>Configurable distributions & constraints</li>
+          </ul>
+          <button 
+            class="text-xs font-semibold text-blue-600 hover:text-blue-700 request-demo-btn"
+            data-solution="Scenario & Stress-test Datasets">
+            Talk to an expert →
+          </button>
+        </article>
       </div>
     </div>
   </section>
 
   <!-- Services Section -->
-  <section id="services" class="py-16 bg-white">
-    <div class="container mx-auto px-4">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold text-gray-800 mb-4">Our AI Data Services</h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Comprehensive solutions to meet all your AI training data needs
+  <section id="services" class="py-16 bg-slate-50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-10">
+        <h2 class="text-3xl font-bold text-slate-900 mb-3">AI data services under one roof</h2>
+        <p class="text-base text-slate-600 max-w-2xl mx-auto">
+          Combine human experts, robust QA, and synthetic data in a single partner. Start focused with one service or run an end-to-end program.
         </p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <!-- Data Annotation -->
-        <div class="bg-gray-50 rounded-xl shadow-lg p-8 card-hover">
-          <div class="service-icon bg-blue-600 mb-6">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-7 card-hover">
+          <div class="service-icon bg-blue-600 mb-5">
             <i class="fas fa-tag"></i>
           </div>
-          <h3 class="text-xl font-bold text-gray-800 mb-4">Data Annotation</h3>
-          <p class="text-gray-700 mb-6">
-            Expert human-in-the-loop annotation services for all data types including images, text, video, and audio.
+          <h3 class="text-xl font-bold text-slate-900 mb-2">Data annotation</h3>
+          <p class="text-sm text-slate-600 mb-4">
+            Human-in-the-loop labeling for all major data types, tuned to your guidelines and model behavior.
           </p>
-          <ul class="space-y-3 mb-6">
+          <ul class="space-y-2.5 mb-6 text-sm text-slate-700">
             <li class="flex items-start">
-              <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
-              <span>Image & Video Labeling (Bounding Boxes, Segmentation)</span>
+              <i class="fas fa-check text-emerald-500 mt-1 mr-2"></i>
+              <span>Image & video labeling (boxes, polygons, masks, keypoints)</span>
             </li>
             <li class="flex items-start">
-              <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
-              <span>Text Classification & Entity Recognition</span>
+              <i class="fas fa-check text-emerald-500 mt-1 mr-2"></i>
+              <span>Text classification, NER, intent, summarization & Q&A</span>
             </li>
             <li class="flex items-start">
-              <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
-              <span>Audio Transcription & Sentiment Analysis</span>
+              <i class="fas fa-check text-emerald-500 mt-1 mr-2"></i>
+              <span>Audio transcription, diarization & sentiment analysis</span>
             </li>
           </ul>
-          <button class="w-full bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 transition request-service-btn" 
-                  data-service="Data Annotation">
-            Inquire Now
+          <button 
+            class="w-full bg-blue-600 text-white py-2.5 rounded-lg text-sm font-semibold hover:bg-blue-700 transition request-service-btn" 
+            data-service="Data Annotation">
+            Inquire about annotation
           </button>
         </div>
 
         <!-- Data Validation -->
-        <div class="bg-gray-50 rounded-xl shadow-lg p-8 card-hover">
-          <div class="service-icon bg-green-600 mb-6">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-7 card-hover">
+          <div class="service-icon bg-emerald-600 mb-5">
             <i class="fas fa-check-double"></i>
           </div>
-          <h3 class="text-xl font-bold text-gray-800 mb-4">Data Validation</h3>
-          <p class="text-gray-700 mb-6">
-            Quality assurance and validation services to ensure your training data meets the highest standards.
+          <h3 class="text-xl font-bold text-slate-900 mb-2">Data quality & validation</h3>
+          <p class="text-sm text-slate-600 mb-4">
+            Independent checks to keep your datasets clean, consistent, and bias-aware over time.
           </p>
-          <ul class="space-y-3 mb-6">
+          <ul class="space-y-2.5 mb-6 text-sm text-slate-700">
             <li class="flex items-start">
-              <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
-              <span>Annotation Quality Review</span>
+              <i class="fas fa-check text-emerald-500 mt-1 mr-2"></i>
+              <span>Annotation audits and inter-annotator agreement</span>
             </li>
             <li class="flex items-start">
-              <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
-              <span>Consistency Checking</span>
+              <i class="fas fa-check text-emerald-500 mt-1 mr-2"></i>
+              <span>Consistency checks against your labeling schema</span>
             </li>
             <li class="flex items-start">
-              <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
-              <span>Bias Detection & Mitigation</span>
+              <i class="fas fa-check text-emerald-500 mt-1 mr-2"></i>
+              <span>Bias detection, coverage analysis & remediation plans</span>
             </li>
           </ul>
-          <button class="w-full bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 transition request-service-btn" 
-                  data-service="Data Validation">
-            Inquire Now
+          <button 
+            class="w-full bg-blue-600 text-white py-2.5 rounded-lg text-sm font-semibold hover:bg-blue-700 transition request-service-btn" 
+            data-service="Data Validation">
+            Inquire about validation
           </button>
         </div>
 
         <!-- Synthetic Data -->
-        <div class="bg-gray-50 rounded-xl shadow-lg p-8 card-hover">
-          <div class="service-icon bg-purple-600 mb-6">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-7 card-hover">
+          <div class="service-icon bg-purple-600 mb-5">
             <i class="fas fa-cubes"></i>
           </div>
-          <h3 class="text-xl font-bold text-gray-800 mb-4">Synthetic Data</h3>
-          <p class="text-gray-700 mb-6">
-            Generate realistic synthetic data to augment your training datasets and improve model robustness.
+          <h3 class="text-xl font-bold text-slate-900 mb-2">Synthetic data</h3>
+          <p class="text-sm text-slate-600 mb-4">
+            Generate realistic, privacy-safe data to augment or bootstrap your training sets.
           </p>
-          <ul class="space-y-3 mb-6">
+          <ul class="space-y-2.5 mb-6 text-sm text-slate-700">
             <li class="flex items-start">
-              <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
-              <span>3D Rendered Environments</span>
+              <i class="fas fa-check text-emerald-500 mt-1 mr-2"></i>
+              <span>3D rendered environments & domain-randomized scenes</span>
             </li>
             <li class="flex items-start">
-              <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
-              <span>Text Data Generation</span>
+              <i class="fas fa-check text-emerald-500 mt-1 mr-2"></i>
+              <span>Prompt-engineered text data for LLM fine-tuning</span>
             </li>
             <li class="flex items-start">
-              <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
-              <span>Domain-Specific Data Simulation</span>
+              <i class="fas fa-check text-emerald-500 mt-1 mr-2"></i>
+              <span>Custom simulation & augmentation pipelines</span>
             </li>
           </ul>
-          <button class="w-full bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 transition request-service-btn" 
-                  data-service="Synthetic Data">
-            Inquire Now
+          <button 
+            class="w-full bg-blue-600 text-white py-2.5 rounded-lg text-sm font-semibold hover:bg-blue-700 transition request-service-btn" 
+            data-service="Synthetic Data">
+            Inquire about synthetic data
           </button>
         </div>
       </div>
@@ -204,57 +466,57 @@
   </section>
 
   <!-- Our Process -->
-  <section id="process" class="py-16 bg-gray-50">
-    <div class="container mx-auto px-4">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold text-gray-800 mb-4">Our Proven Process</h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          How we deliver high-quality training data for your AI models
+  <section id="process" class="py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-10">
+        <h2 class="text-3xl font-bold text-slate-900 mb-3">A process designed for reliability</h2>
+        <p class="text-base text-slate-600 max-w-2xl mx-auto">
+          We plug into your workflows with clear ownership, transparent metrics, and feedback loops that continuously improve your data.
         </p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
         <!-- Step 1 -->
-        <div class="bg-white rounded-xl shadow-lg p-6 text-center card-hover">
-          <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <span class="text-blue-600 font-bold text-2xl">1</span>
+        <div class="bg-slate-50 rounded-2xl border border-slate-200 p-6 text-center card-hover">
+          <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+            <span class="text-blue-700 font-bold text-lg">1</span>
           </div>
-          <h3 class="text-lg font-bold text-gray-800 mb-2">Requirement Analysis</h3>
-          <p class="text-gray-600">
-            We work closely with you to understand your specific data needs and model requirements.
+          <h3 class="text-sm font-semibold text-slate-900 mb-1.5">Requirements & scoping</h3>
+          <p class="text-xs text-slate-600">
+            We align on success metrics, edge cases, formats, and volumes with your team.
           </p>
         </div>
 
         <!-- Step 2 -->
-        <div class="bg-white rounded-xl shadow-lg p-6 text-center card-hover">
-          <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <span class="text-green-600 font-bold text-2xl">2</span>
+        <div class="bg-slate-50 rounded-2xl border border-slate-200 p-6 text-center card-hover">
+          <div class="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-3">
+            <span class="text-emerald-700 font-bold text-lg">2</span>
           </div>
-          <h3 class="text-lg font-bold text-gray-800 mb-2">Annotation Design</h3>
-          <p class="text-gray-600">
-            Our experts design the optimal annotation schema tailored to your use case.
+          <h3 class="text-sm font-semibold text-slate-900 mb-1.5">Guidelines & pilot</h3>
+          <p class="text-xs text-slate-600">
+            We co-create guidelines, run a pilot batch, and calibrate quality thresholds.
           </p>
         </div>
 
         <!-- Step 3 -->
-        <div class="bg-white rounded-xl shadow-lg p-6 text-center card-hover">
-          <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <span class="text-purple-600 font-bold text-2xl">3</span>
+        <div class="bg-slate-50 rounded-2xl border border-slate-200 p-6 text-center card-hover">
+          <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3">
+            <span class="text-purple-700 font-bold text-lg">3</span>
           </div>
-          <h3 class="text-lg font-bold text-gray-800 mb-2">Quality Execution</h3>
-          <p class="text-gray-600">
-            Our trained annotators perform the work with rigorous quality control at each step.
+          <h3 class="text-sm font-semibold text-slate-900 mb-1.5">Scale & QA</h3>
+          <p class="text-xs text-slate-600">
+            Trained annotators work in parallel with multi-stage QA and performance monitoring.
           </p>
         </div>
 
         <!-- Step 4 -->
-        <div class="bg-white rounded-xl shadow-lg p-6 text-center card-hover">
-          <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <span class="text-yellow-600 font-bold text-2xl">4</span>
+        <div class="bg-slate-50 rounded-2xl border border-slate-200 p-6 text-center card-hover">
+          <div class="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-3">
+            <span class="text-amber-700 font-bold text-lg">4</span>
           </div>
-          <h3 class="text-lg font-bold text-gray-800 mb-2">Delivery & Feedback</h3>
-          <p class="text-gray-600">
-            We deliver the data in your preferred format and incorporate your feedback.
+          <h3 class="text-sm font-semibold text-slate-900 mb-1.5">Delivery & iteration</h3>
+          <p class="text-xs text-slate-600">
+            We deliver in your preferred formats and refine based on model performance & feedback.
           </p>
         </div>
       </div>
@@ -262,76 +524,78 @@
   </section>
 
   <!-- Testimonials -->
-  <section class="py-16 bg-white">
-    <div class="container mx-auto px-4">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold text-gray-800 mb-4">What Our Clients Say</h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Trusted by AI teams across industries
+  <section class="py-16 bg-slate-50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
+        <div>
+          <h2 class="text-3xl font-bold text-slate-900 mb-2">Teams that rely on Rilith</h2>
+          <p class="text-base text-slate-600 max-w-xl">
+            We work with AI teams in startups and enterprises, across computer vision, NLP, and robotics.
+          </p>
+        </div>
+        <p class="text-xs text-slate-500">
+          Names anonymized for confidentiality.
         </p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <!-- Testimonial 1 -->
-        <div class="bg-gray-50 rounded-xl shadow-lg p-6">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
           <div class="flex items-center mb-4">
-            <div class="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold mr-4">JD</div>
+            <div class="w-11 h-11 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold mr-3">JD</div>
             <div>
-              <h4 class="font-bold text-gray-800">Jane Doe</h4>
-              <p class="text-gray-600 text-sm">AI Lead</p>
+              <h4 class="font-semibold text-slate-900 text-sm">Head of Computer Vision</h4>
+              <p class="text-slate-500 text-xs">Global e-commerce company</p>
             </div>
           </div>
-          <p class="text-gray-700 italic">
-            "The quality of annotations we received was exceptional. Their team understood our computer vision model requirements perfectly and delivered ahead of schedule."
+          <p class="text-sm text-slate-700 italic">
+            “The quality of annotations was consistently strong and the team quickly understood our edge cases.
+            Their work directly contributed to better model performance and faster experimentation.”
           </p>
-          <div class="flex mt-4 text-yellow-400">
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
+          <div class="flex mt-4 text-amber-400 text-xs">
+            <i class="fas fa-star mr-0.5"></i><i class="fas fa-star mr-0.5"></i>
+            <i class="fas fa-star mr-0.5"></i><i class="fas fa-star mr-0.5"></i>
+            <i class="fas fa-star mr-0.5"></i>
           </div>
         </div>
 
         <!-- Testimonial 2 -->
-        <div class="bg-gray-50 rounded-xl shadow-lg p-6">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
           <div class="flex items-center mb-4">
-            <div class="w-12 h-12 rounded-full bg-green-600 flex items-center justify-center text-white font-bold mr-4">JS</div>
+            <div class="w-11 h-11 rounded-full bg-emerald-600 flex items-center justify-center text-white font-bold mr-3">JS</div>
             <div>
-              <h4 class="font-bold text-gray-800">John Smith</h4>
-              <p class="text-gray-600 text-sm">NLP Engineer</p>
+              <h4 class="font-semibold text-slate-900 text-sm">Senior NLP Engineer</h4>
+              <p class="text-slate-500 text-xs">Fintech platform</p>
             </div>
           </div>
-          <p class="text-gray-700 italic">
-            "Their text annotation services helped us build a highly accurate sentiment analysis model. The attention to detail was impressive."
+          <p class="text-sm text-slate-700 italic">
+            “Their text annotation and QA process helped us significantly improve our intent and sentiment models.
+            The feedback loop with our team was fast and very collaborative.”
           </p>
-          <div class="flex mt-4 text-yellow-400">
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
+          <div class="flex mt-4 text-amber-400 text-xs">
+            <i class="fas fa-star mr-0.5"></i><i class="fas fa-star mr-0.5"></i>
+            <i class="fas fa-star mr-0.5"></i><i class="fas fa-star mr-0.5"></i>
+            <i class="fas fa-star mr-0.5"></i>
           </div>
         </div>
 
         <!-- Testimonial 3 -->
-        <div class="bg-gray-50 rounded-xl shadow-lg p-6">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
           <div class="flex items-center mb-4">
-            <div class="w-12 h-12 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold mr-4">AB</div>
+            <div class="w-11 h-11 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold mr-3">AB</div>
             <div>
-              <h4 class="font-bold text-gray-800">Alex Brown</h4>
-              <p class="text-gray-600 text-sm">CTO, Robotics Startup</p>
+              <h4 class="font-semibold text-slate-900 text-sm">CTO, robotics startup</h4>
+              <p class="text-slate-500 text-xs">Autonomous systems</p>
             </div>
           </div>
-          <p class="text-gray-700 italic">
-            "The synthetic data they generated for our autonomous vehicle project was incredibly realistic and helped improve our model's performance by 15%."
+          <p class="text-sm text-slate-700 italic">
+            “The synthetic data scenarios they created for our navigation stack uncovered failure cases we had not
+            seen in production logs. We measured more than 15% improvement on our key benchmarks.”
           </p>
-          <div class="flex mt-4 text-yellow-400">
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star-half-alt"></i>
+          <div class="flex mt-4 text-amber-400 text-xs">
+            <i class="fas fa-star mr-0.5"></i><i class="fas fa-star mr-0.5"></i>
+            <i class="fas fa-star mr-0.5"></i><i class="fas fa-star mr-0.5"></i>
+            <i class="fas fa-star-half-alt mr-0.5"></i>
           </div>
         </div>
       </div>
@@ -339,75 +603,115 @@
   </section>
 
   <!-- Contact Form -->
-  <section id="contact" class="py-16 bg-gray-50">
-    <div class="container mx-auto px-4">
-      <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
+  <section id="contact" class="py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
         <div class="md:flex">
           <!-- Form Column -->
-          <div class="w-full md:w-1/2 p-8">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6">Request a Demo or Inquiry</h2>
-            <form id="demo-form" action="https://formspree.io/f/xdkdvwly" method="POST">
+          <div class="w-full md:w-1/2 p-7 sm:p-8">
+            <h2 class="text-2xl font-bold text-slate-900 mb-2">Tell us about your data needs</h2>
+            <p class="text-sm text-slate-600 mb-6">
+              Share a bit about your use case and timelines. We will get back with a proposed approach and next steps.
+            </p>
+            <form id="demo-form" action="https://formspree.io/f/xdkdvwly" method="POST" class="space-y-4">
               <input type="hidden" id="interest-type" name="interest-type" value="">
               <input type="hidden" id="specific-interest" name="specific-interest" value="">
               
-              <div class="mb-4">
-                <label for="name" class="block text-gray-700 font-medium mb-2">Name</label>
+              <div>
+                <label for="name" class="block text-sm text-slate-800 font-medium mb-1">Name</label>
                 <input type="text" id="name" name="name" required 
-                       class="w-full px-4 py-2 border border-gray-300 rounded-lg form-input focus:border-blue-500">
+                  class="w-full px-3 py-2 border border-slate-300 rounded-lg form-input text-sm">
               </div>
               
-              <div class="mb-4">
-                <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
+              <div>
+                <label for="email" class="block text-sm text-slate-800 font-medium mb-1">Work email</label>
                 <input type="email" id="email" name="email" required 
-                       class="w-full px-4 py-2 border border-gray-300 rounded-lg form-input focus:border-blue-500">
+                  class="w-full px-3 py-2 border border-slate-300 rounded-lg form-input text-sm">
               </div>
               
-              <div class="mb-4">
-                <label for="company" class="block text-gray-700 font-medium mb-2">Company</label>
+              <div>
+                <label for="company" class="block text-sm text-slate-800 font-medium mb-1">Company</label>
                 <input type="text" id="company" name="company" 
-                       class="w-full px-4 py-2 border border-gray-300 rounded-lg form-input focus:border-blue-500">
+                  class="w-full px-3 py-2 border border-slate-300 rounded-lg form-input text-sm">
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label for="use-case" class="block text-sm text-slate-800 font-medium mb-1">Primary use case</label>
+                  <select id="use-case" name="use-case" class="w-full px-3 py-2 border border-slate-300 rounded-lg form-input text-sm">
+                    <option value="">Select</option>
+                    <option>Computer vision</option>
+                    <option>NLP / LLM</option>
+                    <option>Autonomous systems</option>
+                    <option>Speech / audio</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="timeline" class="block text-sm text-slate-800 font-medium mb-1">Desired start</label>
+                  <select id="timeline" name="timeline" class="w-full px-3 py-2 border border-slate-300 rounded-lg form-input text-sm">
+                    <option value="">Select</option>
+                    <option>Within 1 week</option>
+                    <option>Within 1 month</option>
+                    <option>1–3 months</option>
+                    <option>3+ months</option>
+                  </select>
+                </div>
               </div>
               
-              <div class="mb-4">
-                <label for="message" class="block text-gray-700 font-medium mb-2">How can we help you?</label>
+              <div>
+                <label for="message" class="block text-sm text-slate-800 font-medium mb-1">How can we help you?</label>
                 <textarea id="message" name="message" rows="4" required 
-                          class="w-full px-4 py-2 border border-gray-300 rounded-lg form-input focus:border-blue-500"></textarea>
+                  class="w-full px-3 py-2 border border-slate-300 rounded-lg form-input text-sm"
+                  placeholder="Share your current challenges, volume estimates, or any existing guidelines."></textarea>
               </div>
               
-              <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 transition">
-                Submit Request
+              <button type="submit" class="w-full bg-blue-600 text-white py-2.5 rounded-lg text-sm font-semibold hover:bg-blue-700 transition">
+                Submit request
               </button>
+              <p class="text-[11px] text-slate-500 mt-1">
+                By submitting, you agree that we may contact you about this and related services. We do not sell your data.
+              </p>
             </form>
           </div>
           
           <!-- Info Column -->
-          <div class="w-full md:w-1/2 bg-blue-600 text-white p-8">
-            <h3 class="text-xl font-bold mb-6">Get in Touch</h3>
-            <p class="mb-6">
-              Our team is ready to discuss your AI data needs and provide a customized solution.
+          <div class="w-full md:w-1/2 bg-slate-900 text-slate-50 p-7 sm:p-8">
+            <h3 class="text-lg font-bold mb-3">Speak with a specialist</h3>
+            <p class="text-sm text-slate-200 mb-5">
+              Our team has worked with AI, data, and product teams across multiple industries. We will shape a plan that fits your stage and resourcing.
             </p>
             
-            <div class="space-y-4">
+            <div class="space-y-4 text-sm">
               <div class="flex items-start">
-                <i class="fas fa-envelope text-blue-200 mt-1 mr-3"></i>
-                <span>rohit@rilith.com</span>
+                <i class="fas fa-envelope text-blue-300 mt-1 mr-3"></i>
+                <div>
+                  <p class="text-slate-200">Email</p>
+                  <p class="text-slate-300">rohit@rilith.com</p>
+                </div>
               </div>
               <div class="flex items-start">
-                <i class="fab fa-whatsapp text-green-500 mt-1 mr-3"></i>
-                <span>+91 73888 40089</span>
+                <i class="fab fa-whatsapp text-emerald-400 mt-1 mr-3"></i>
+                <div>
+                  <p class="text-slate-200">WhatsApp</p>
+                  <p class="text-slate-300">+91 73888 40089</p>
+                </div>
               </div>
               <div class="flex items-start">
-                <i class="fas fa-map-marker-alt text-blue-200 mt-1 mr-3"></i>
-                <span>San Francisco, CA, USA</span>
+                <i class="fas fa-map-marker-alt text-blue-300 mt-1 mr-3"></i>
+                <div>
+                  <p class="text-slate-200">Locations</p>
+                  <p class="text-slate-300">San Francisco, CA (USA) · Global remote teams</p>
+                </div>
               </div>
             </div>
             
-            <div class="mt-8">
-              <h4 class="font-bold mb-4">What happens next?</h4>
-              <ol class="list-decimal list-inside space-y-2 text-sm">
-                <li>We'll review your request within 24 hours</li>
-                <li>A specialist will contact you to discuss details</li>
-                <li>We'll prepare a customized demo or proposal</li>
+            <div class="mt-8 text-xs text-slate-200">
+              <h4 class="font-semibold mb-2">What happens next?</h4>
+              <ol class="list-decimal list-inside space-y-1.5">
+                <li>We review your request within 24 hours.</li>
+                <li>A specialist reaches out to clarify your use case.</li>
+                <li>We share a suggested approach, timelines, and pricing.</li>
               </ol>
             </div>
           </div>
@@ -417,64 +721,70 @@
   </section>
 
   <!-- FAQ -->
-  <section class="py-16 bg-white">
-    <div class="container mx-auto px-4 max-w-4xl">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
-        <p class="text-xl text-gray-600">
-          Common questions about our services
+  <section class="py-16 bg-slate-50">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-10">
+        <h2 class="text-3xl font-bold text-slate-900 mb-2">Frequently asked questions</h2>
+        <p class="text-base text-slate-600">
+          If you do not see your question here, we are happy to discuss it directly.
         </p>
       </div>
 
-      <div class="space-y-4">
+      <div class="space-y-3">
         <!-- FAQ Item 1 -->
-        <div class="border border-gray-200 rounded-lg overflow-hidden">
-          <button class="faq-toggle w-full text-left p-4 bg-gray-50 hover:bg-gray-100 flex justify-between items-center">
-            <span class="font-medium text-gray-800">What types of data can you annotate?</span>
-            <i class="fas fa-chevron-down text-blue-600 transition-transform"></i>
+        <div class="border border-slate-200 rounded-xl overflow-hidden bg-white">
+          <button class="faq-toggle w-full text-left px-4 sm:px-5 py-3 bg-slate-50 hover:bg-slate-100 flex justify-between items-center">
+            <span class="font-medium text-slate-900 text-sm">What types of data can you annotate?</span>
+            <i class="fas fa-chevron-down text-blue-600 text-xs transition-transform"></i>
           </button>
-          <div class="faq-content hidden p-4 bg-white">
-            <p class="text-gray-700">
-              We specialize in all major data types including images, video, text, audio, and sensor data. Our team has experience with diverse annotation tasks from simple classification to complex 3D point cloud labeling.
+          <div class="faq-content hidden px-4 sm:px-5 pb-4 pt-2 bg-white text-sm text-slate-700">
+            <p>
+              We work with images, video, text, audio, and sensor data (including 3D / LiDAR).
+              Our team covers a wide range of tasks – from simple classification and tagging
+              to dense segmentation, keypoints, entity extraction, and conversation labeling.
             </p>
           </div>
         </div>
 
         <!-- FAQ Item 2 -->
-        <div class="border border-gray-200 rounded-lg overflow-hidden">
-          <button class="faq-toggle w-full text-left p-4 bg-gray-50 hover:bg-gray-100 flex justify-between items-center">
-            <span class="font-medium text-gray-800">How do you ensure data quality?</span>
-            <i class="fas fa-chevron-down text-blue-600 transition-transform"></i>
+        <div class="border border-slate-200 rounded-xl overflow-hidden bg-white">
+          <button class="faq-toggle w-full text-left px-4 sm:px-5 py-3 bg-slate-50 hover:bg-slate-100 flex justify-between items-center">
+            <span class="font-medium text-slate-900 text-sm">How do you ensure data quality?</span>
+            <i class="fas fa-chevron-down text-blue-600 text-xs transition-transform"></i>
           </button>
-          <div class="faq-content hidden p-4 bg-white">
-            <p class="text-gray-700">
-              We implement a multi-stage quality control process including annotator training, automated checks, manual reviews by senior annotators, and client feedback loops. Our quality metrics are transparent and we provide detailed reports.
+          <div class="faq-content hidden px-4 sm:px-5 pb-4 pt-2 bg-white text-sm text-slate-700">
+            <p>
+              Quality is driven through guidelines, calibration rounds, and multi-stage reviews.
+              We use inter-annotator agreement, sampling audits, and automated checks, and we share
+              quality reports so you always see how each batch is performing.
             </p>
           </div>
         </div>
 
         <!-- FAQ Item 3 -->
-        <div class="border border-gray-200 rounded-lg overflow-hidden">
-          <button class="faq-toggle w-full text-left p-4 bg-gray-50 hover:bg-gray-100 flex justify-between items-center">
-            <span class="font-medium text-gray-800">Can you handle sensitive or proprietary data?</span>
-            <i class="fas fa-chevron-down text-blue-600 transition-transform"></i>
+        <div class="border border-slate-200 rounded-xl overflow-hidden bg-white">
+          <button class="faq-toggle w-full text-left px-4 sm:px-5 py-3 bg-slate-50 hover:bg-slate-100 flex justify-between items-center">
+            <span class="font-medium text-slate-900 text-sm">Can you handle sensitive or proprietary data?</span>
+            <i class="fas fa-chevron-down text-blue-600 text-xs transition-transform"></i>
           </button>
-          <div class="faq-content hidden p-4 bg-white">
-            <p class="text-gray-700">
-              Absolutely. We offer secure data handling with NDAs, on-premises solutions, and compliance with GDPR, CCPA, and other privacy regulations. Our infrastructure is designed to protect your intellectual property.
+          <div class="faq-content hidden px-4 sm:px-5 pb-4 pt-2 bg-white text-sm text-slate-700">
+            <p>
+              Yes. We support NDAs, strict access controls, and region-specific handling when required.
+              We can work with anonymized data or create synthetic alternatives when raw data cannot be shared.
             </p>
           </div>
         </div>
 
         <!-- FAQ Item 4 -->
-        <div class="border border-gray-200 rounded-lg overflow-hidden">
-          <button class="faq-toggle w-full text-left p-4 bg-gray-50 hover:bg-gray-100 flex justify-between items-center">
-            <span class="font-medium text-gray-800">What formats can you deliver the data in?</span>
-            <i class="fas fa-chevron-down text-blue-600 transition-transform"></i>
+        <div class="border border-slate-200 rounded-xl overflow-hidden bg-white">
+          <button class="faq-toggle w-full text-left px-4 sm:px-5 py-3 bg-slate-50 hover:bg-slate-100 flex justify-between items-center">
+            <span class="font-medium text-slate-900 text-sm">What formats can you deliver the data in?</span>
+            <i class="fas fa-chevron-down text-blue-600 text-xs transition-transform"></i>
           </button>
-          <div class="faq-content hidden p-4 bg-white">
-            <p class="text-gray-700">
-              We support all standard formats (COCO, Pascal VOC, TFRecord, Json etc.) and can customize the output to match your specific pipeline requirements. Our team will work with you to determine the optimal format for your use case.
+          <div class="faq-content hidden px-4 sm:px-5 pb-4 pt-2 bg-white text-sm text-slate-700">
+            <p>
+              We work with all common formats including COCO, Pascal VOC, TFRecord, JSON, CSV, and others.
+              If you have a custom schema, we map our outputs to match your ingestion pipeline.
             </p>
           </div>
         </div>
@@ -483,118 +793,127 @@
   </section>
 
   <!-- CTA -->
-  <section class="py-16 bg-blue-600 text-white">
-    <div class="container mx-auto px-4 text-center">
-      <h2 class="text-3xl font-bold mb-6">Ready to Accelerate Your AI Development?</h2>
-      <p class="text-xl mb-8 max-w-2xl mx-auto">
-        Get started with high-quality training data tailored to your specific needs.
+  <section class="py-14 bg-blue-600 text-white">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl sm:text-3xl font-bold mb-3">Ready to accelerate your AI roadmap?</h2>
+      <p class="text-sm sm:text-base mb-6 max-w-2xl mx-auto text-blue-100">
+        Start with a focused pilot project, validate the impact on your models, and then scale confidently.
       </p>
-      <a href="#contact" class="inline-block bg-white text-blue-600 font-bold px-8 py-3 rounded-lg hover:bg-gray-100 transition duration-300">
-        Request a Consultation
-      </a>
+      <div class="flex flex-col sm:flex-row justify-center gap-3">
+        <button 
+          class="inline-flex justify-center bg-white text-blue-700 font-semibold px-6 py-2.5 rounded-lg text-sm hover:bg-slate-50 shadow-sm request-demo-btn"
+          data-solution="Pilot Project / POC">
+          Book a pilot discussion
+        </button>
+        <a href="#contact" class="inline-flex justify-center border border-white/80 text-white font-semibold px-6 py-2.5 rounded-lg text-sm hover:bg-white/5">
+          Send us your requirements
+        </a>
+      </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="bg-gray-900 text-white py-12">
-    <div class="container mx-auto px-4">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+  <footer class="bg-slate-950 text-slate-300 py-10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 text-sm">
         <!-- Column 1 -->
         <div>
-          <div class="flex items-center mb-4">
-            <i class="fas fa-robot text-blue-400 text-2xl mr-2"></i>
-            <span class="text-xl font-bold">AI Data Solutions</span>
+          <div class="flex items-center mb-3">
+            <div class="w-8 h-8 rounded-xl bg-blue-500 flex items-center justify-center mr-2">
+              <i class="fas fa-robot text-white text-sm"></i>
+            </div>
+            <span class="text-base font-bold">Rilith</span>
           </div>
-          <p class="text-gray-400 mb-4">
-            Providing high-quality data annotation and synthetic data services for AI teams worldwide.
+          <p class="text-slate-400 mb-3 text-xs">
+            High-quality data annotation, validation, and synthetic data services
+            for AI teams building production-grade models.
           </p>
-          <div class="flex space-x-4">
-            <a href="#" class="text-gray-400 hover:text-white">
-              <i class="fab fa-twitter"></i>
-            </a>
-            <a href="#" class="text-gray-400 hover:text-white">
-              <i class="fab fa-linkedin"></i>
-            </a>
-            <a href="#" class="text-gray-400 hover:text-white">
-              <i class="fab fa-github"></i>
-            </a>
+          <div class="flex space-x-3 text-slate-400 text-sm">
+            <a href="#" class="hover:text-white"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="hover:text-white"><i class="fab fa-linkedin"></i></a>
+            <a href="#" class="hover:text-white"><i class="fab fa-github"></i></a>
           </div>
         </div>
 
         <!-- Column 2 -->
         <div>
-          <h4 class="text-lg font-bold mb-4">Solutions</h4>
-          <ul class="space-y-2">
-            <li><a href="#" class="text-gray-400 hover:text-white">MathTex Converter</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white">Text Cleaner Pro</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white">Image Labeler</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white">Data Augmentor</a></li>
+          <h4 class="text-sm font-semibold mb-3 text-white">Solutions</h4>
+          <ul class="space-y-1.5 text-xs text-slate-400">
+            <li><button class="hover:text-white request-demo-btn" data-solution="Training & Evaluation Datasets">Training & evaluation datasets</button></li>
+            <li><button class="hover:text-white request-demo-btn" data-solution="Human-in-the-loop Pipelines">Human-in-the-loop pipelines</button></li>
+            <li><button class="hover:text-white request-demo-btn" data-solution="Scenario & Stress-test Datasets">Synthetic stress-test scenarios</button></li>
           </ul>
         </div>
 
         <!-- Column 3 -->
         <div>
-          <h4 class="text-lg font-bold mb-4">Services</h4>
-          <ul class="space-y-2">
-            <li><a href="#" class="text-gray-400 hover:text-white">Data Annotation</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white">Data Validation</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white">Synthetic Data</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white">Consulting</a></li>
+          <h4 class="text-sm font-semibold mb-3 text-white">Services</h4>
+          <ul class="space-y-1.5 text-xs text-slate-400">
+            <li><button class="hover:text-white request-service-btn" data-service="Data Annotation">Data annotation</button></li>
+            <li><button class="hover:text-white request-service-btn" data-service="Data Validation">Data validation</button></li>
+            <li><button class="hover:text-white request-service-btn" data-service="Synthetic Data">Synthetic data</button></li>
+            <li><button class="hover:text-white request-demo-btn" data-solution="Consulting">Advisory & consulting</button></li>
           </ul>
         </div>
 
         <!-- Column 4 -->
         <div>
-          <h4 class="text-lg font-bold mb-4">Company</h4>
-          <ul class="space-y-2">
-            <li><a href="#" class="text-gray-400 hover:text-white">About Us</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white">Our Process</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white">Careers</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white">Contact</a></li>
+          <h4 class="text-sm font-semibold mb-3 text-white">Company</h4>
+          <ul class="space-y-1.5 text-xs text-slate-400">
+            <li><a href="#process" class="hover:text-white">How we work</a></li>
+            <li><a href="#contact" class="hover:text-white">Contact</a></li>
+            <li><span class="text-slate-500">Careers (coming soon)</span></li>
+            <li><span class="text-slate-500">Security & compliance</span></li>
           </ul>
         </div>
       </div>
 
-      <div class="border-t border-gray-800 pt-8 text-center text-gray-400">
-        <p>&copy; 2024 Rilith | All rights reserved.</p>
+      <div class="border-t border-slate-800 pt-4 flex flex-col md:flex-row items-center justify-between text-[11px] text-slate-500 space-y-2 md:space-y-0">
+        <p>&copy; 2024 Rilith. All rights reserved.</p>
+        <div class="flex space-x-4">
+          <a href="#" class="hover:text-slate-300">Privacy</a>
+          <a href="#" class="hover:text-slate-300">Terms</a>
+          <a href="#contact" class="hover:text-slate-300">Get in touch</a>
+        </div>
       </div>
     </div>
   </footer>
 
   <!-- Demo Request Modal -->
   <div id="demo-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 modal-overlay">
-    <div class="bg-white rounded-xl shadow-xl w-full max-w-md modal-content">
-      <div class="flex justify-between items-center border-b p-4">
-        <h3 id="demo-modal-title" class="text-xl font-bold">Request Demo</h3>
-        <button id="close-demo-modal" class="text-gray-500 hover:text-gray-700">
-          <i class="fas fa-times"></i>
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md modal-content border border-slate-200">
+      <div class="flex justify-between items-center border-b border-slate-200 px-5 py-3">
+        <h3 id="demo-modal-title" class="text-base font-bold text-slate-900">Request demo</h3>
+        <button id="close-demo-modal" class="text-slate-500 hover:text-slate-700" aria-label="Close modal">
+          <i class="fas fa-times text-sm"></i>
         </button>
       </div>
-      <div class="p-6">
-        <form id="quick-demo-form" action="https://formspree.io/f/xdkdvwly" method="POST">
+      <div class="p-5">
+        <form id="quick-demo-form" action="https://formspree.io/f/xdkdvwly" method="POST" class="space-y-4 text-sm">
           <input type="hidden" id="quick-interest-type" name="interest-type" value="">
           <input type="hidden" id="quick-specific-interest" name="specific-interest" value="">
           
-          <div class="mb-4">
-            <label for="quick-name" class="block text-gray-700 font-medium mb-2">Name</label>
+          <div>
+            <label for="quick-name" class="block text-slate-800 font-medium mb-1 text-sm">Name</label>
             <input type="text" id="quick-name" name="name" required 
-                   class="w-full px-4 py-2 border border-gray-300 rounded-lg form-input focus:border-blue-500">
+              class="w-full px-3 py-2 border border-slate-300 rounded-lg form-input text-sm">
           </div>
           
-          <div class="mb-4">
-            <label for="quick-email" class="block text-gray-700 font-medium mb-2">Email</label>
+          <div>
+            <label for="quick-email" class="block text-slate-800 font-medium mb-1 text-sm">Work email</label>
             <input type="email" id="quick-email" name="email" required 
-                   class="w-full px-4 py-2 border border-gray-300 rounded-lg form-input focus:border-blue-500">
+              class="w-full px-3 py-2 border border-slate-300 rounded-lg form-input text-sm">
           </div>
           
-          <div class="mb-4">
-            <label for="quick-message" class="block text-gray-700 font-medium mb-2">Message (Optional)</label>
+          <div>
+            <label for="quick-message" class="block text-slate-800 font-medium mb-1 text-sm">Message (optional)</label>
             <textarea id="quick-message" name="message" rows="3" 
-                      class="w-full px-4 py-2 border border-gray-300 rounded-lg form-input focus:border-blue-500"></textarea>
+              class="w-full px-3 py-2 border border-slate-300 rounded-lg form-input text-sm"
+              placeholder="Example: Looking for annotation support for a vision model pilot."></textarea>
           </div>
           
-          <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 transition">
-            Submit Request
+          <button type="submit" class="w-full bg-blue-600 text-white py-2.5 rounded-lg text-sm font-semibold hover:bg-blue-700 transition">
+            Submit request
           </button>
         </form>
       </div>
@@ -603,6 +922,35 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
+      // Mobile nav toggle
+      const mobileToggle = document.getElementById('mobile-menu-toggle');
+      const mobileMenu = document.getElementById('mobile-menu');
+
+      if (mobileToggle && mobileMenu) {
+        mobileToggle.addEventListener('click', () => {
+          const icon = mobileToggle.querySelector('i');
+          mobileMenu.classList.toggle('hidden');
+          if (icon) {
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+          }
+        });
+
+        // Close mobile menu on link click
+        mobileMenu.querySelectorAll('a, button').forEach(el => {
+          el.addEventListener('click', () => {
+            if (!mobileMenu.classList.contains('hidden')) {
+              mobileMenu.classList.add('hidden');
+              const icon = mobileToggle.querySelector('i');
+              if (icon && icon.classList.contains('fa-times')) {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+              }
+            }
+          });
+        });
+      }
+
       // FAQ Toggle
       const faqToggles = document.querySelectorAll('.faq-toggle');
       faqToggles.forEach(toggle => {
@@ -628,20 +976,20 @@
       demoButtons.forEach(button => {
         button.addEventListener('click', function() {
           const isService = this.classList.contains('request-service-btn');
-          const itemName = this.getAttribute('data-solution') || this.getAttribute('data-service');
-          
+          const itemName = this.getAttribute('data-solution') || this.getAttribute('data-service') || '';
+
           if (isService) {
-            demoModalTitle.textContent = 'Service Inquiry';
+            demoModalTitle.textContent = 'Service inquiry';
             quickInterestType.value = 'service';
-            interestType.value = 'service';
+            if (interestType) interestType.value = 'service';
           } else {
-            demoModalTitle.textContent = 'Request Demo';
+            demoModalTitle.textContent = 'Request demo';
             quickInterestType.value = 'solution';
-            interestType.value = 'solution';
+            if (interestType) interestType.value = 'solution';
           }
           
           quickSpecificInterest.value = itemName;
-          specificInterest.value = itemName;
+          if (specificInterest) specificInterest.value = itemName;
           
           demoModal.classList.remove('hidden');
           document.body.style.overflow = 'hidden';
@@ -649,10 +997,12 @@
       });
 
       // Close demo modal
-      closeDemoModal.addEventListener('click', function() {
-        demoModal.classList.add('hidden');
-        document.body.style.overflow = '';
-      });
+      if (closeDemoModal) {
+        closeDemoModal.addEventListener('click', function() {
+          demoModal.classList.add('hidden');
+          document.body.style.overflow = '';
+        });
+      }
 
       // Close when clicking outside
       demoModal.addEventListener('click', function(e) {
@@ -670,8 +1020,6 @@
         event.preventDefault();
         const formData = new FormData(form);
         
-        // Here you would typically send the data to your server
-        // For now, we'll just show an alert and reset the form
         fetch(form.action, {
           method: 'POST',
           body: formData,
@@ -681,10 +1029,11 @@
         })
         .then(response => {
           if (response.ok) {
-            alert('Thank you for your request! We will contact you soon.');
+            alert('Thank you for your request. We will contact you soon.');
             form.reset();
             if (form === quickDemoForm) {
               demoModal.classList.add('hidden');
+              document.body.style.overflow = '';
             }
           } else {
             throw new Error('Network response was not ok');
@@ -696,25 +1045,12 @@
         });
       }
       
-      demoForm.addEventListener('submit', (e) => handleFormSubmit(demoForm, e));
-      quickDemoForm.addEventListener('submit', (e) => handleFormSubmit(quickDemoForm, e));
-
-      // Smooth scrolling for anchor links
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-          e.preventDefault();
-          
-          const targetId = this.getAttribute('href');
-          if (targetId === '#') return;
-          
-          const targetElement = document.querySelector(targetId);
-          if (targetElement) {
-            targetElement.scrollIntoView({
-              behavior: 'smooth'
-            });
-          }
-        });
-      });
+      if (demoForm) {
+        demoForm.addEventListener('submit', (e) => handleFormSubmit(demoForm, e));
+      }
+      if (quickDemoForm) {
+        quickDemoForm.addEventListener('submit', (e) => handleFormSubmit(quickDemoForm, e));
+      }
     });
   </script>
 </body>
