@@ -5,223 +5,699 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rilith | AI / ML Talent as a Service</title>
 
+  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #f8fafc;
+    :root {
+      --bg-body: #050816;
+      --card-bg: #050816;
+      --card-border: rgba(148, 163, 184, 0.35);
+      --accent: #0ea5e9;
+      --accent-soft: rgba(56, 189, 248, 0.16);
+    }
+
+    * {
       scroll-behavior: smooth;
     }
 
+    body {
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle at top, #0b1220 0, #020617 40%, #020617 100%);
+      color: #e5e7eb;
+    }
+
     .btn-primary {
-      background: #4f46e5;
-      color: #fff;
-      padding: 0.75rem 1.5rem;
-      border-radius: 0.75rem;
+      background: linear-gradient(135deg, #0ea5e9, #22c55e);
+      color: #020617;
+      padding: 0.8rem 1.6rem;
+      border-radius: 999px;
       font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      box-shadow:
+        0 0 0 1px rgba(15, 23, 42, 0.5),
+        0 10px 30px rgba(15, 23, 42, 0.9),
+        0 0 40px rgba(56, 189, 248, 0.45);
+      transition: all 0.25s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px) translateZ(0);
+      box-shadow:
+        0 0 0 1px rgba(15, 23, 42, 0.7),
+        0 18px 40px rgba(15, 23, 42, 1),
+        0 0 55px rgba(56, 189, 248, 0.65);
+      filter: brightness(1.03);
+    }
+
+    .btn-secondary {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      padding: 0.8rem 1.4rem;
+      font-weight: 500;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(12px);
       transition: all 0.2s ease;
     }
-    .btn-primary:hover {
-      background: #4338ca;
+
+    .btn-secondary:hover {
+      border-color: rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.9);
       transform: translateY(-1px);
     }
 
-    .hero-gradient {
-      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #9333ea 100%);
+    .nav-link {
+      position: relative;
+      padding-bottom: 0.15rem;
     }
 
-    .card {
-      background: #ffffff;
-      border: 1px solid #e5e7eb;
-      border-radius: 1rem;
-      padding: 1.5rem;
-      transition: all 0.2s ease;
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 1px;
+      background: linear-gradient(to right, #0ea5e9, #22c55e);
+      transition: width 0.18s ease;
     }
 
-    .card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
-      border-color: #c7d2fe;
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .glass-panel {
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.06), transparent 55%),
+                  radial-gradient(circle at bottom right, rgba(34, 197, 94, 0.06), transparent 55%),
+                  rgba(15, 23, 42, 0.74);
+      border-radius: 1.5rem;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      box-shadow:
+        0 18px 60px rgba(15, 23, 42, 0.9),
+        0 0 0 1px rgba(15, 23, 42, 1);
+      backdrop-filter: blur(18px);
+    }
+
+    .soft-card {
+      background: rgba(15, 23, 42, 0.84);
+      border-radius: 1.25rem;
+      border: 1px solid var(--card-border);
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.9);
+      transition: all 0.25s ease;
+    }
+
+    .soft-card:hover {
+      transform: translateY(-4px) translateZ(0);
+      border-color: rgba(56, 189, 248, 0.55);
+      box-shadow:
+        0 22px 60px rgba(15, 23, 42, 0.95),
+        0 0 50px rgba(56, 189, 248, 0.3);
+    }
+
+    .section-shell {
+      border-radius: 2rem;
+      border: 1px solid rgba(30, 64, 175, 0.18);
+      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.9), #020617);
+      box-shadow:
+        0 26px 80px rgba(15, 23, 42, 0.9),
+        0 0 0 1px rgba(15, 23, 42, 0.9);
+    }
+
+    .pill {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.8);
+      padding: 0.3rem 0.9rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .pill-dot {
+      width: 0.55rem;
+      height: 0.55rem;
+      border-radius: 999px;
+      background: radial-gradient(circle, #22c55e 0, #0f766e 60%, #0b1120 100%);
+      box-shadow: 0 0 16px rgba(34, 197, 94, 0.9);
+    }
+
+    .stat-pill {
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      padding: 0.35rem 0.9rem;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    .gradient-line {
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(148, 163, 184, 0.9), transparent);
+    }
+
+    .badge-soft {
+      border-radius: 999px;
+      padding: 0.3rem 0.8rem;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.85);
+      font-size: 0.7rem;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-6px); }
+    }
+
+    .float-slow {
+      animation: float 8s ease-in-out infinite;
     }
 
     .hidden { display: none; }
   </style>
 </head>
 
-<body class="text-gray-800">
+<body class="min-h-screen text-slate-100 antialiased">
 
-<!-- HEADER -->
-<header class="bg-white/95 backdrop-blur shadow-sm fixed top-0 w-full z-50">
-  <div class="max-w-7xl mx-auto px-6 flex justify-between items-center py-4">
-    <a href="#" class="text-2xl font-bold text-indigo-600 flex items-center gap-2">
-      <i class="fas fa-brain"></i> Rilith
-    </a>
-
-    <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-gray-700">
-      <a href="#companies" class="hover:text-indigo-600">Companies</a>
-      <a href="#talent" class="hover:text-indigo-600">Talent</a>
-      <a href="#how" class="hover:text-indigo-600">How it Works</a>
-      <a href="#contact" class="btn-primary">Contact</a>
-    </nav>
-
-    <button id="menuBtn" class="md:hidden text-gray-700 text-xl">
-      <i class="fas fa-bars"></i>
-    </button>
-  </div>
-
-  <div id="mobileMenu" class="hidden bg-white md:hidden px-6 py-4 border-t">
-    <div class="flex flex-col gap-4 font-semibold">
-      <a href="#companies">Companies</a>
-      <a href="#talent">Talent</a>
-      <a href="#how">How it Works</a>
-      <a href="#contact" class="btn-primary text-center">Contact</a>
-    </div>
-  </div>
-</header>
-
-<div class="h-20"></div>
-
-<!-- HERO -->
-<section class="hero-gradient text-white py-20 px-6">
-  <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
-
-    <div>
-      <span class="bg-white/10 border border-white/20 px-4 py-1 rounded-full text-xs uppercase font-semibold tracking-widest">
-        AI / ML Talent as a Service
-      </span>
-
-      <h1 class="text-4xl md:text-5xl font-extrabold mt-6 mb-6 leading-tight">
-        Build Your AI Team Faster, Smarter, Globally
-      </h1>
-
-      <p class="text-lg text-white/90 max-w-xl mb-8">
-        Access pre-vetted AI engineers, ML experts and specialized teams on demand without hiring friction.
-      </p>
-
-      <div class="flex gap-4">
-        <a href="#companies" class="btn-primary">Hire Talent</a>
-        <a href="#talent" class="bg-white text-indigo-600 font-semibold px-6 py-3 rounded-xl">
-          Join as Talent
+  <!-- HEADER -->
+  <header class="fixed top-0 inset-x-0 z-50 border-b border-slate-800/70 bg-slate-950/70 backdrop-blur-xl">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-2">
+          <div class="h-8 w-8 rounded-2xl bg-gradient-to-br from-sky-400 to-emerald-400 flex items-center justify-center text-slate-950 shadow-lg shadow-cyan-500/40">
+            <i class="fas fa-brain text-sm"></i>
+          </div>
+          <div class="flex flex-col leading-tight">
+            <span class="text-sm font-semibold tracking-[0.22em] uppercase text-slate-400">Rilith</span>
+            <span class="text-xs text-slate-500">AI Talent Studio</span>
+          </div>
         </a>
+
+        <!-- Desktop Nav -->
+        <nav class="hidden md:flex items-center gap-8 text-xs font-medium text-slate-300">
+          <a href="#companies" class="nav-link hover:text-slate-50">Companies</a>
+          <a href="#talent" class="nav-link hover:text-slate-50">Talent</a>
+          <a href="#how" class="nav-link hover:text-slate-50">How it works</a>
+          <a href="#contact" class="btn-secondary">
+            Talk to us
+            <span class="h-1 w-1 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.9)]"></span>
+          </a>
+        </nav>
+
+        <!-- Mobile Menu Button -->
+        <button id="menuBtn" class="md:hidden text-slate-300 text-xl">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+
+      <!-- Mobile Nav -->
+      <div id="mobileMenu" class="hidden md:hidden border-t border-slate-800/70 mt-2 pb-4">
+        <div class="flex flex-col gap-3 pt-3 text-sm font-medium text-slate-200">
+          <a href="#companies" class="py-1">Companies</a>
+          <a href="#talent" class="py-1">Talent</a>
+          <a href="#how" class="py-1">How it works</a>
+          <a href="#contact" class="btn-secondary mt-2 justify-center">Talk to us</a>
+        </div>
       </div>
     </div>
+  </header>
 
-    <div class="bg-white/10 backdrop-blur border border-white/20 rounded-2xl p-6">
-      <h3 class="font-semibold mb-4 flex gap-2 items-center">
-        <i class="fas fa-robot"></i>
-        AI Talent Matching Engine
-      </h3>
-      <div class="bg-gray-900 text-gray-300 text-sm p-4 rounded-xl">
-        Matching you with AI experts in: NLP, Computer Vision, MLOps, LLMs...
+  <!-- Spacer for fixed header -->
+  <div class="h-16"></div>
+
+  <!-- HERO -->
+  <main class="px-4 sm:px-6 lg:px-4 pt-8 md:pt-16 pb-16">
+    <section class="max-w-6xl mx-auto">
+      <div class="section-shell px-5 sm:px-8 md:px-10 py-8 md:py-10 lg:py-12 relative overflow-hidden">
+        <!-- Background accents -->
+        <div class="pointer-events-none absolute -right-32 -top-32 h-72 w-72 rounded-full bg-sky-500/10 blur-3xl"></div>
+        <div class="pointer-events-none absolute -left-24 -bottom-24 h-64 w-64 rounded-full bg-emerald-500/10 blur-3xl"></div>
+
+        <div class="grid lg:grid-cols-12 gap-10 items-center relative z-10">
+          <!-- Left -->
+          <div class="lg:col-span-7 space-y-7">
+            <div class="pill">
+              <span class="pill-dot"></span>
+              <span>AI / ML Talent as a Service</span>
+            </div>
+
+            <div class="space-y-4">
+              <h1 class="text-3xl sm:text-4xl lg:text-[2.6rem] font-semibold tracking-tight text-slate-50 leading-tight">
+                Build an elite AI team
+                <span class="inline-block bg-gradient-to-r from-sky-400 to-emerald-400 bg-clip-text text-transparent">
+                  without hiring friction
+                </span>
+              </h1>
+              <p class="text-sm sm:text-base text-slate-400 max-w-xl">
+                Rilith connects you with pre-vetted AI engineers, ML scientists, and applied LLM experts worldwide.
+                Zero payroll overhead, zero compliance hassle. Only outcomes.
+              </p>
+            </div>
+
+            <!-- CTA + secondary text -->
+            <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+              <div class="flex gap-3">
+                <a href="#companies" class="btn-primary">
+                  Hire AI Talent
+                  <i class="fas fa-arrow-right text-[0.7rem]"></i>
+                </a>
+                <a href="#talent" class="btn-secondary">
+                  Join as talent
+                </a>
+              </div>
+              <div class="flex items-center gap-2 text-xs text-slate-500">
+                <span class="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.8)]"></span>
+                <span>Typical match in under 24 hours</span>
+              </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="mt-4 space-y-4">
+              <div class="gradient-line"></div>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+                <div class="flex flex-col gap-1">
+                  <div class="stat-pill w-fit mb-1 text-sky-300/80">Companies</div>
+                  <span class="text-lg font-semibold text-slate-50">50+</span>
+                  <span class="text-[0.7rem] text-slate-500">Product teams served</span>
+                </div>
+                <div class="flex flex-col gap-1">
+                  <div class="stat-pill w-fit mb-1 text-sky-300/80">Retention</div>
+                  <span class="text-lg font-semibold text-slate-50">98%</span>
+                  <span class="text-[0.7rem] text-slate-500">Engagements renewed</span>
+                </div>
+                <div class="flex flex-col gap-1">
+                  <div class="stat-pill w-fit mb-1 text-sky-300/80">Experts</div>
+                  <span class="text-lg font-semibold text-slate-50">3,000+</span>
+                  <span class="text-[0.7rem] text-slate-500">Screened AI specialists</span>
+                </div>
+                <div class="flex flex-col gap-1">
+                  <div class="stat-pill w-fit mb-1 text-sky-300/80">Matching</div>
+                  <span class="text-lg font-semibold text-slate-50">24h</span>
+                  <span class="text-[0.7rem] text-slate-500">Average time to shortlist</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Matching Panel -->
+          <div class="lg:col-span-5">
+            <div class="glass-panel p-5 sm:p-6 float-slow">
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-2 text-xs text-slate-300">
+                  <span class="h-6 w-6 rounded-xl bg-slate-900/80 flex items-center justify-center border border-slate-700/80">
+                    <i class="fas fa-robot text-[0.7rem] text-sky-300"></i>
+                  </span>
+                  <span class="font-medium">Rilith Matching Engine</span>
+                </div>
+                <span class="badge-soft text-slate-400">
+                  Live shortlist · 3 profiles
+                </span>
+              </div>
+
+              <div class="text-[0.7rem] text-slate-400 mb-3 uppercase tracking-[0.18em] flex items-center gap-2">
+                <span class="h-[1px] w-6 bg-slate-700"></span>
+                <span>Sample brief</span>
+              </div>
+
+              <div class="space-y-4 text-xs">
+                <div class="soft-card p-3">
+                  <div class="flex items-center justify-between mb-1">
+                    <span class="text-slate-300 font-medium">Applied LLM Engineer</span>
+                    <span class="text-[0.7rem] text-emerald-400">Matched</span>
+                  </div>
+                  <p class="text-slate-400 text-[0.7rem]">
+                    Experience with retrieval-augmented generation, agents, and production MLOps for language models.
+                  </p>
+                  <div class="flex flex-wrap gap-1.5 mt-2">
+                    <span class="badge-soft">Python</span>
+                    <span class="badge-soft">LangChain</span>
+                    <span class="badge-soft">Vector Stores</span>
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                  <div class="soft-card p-3">
+                    <div class="flex items-center justify-between mb-1">
+                      <span class="text-[0.8rem] text-slate-200">Computer Vision Lead</span>
+                      <span class="text-[0.65rem] text-slate-500">Remote</span>
+                    </div>
+                    <p class="text-[0.7rem] text-slate-500">
+                      7+ yrs | detection, tracking, and real-time inference.
+                    </p>
+                  </div>
+                  <div class="soft-card p-3">
+                    <div class="flex items-center justify-between mb-1">
+                      <span class="text-[0.8rem] text-slate-200">MLOps Architect</span>
+                      <span class="text-[0.65rem] text-slate-500">Hybrid</span>
+                    </div>
+                    <p class="text-[0.7rem] text-slate-500">
+                      Platform, observability, CI/CD for model lifecycle.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="flex items-center justify-between pt-1 border-t border-slate-800/80 mt-1">
+                  <div class="flex items-center gap-1.5 text-[0.7rem] text-slate-500">
+                    <span class="h-2 w-2 rounded-full bg-emerald-400/80 shadow-[0_0_8px_rgba(52,211,153,0.9)]"></span>
+                    <span>Shortlist ready in 23 minutes</span>
+                  </div>
+                  <button class="text-[0.7rem] font-medium text-sky-300 hover:text-sky-200 flex items-center gap-1">
+                    View sample JD
+                    <i class="fas fa-arrow-up-right-from-square text-[0.6rem]"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPANIES -->
+    <section id="companies" class="max-w-6xl mx-auto mt-16 md:mt-20">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
+        <div>
+          <p class="text-xs font-medium tracking-[0.23em] uppercase text-slate-500 mb-2">
+            For companies
+          </p>
+          <h2 class="text-xl sm:text-2xl font-semibold text-slate-50">
+            A full-stack AI team, without permanent headcount.
+          </h2>
+        </div>
+        <p class="text-xs sm:text-sm text-slate-500 max-w-sm">
+          Plug Rilith into your roadmap and spin up specialized squads for LLM products, data platforms, or computer vision — on demand.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-4 md:gap-5">
+        <div class="soft-card p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="h-7 w-7 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/30">
+              <i class="fas fa-user-check text-[0.8rem] text-sky-300"></i>
+            </div>
+            <h3 class="text-sm font-semibold text-slate-100">Pre-vetted AI / ML engineers</h3>
+          </div>
+          <p class="text-xs text-slate-500">
+            Multistage technical screening focused on real-world systems, not just toy problems. Niche skills included.
+          </p>
+        </div>
+
+        <div class="soft-card p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="h-7 w-7 rounded-xl bg-emerald-500/10 flex items-center justify-center border border-emerald-500/30">
+              <i class="fas fa-layer-group text-[0.8rem] text-emerald-300"></i>
+            </div>
+            <h3 class="text-sm font-semibold text-slate-100">Flexible team scaling</h3>
+          </div>
+          <p class="text-xs text-slate-500">
+            Start with a single engineer, scale to a pod, or spin down as priorities shift — all under one agreement.
+          </p>
+        </div>
+
+        <div class="soft-card p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="h-7 w-7 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/30">
+              <i class="fas fa-globe text-[0.8rem] text-sky-300"></i>
+            </div>
+            <h3 class="text-sm font-semibold text-slate-100">Global talent access</h3>
+          </div>
+          <p class="text-xs text-slate-500">
+            Time-zone aligned experts from multiple regions, so you can cover build, ship, and support around the clock.
+          </p>
+        </div>
+
+        <div class="soft-card p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="h-7 w-7 rounded-xl bg-slate-700/60 flex items-center justify-center border border-slate-600/80">
+              <i class="fas fa-file-shield text-[0.8rem] text-slate-100"></i>
+            </div>
+            <h3 class="text-sm font-semibold text-slate-100">No payroll or compliance drag</h3>
+          </div>
+          <p class="text-xs text-slate-500">
+            We handle contracts, payouts, and cross-border compliance so your legal and finance teams can stay lean.
+          </p>
+        </div>
+
+        <div class="soft-card p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="h-7 w-7 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/30">
+              <i class="fas fa-chart-line text-[0.8rem] text-sky-300"></i>
+            </div>
+            <h3 class="text-sm font-semibold text-slate-100">Performance and delivery guardrails</h3>
+          </div>
+          <p class="text-xs text-slate-500">
+            Lightweight check-ins, outcome tracking, and replacements when needed — without you micromanaging profiles.
+          </p>
+        </div>
+
+        <div class="soft-card p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="h-7 w-7 rounded-xl bg-emerald-500/10 flex items-center justify-center border border-emerald-500/30">
+              <i class="fas fa-scale-balanced text-[0.8rem] text-emerald-300"></i>
+            </div>
+            <h3 class="text-sm font-semibold text-slate-100">Cost efficient by design</h3>
+          </div>
+          <p class="text-xs text-slate-500">
+            Transparent, all-in hourly or monthly rates. No hidden markups, no vanity “platform fees”.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how" class="max-w-6xl mx-auto mt-16 md:mt-20">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
+        <div>
+          <p class="text-xs font-medium tracking-[0.23em] uppercase text-slate-500 mb-2">
+            Process
+          </p>
+          <h2 class="text-xl sm:text-2xl font-semibold text-slate-50">
+            From idea to onboarded AI team in four steps.
+          </h2>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-4 gap-4 md:gap-5">
+        <div class="soft-card p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-semibold text-slate-400 tracking-[0.18em] uppercase">Step 1</span>
+            <span class="badge-soft">15 min</span>
+          </div>
+          <h3 class="text-sm font-semibold text-slate-100 mb-2">Share requirements</h3>
+          <p class="text-xs text-slate-500">
+            A focused conversation to understand your roadmap, stack, and what success looks like.
+          </p>
+        </div>
+
+        <div class="soft-card p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-semibold text-slate-400 tracking-[0.18em] uppercase">Step 2</span>
+            <span class="badge-soft">24 h</span>
+          </div>
+          <h3 class="text-sm font-semibold text-slate-100 mb-2">We match the talent</h3>
+          <p class="text-xs text-slate-500">
+            Our team curates a shortlist aligned with skills, seniority, and time-zone fit.
+          </p>
+        </div>
+
+        <div class="soft-card p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-semibold text-slate-400 tracking-[0.18em] uppercase">Step 3</span>
+            <span class="badge-soft">Your call</span>
+          </div>
+          <h3 class="text-sm font-semibold text-slate-100 mb-2">Interview and select</h3>
+          <p class="text-xs text-slate-500">
+            You meet the top profiles. We handle scheduling, prep, and feedback loops.
+          </p>
+        </div>
+
+        <div class="soft-card p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-semibold text-slate-400 tracking-[0.18em] uppercase">Step 4</span>
+            <span class="badge-soft">Go live</span>
+          </div>
+          <h3 class="text-sm font-semibold text-slate-100 mb-2">Start and scale</h3>
+          <p class="text-xs text-slate-500">
+            Onboard in days, not months. Expand, pause, or refine the team as your product evolves.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TALENT -->
+    <section id="talent" class="max-w-6xl mx-auto mt-16 md:mt-20">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
+        <div>
+          <p class="text-xs font-medium tracking-[0.23em] uppercase text-slate-500 mb-2">
+            For talent
+          </p>
+          <h2 class="text-xl sm:text-2xl font-semibold text-slate-50">
+            Work with global AI teams, without leaving your setup.
+          </h2>
+        </div>
+        <p class="text-xs sm:text-sm text-slate-500 max-w-sm">
+          We partner with engineers, researchers, and technical leaders who care about craft and outcome — not just buzzwords.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-4 md:gap-5">
+        <div class="soft-card p-4">
+          <h3 class="text-sm font-semibold text-slate-100 mb-2">Premium AI projects</h3>
+          <p class="text-xs text-slate-500">
+            Ship LLM products, vision systems, data platforms, and applied research with teams that move quickly.
+          </p>
+        </div>
+
+        <div class="soft-card p-4">
+          <h3 class="text-sm font-semibold text-slate-100 mb-2">Remote-first work</h3>
+          <p class="text-xs text-slate-500">
+            Collaborate with product and research teams across time zones while staying in the environment you work best in.
+          </p>
+        </div>
+
+        <div class="soft-card p-4">
+          <h3 class="text-sm font-semibold text-slate-100 mb-2">Global compensation</h3>
+          <p class="text-xs text-slate-500">
+            Competitive rates, transparent terms, and reliable payouts. No unnecessary intermediaries.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="max-w-6xl mx-auto mt-16 md:mt-20 mb-16">
+      <div class="section-shell px-5 sm:px-8 md:px-10 py-8 md:py-9">
+        <div class="flex flex-col md:flex-row gap-8 md:gap-10">
+          <div class="md:w-5/12 space-y-4">
+            <p class="text-xs font-medium tracking-[0.23em] uppercase text-slate-500">
+              Contact
+            </p>
+            <h2 class="text-xl sm:text-2xl font-semibold text-slate-50">
+              Tell us what you are building. We will send you a tailored shortlist.
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-500">
+              Share a short brief and we will respond with a curated set of profiles, availability, and rate cards.
+            </p>
+            <ul class="space-y-2 text-xs text-slate-500">
+              <li class="flex items-center gap-2">
+                <span class="h-1.5 w-1.5 rounded-full bg-sky-400"></span>
+                Typical response within one business day.
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+                No upfront commitment required.
+              </li>
+            </ul>
+          </div>
+
+          <div class="md:w-7/12">
+            <form action="https://formspree.io/f/mblkqlyg" method="POST" class="bg-slate-950/80 border border-slate-800 rounded-2xl p-4 sm:p-5 space-y-4">
+              <div class="grid md:grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-xs text-slate-400 mb-1.5">First name</label>
+                  <input
+                    type="text"
+                    name="first-name"
+                    required
+                    class="w-full rounded-xl border border-slate-800 bg-slate-950/80 px-3 py-2 text-xs text-slate-100 placeholder:text-slate-600 focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500"
+                    placeholder="Alex"
+                  />
+                </div>
+                <div>
+                  <label class="block text-xs text-slate-400 mb-1.5">Last name</label>
+                  <input
+                    type="text"
+                    name="last-name"
+                    required
+                    class="w-full rounded-xl border border-slate-800 bg-slate-950/80 px-3 py-2 text-xs text-slate-100 placeholder:text-slate-600 focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500"
+                    placeholder="Lee"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs text-slate-400 mb-1.5">Work email</label>
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  class="w-full rounded-xl border border-slate-800 bg-slate-950/80 px-3 py-2 text-xs text-slate-100 placeholder:text-slate-600 focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500"
+                  placeholder="you@company.com"
+                />
+              </div>
+
+              <div>
+                <label class="block text-xs text-slate-400 mb-1.5">How can we help?</label>
+                <textarea
+                  name="message"
+                  rows="4"
+                  required
+                  class="w-full rounded-xl border border-slate-800 bg-slate-950/80 px-3 py-2 text-xs text-slate-100 placeholder:text-slate-600 focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500"
+                  placeholder="Briefly describe your AI roadmap, current stack, and the kind of team you are looking for."
+                ></textarea>
+              </div>
+
+              <button type="submit" class="btn-primary w-full justify-center text-xs">
+                Send message
+                <i class="fas fa-arrow-right text-[0.7rem]"></i>
+              </button>
+
+              <p class="text-[0.65rem] text-slate-500 text-center">
+                By submitting, you agree to be contacted regarding AI talent and team offerings from Rilith.
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-slate-800/70 bg-slate-950/80">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4 py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p class="text-[0.7rem] text-slate-500">
+        © 2025 Rilith. All rights reserved.
+      </p>
+      <div class="flex items-center gap-4 text-[0.7rem] text-slate-500">
+        <a href="#companies" class="hover:text-slate-300">Companies</a>
+        <a href="#talent" class="hover:text-slate-300">Talent</a>
+        <a href="#contact" class="hover:text-slate-300">Contact</a>
       </div>
     </div>
+  </footer>
 
-  </div>
-</section>
+  <!-- JS -->
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
 
-<!-- STATS -->
-<section class="py-16 bg-gray-50">
-  <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 text-center gap-8 px-4">
-    <div>
-      <div class="text-4xl font-bold text-indigo-600">50+</div>
-      <p class="text-gray-600">Companies</p>
-    </div>
-    <div>
-      <div class="text-4xl font-bold text-indigo-600">98%</div>
-      <p class="text-gray-600">Retention</p>
-    </div>
-    <div>
-      <div class="text-4xl font-bold text-indigo-600">3,000+</div>
-      <p class="text-gray-600">Experts</p>
-    </div>
-    <div>
-      <div class="text-4xl font-bold text-indigo-600">24h</div>
-      <p class="text-gray-600">Avg Matching</p>
-    </div>
-  </div>
-</section>
-
-<!-- COMPANIES -->
-<section id="companies" class="py-20 bg-white px-6">
-  <div class="max-w-7xl mx-auto text-center mb-12">
-    <h2 class="text-3xl font-bold mb-4">For Companies</h2>
-    <p class="text-gray-600 max-w-2xl mx-auto">
-      Scale your AI/ML capabilities without hiring pain.
-    </p>
-  </div>
-
-  <div class="grid md:grid-cols-3 gap-6 max-w-7xl mx-auto">
-    <div class="card">Pre-Vetted AI/ML Engineers</div>
-    <div class="card">Flexible Team Scaling</div>
-    <div class="card">Global Talent Access</div>
-    <div class="card">No Payroll Compliance Hassles</div>
-    <div class="card">Performance Management</div>
-    <div class="card">Cost Efficient Hiring</div>
-  </div>
-</section>
-
-<!-- HOW IT WORKS -->
-<section id="how" class="py-20 bg-gray-50 px-6">
-  <div class="max-w-5xl mx-auto text-center mb-12">
-    <h2 class="text-3xl font-bold mb-4">How It Works</h2>
-  </div>
-
-  <div class="grid md:grid-cols-4 gap-6 max-w-6xl mx-auto">
-    <div class="card text-center">1. Share Requirements</div>
-    <div class="card text-center">2. We Match Talent</div>
-    <div class="card text-center">3. Interview & Select</div>
-    <div class="card text-center">4. Start & Scale</div>
-  </div>
-</section>
-
-<!-- TALENT -->
-<section id="talent" class="py-20 bg-white px-6">
-  <div class="max-w-5xl mx-auto text-center mb-12">
-    <h2 class="text-3xl font-bold mb-4">For Talent</h2>
-    <p class="text-gray-600">Work with global AI companies remotely</p>
-  </div>
-
-  <div class="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-    <div class="card">Premium AI Projects</div>
-    <div class="card">Remote Work</div>
-    <div class="card">Global Pay</div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact" class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-20 px-6">
-  <div class="max-w-4xl mx-auto bg-white text-gray-800 rounded-2xl p-8">
-    <h2 class="text-2xl font-bold mb-6">Contact Us</h2>
-
-    <form action="https://formspree.io/f/mblkqlyg" method="POST" class="space-y-4">
-      <div class="grid md:grid-cols-2 gap-4">
-        <input type="text" name="first-name" placeholder="First name" required class="border p-3 rounded-lg w-full"/>
-        <input type="text" name="last-name" placeholder="Last name" required class="border p-3 rounded-lg w-full"/>
-      </div>
-      <input type="email" name="email" placeholder="Email" required class="border p-3 rounded-lg w-full"/>
-      <textarea name="message" placeholder="Tell us about your requirement" rows="4" required class="border p-3 rounded-lg w-full"></textarea>
-      <button class="btn-primary w-full">Send Message</button>
-    </form>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer class="bg-gray-900 text-gray-400 py-10 text-center">
-  <p class="text-sm">&copy; 2025 Rilith. All rights reserved.</p>
-</footer>
-
-<!-- JS -->
-<script>
-  const menuBtn = document.getElementById('menuBtn');
-  const mobileMenu = document.getElementById('mobileMenu');
-
-  menuBtn.addEventListener('click', () => {
-    mobileMenu.classList.toggle('hidden');
-  });
-</script>
-
+    if (menuBtn && mobileMenu) {
+      menuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+  </script>
 </body>
 </html>
