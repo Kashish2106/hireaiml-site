@@ -983,138 +983,166 @@
     </div>
   </div>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Mobile nav toggle
-      const mobileToggle = document.getElementById('mobile-menu-toggle');
-      const mobileMenu = document.getElementById('mobile-menu');
+ <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Mobile nav toggle
+    const mobileToggle = document.getElementById('mobile-menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
 
-      if (mobileToggle && mobileMenu) {
-        mobileToggle.addEventListener('click', () => {
-          const icon = mobileToggle.querySelector('i');
-          mobileMenu.classList.toggle('hidden');
-          if (icon) {
-            icon.classList.toggle('fa-bars');
-            icon.classList.toggle('fa-times');
-          }
-        });
+    if (mobileToggle && mobileMenu) {
+      mobileToggle.addEventListener('click', () => {
+        const icon = mobileToggle.querySelector('i');
+        mobileMenu.classList.toggle('hidden');
+        if (icon) {
+          icon.classList.toggle('fa-bars');
+          icon.classList.toggle('fa-times');
+        }
+      });
 
-        // Close mobile menu on link click
-        mobileMenu.querySelectorAll('a, button').forEach(el => {
-          el.addEventListener('click', () => {
-            if (!mobileMenu.classList.contains('hidden')) {
-              mobileMenu.classList.add('hidden');
-              const icon = mobileToggle.querySelector('i');
-              if (icon && icon.classList.contains('fa-times')) {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-              }
+      // Close mobile menu on link click
+      mobileMenu.querySelectorAll('a, button').forEach(el => {
+        el.addEventListener('click', () => {
+          if (!mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('hidden');
+            const icon = mobileToggle.querySelector('i');
+            if (icon && icon.classList.contains('fa-times')) {
+              icon.classList.remove('fa-times');
+              icon.classList.add('fa-bars');
             }
-          });
-        });
-      }
-
-      // FAQ Toggle
-      const faqToggles = document.querySelectorAll('.faq-toggle');
-      faqToggles.forEach(toggle => {
-        toggle.addEventListener('click', function() {
-          const content = this.nextElementSibling;
-          const icon = this.querySelector('i');
-          
-          content.classList.toggle('hidden');
-          icon.classList.toggle('rotate-180');
-        });
-      });
-
-      // Demo Request Buttons
-      const demoButtons = document.querySelectorAll('.request-demo-btn, .request-service-btn');
-      const demoModal = document.getElementById('demo-modal');
-      const closeDemoModal = document.getElementById('close-demo-modal');
-      const demoModalTitle = document.getElementById('demo-modal-title');
-      const quickInterestType = document.getElementById('quick-interest-type');
-      const quickSpecificInterest = document.getElementById('quick-specific-interest');
-      const interestType = document.getElementById('interest-type');
-      const specificInterest = document.getElementById('specific-interest');
-
-      demoButtons.forEach(button => {
-        button.addEventListener('click', function() {
-          const isService = this.classList.contains('request-service-btn');
-          const itemName = this.getAttribute('data-solution') || this.getAttribute('data-service') || '';
-
-          if (isService) {
-            demoModalTitle.textContent = 'Service inquiry';
-            quickInterestType.value = 'service';
-            if (interestType) interestType.value = 'service';
-          } else {
-            demoModalTitle.textContent = 'Request demo';
-            quickInterestType.value = 'solution';
-            if (interestType) interestType.value = 'solution';
           }
-          
-          quickSpecificInterest.value = itemName;
-          if (specificInterest) specificInterest.value = itemName;
-          
-          demoModal.classList.remove('hidden');
-          document.body.style.overflow = 'hidden';
         });
       });
+    }
 
-      // Close demo modal
-      if (closeDemoModal) {
-        closeDemoModal.addEventListener('click', function() {
-          demoModal.classList.add('hidden');
-          document.body.style.overflow = '';
-        });
-      }
+    // FAQ Toggle
+    const faqToggles = document.querySelectorAll('.faq-toggle');
+    faqToggles.forEach(toggle => {
+      toggle.addEventListener('click', function() {
+        const content = this.nextElementSibling;
+        const icon = this.querySelector('i');
+        
+        content.classList.toggle('hidden');
+        icon.classList.toggle('rotate-180');
+      });
+    });
 
-      // Close when clicking outside
+    // Demo Request Buttons
+    const demoButtons = document.querySelectorAll('.request-demo-btn, .request-service-btn');
+    const demoModal = document.getElementById('demo-modal');
+    const closeDemoModal = document.getElementById('close-demo-modal');
+    const demoModalTitle = document.getElementById('demo-modal-title');
+    const quickInterestType = document.getElementById('quick-interest-type');
+    const quickSpecificInterest = document.getElementById('quick-specific-interest');
+    const interestType = document.getElementById('interest-type');
+    const specificInterest = document.getElementById('specific-interest');
+
+    demoButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const isService = this.classList.contains('request-service-btn');
+        const itemName = this.getAttribute('data-solution') || this.getAttribute('data-service') || '';
+
+        if (isService) {
+          demoModalTitle.textContent = 'Service inquiry';
+          quickInterestType.value = 'service';
+          if (interestType) interestType.value = 'service';
+        } else {
+          demoModalTitle.textContent = 'Request demo';
+          quickInterestType.value = 'solution';
+          if (interestType) interestType.value = 'solution';
+        }
+        
+        quickSpecificInterest.value = itemName;
+        if (specificInterest) specificInterest.value = itemName;
+        
+        demoModal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    // Close demo modal
+    if (closeDemoModal) {
+      closeDemoModal.addEventListener('click', function() {
+        demoModal.classList.add('hidden');
+        document.body.style.overflow = '';
+      });
+    }
+
+    // Close when clicking outside
+    if (demoModal) {
       demoModal.addEventListener('click', function(e) {
         if (e.target === demoModal) {
           demoModal.classList.add('hidden');
           document.body.style.overflow = '';
         }
       });
+    }
 
-      // Form submission handlers
-      const demoForm = document.getElementById('demo-form');
-      const quickDemoForm = document.getElementById('quick-demo-form');
+    // Form submission handlers
+    const demoForm = document.getElementById('demo-form');
+    const quickDemoForm = document.getElementById('quick-demo-form');
+    
+    function handleFormSubmit(form, event) {
+      event.preventDefault();
+      const formData = new FormData(form);
       
-      function handleFormSubmit(form, event) {
-        event.preventDefault();
-        const formData = new FormData(form);
-        
-        fetch(form.action, {
-          method: 'POST',
-          body: formData,
-          headers: {
-            'Accept': 'application/json'
+      fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+      .then(response => {
+        if (response.ok) {
+          alert('Thank you for your request. We will contact you soon.');
+          form.reset();
+          if (form === quickDemoForm) {
+            demoModal.classList.add('hidden');
+            document.body.style.overflow = '';
           }
-        })
-        .then(response => {
-          if (response.ok) {
-            alert('Thank you for your request. We will contact you soon.');
-            form.reset();
-            if (form === quickDemoForm) {
-              demoModal.classList.add('hidden');
-              document.body.style.overflow = '';
-            }
-          } else {
-            throw new Error('Network response was not ok');
-          }
-        })
-        .catch(error => {
-          alert('There was a problem with your submission. Please try again.');
-          console.error('Error:', error);
-        });
+        } else {
+          throw new Error('Network response was not ok');
+        }
+      })
+      .catch(error => {
+        alert('There was a problem with your submission. Please try again.');
+        console.error('Error:', error);
+      });
+    }
+    
+    if (demoForm) {
+      demoForm.addEventListener('submit', (e) => handleFormSubmit(demoForm, e));
+    }
+    if (quickDemoForm) {
+      quickDemoForm.addEventListener('submit', (e) => handleFormSubmit(quickDemoForm, e));
+    }
+
+    /* ---------- Global stats count-up ---------- */
+    const statNumbers = document.querySelectorAll('.stat-number');
+
+    function animateNumber(el) {
+      const target = parseInt(el.dataset.target, 10);
+      if (!Number.isFinite(target)) return;
+
+      const duration = 900; // ms
+      const start = performance.now();
+
+      function update(timestamp) {
+        const progress = Math.min((timestamp - start) / duration, 1);
+        const value = Math.floor(progress * target);
+        el.textContent = value.toLocaleString();
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        }
       }
-      
-      if (demoForm) {
-        demoForm.addEventListener('submit', (e) => handleFormSubmit(demoForm, e));
-      }
-      if (quickDemoForm) {
-        quickDemoForm.addEventListener('submit', (e) => handleFormSubmit(quickDemoForm, e));
-      }
-    });
-  </script>
+
+      requestAnimationFrame(update);
+    }
+
+    if (statNumbers.length) {
+      statNumbers.forEach(animateNumber);
+    }
+  });
+</script>
 </body>
 </html>
