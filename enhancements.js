@@ -192,40 +192,41 @@ document.addEventListener('DOMContentLoaded', () => {
     updateHowItWorksCarousel();
     startAutoRotate();
   }
-    // Animated stats on scroll
-    const statSection = document.getElementById('global-stats');
-    const statNumbers = document.querySelectorAll('.stat-number');
-    let statsAnimated = false;
+     // Animated stats on scroll
+  const statSection = document.getElementById('global-stats');
+  const statNumbers = document.querySelectorAll('.stat-number');
+  let statsAnimated = false;
 
-    function animateNumber(el) {
-      const target = parseInt(el.dataset.target, 10);
-      const duration = 900; // ms
-      const start = performance.now();
+  function animateNumber(el) {
+    const raw = parseInt(el.dataset.target, 10);
+    const target = Number.isFinite(raw) ? raw : 0;
+    const duration = 900; // ms
+    const start = performance.now();
 
-      function update(timestamp) {
-        const progress = Math.min((timestamp - start) / duration, 1);
-        const value = Math.floor(progress * target);
-        el.textContent = value.toLocaleString();
-        if (progress < 1) {
-          requestAnimationFrame(update);
-        }
+    function update(timestamp) {
+      const progress = Math.min((timestamp - start) / duration, 1);
+      const value = Math.floor(progress * target);
+      el.textContent = value.toLocaleString();
+      if (progress < 1) {
+        requestAnimationFrame(update);
       }
-      requestAnimationFrame(update);
     }
+    requestAnimationFrame(update);
+  }
 
-    if (statSection && statNumbers.length) {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting && !statsAnimated) {
-              statsAnimated = true;
-              statNumbers.forEach(animateNumber);
-              observer.disconnect();
-            }
-          });
-        },
-        { threshold: 0.3 }
-      );
-      observer.observe(statSection);
-    }
+  if (statSection && statNumbers.length) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !statsAnimated) {
+            statsAnimated = true;
+            statNumbers.forEach(animateNumber);
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+    observer.observe(statSection);
+  }
 });
