@@ -42,9 +42,14 @@
     }
 
     .hero-gradient {
-      background: radial-gradient(circle at top left, #1d2140 0, #020617 45%, #020617 100%);
+      background: linear-gradient(
+        180deg,
+        #ffffff 0%,
+        #f8fafc 60%,
+        #f1f5f9 100%
+      );
     }
-
+    
     .hero-background {
       background-image: url("https://raw.githubusercontent.com/Kashish2106/hireaiml-site/main/electronics_cart.png");
       background-size: cover;
@@ -125,23 +130,9 @@
     }
 
     #hero::before {
-      content: "";
-      position: absolute;
-      inset: -10%;
-      z-index: 5;
-      background: linear-gradient(
-        115deg,
-        rgba(79, 70, 229, 0.75),
-        rgba(139, 92, 246, 0.75),
-        rgba(217, 70, 239, 0.75)
-      );
-      background-size: 350% 350%;
-      animation: gradientShift 14s ease infinite;
-      mix-blend-mode: soft-light;
-      pointer-events: none;
-      opacity: 0.9;
+      background: transparent;
     }
-
+    
     @keyframes gradientShift {
       0% {
         background-position: 0% 50%;
