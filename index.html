@@ -19,36 +19,53 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-  <!-- Font Awesome (for close icon if desired) -->
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
   <style>
-    /* Blue + White palette only */
     :root{
-      --blue-900: #0B1F3B;   /* deep navy for headings/body text */
-      --blue-700: #0A66C2;   /* primary brand blue */
-      --blue-600: #1D4ED8;   /* secondary blue (hover/CTA alt) */
-      --blue-300: #93C5FD;   /* light blue accents */
-      --blue-100: #E6F0FF;   /* very light blue backgrounds */
-      --white:     #FFFFFF;
+      --blue-900: #0B1F3B;
+      --blue-800: #102749;
+      --blue-700: #0A66C2;
+      --blue-600: #1D4ED8;
+      --blue-300: #93C5FD;
+      --blue-100: #E6F0FF;
+      --white:   #FFFFFF;
     }
 
     .video-background{
-      position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; z-index:-1;
+      position:absolute; top:0; left:0; width:100%; height:100%;
+      object-fit:cover; z-index:-2;
     }
 
-    /* Blue gradient overlay for hero */
     .hero-overlay{
-      background: linear-gradient(to bottom, rgba(10,102,194,0.65), rgba(11,31,59,0.9));
+      position:absolute; inset:0; z-index:-1;
+      background:
+        linear-gradient(to bottom, rgba(10,102,194,0.75), rgba(11,31,59,0.93)),
+        radial-gradient(circle at top left, rgba(148,163,184,0.3), transparent 55%);
     }
 
-    .mobile-menu { transition: all .3s ease; max-height:0; overflow:hidden; }
-    .mobile-menu.open { max-height:500px; }
+    .mobile-menu {
+      transition: all .3s ease;
+      max-height:0;
+      overflow:hidden;
+    }
+    .mobile-menu.open {
+      max-height:500px;
+    }
 
-    .dropdown-menu { transition: all .2s ease; opacity:0; transform:translateY(-10px); visibility:hidden; }
-    .dropdown-menu:not(.hidden) { opacity:1; transform:translateY(0); visibility:visible; }
+    .dropdown-menu {
+      transition: all .18s ease;
+      opacity:0;
+      transform:translateY(-8px);
+      visibility:hidden;
+    }
+    .dropdown-menu:not(.hidden) {
+      opacity:1;
+      transform:translateY(0);
+      visibility:visible;
+    }
 
-    /* Form + elements: keep borders/labels in blue range */
     input, textarea, select {
       border-color: var(--blue-300) !important;
     }
@@ -59,40 +76,63 @@
     }
   </style>
 </head>
-<body class="font-sans antialiased bg-[var(--white)] text-[var(--blue-900)]">
+<body class="font-sans antialiased bg-[var(--white)] text-[var(--blue-900)] scroll-smooth">
 
   <!-- NAV -->
-  <nav class="fixed w-full z-50 bg-[var(--white)] bg-opacity-90 backdrop-blur-sm shadow-sm">
-    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-      <div class="text-2xl font-bold text-[var(--blue-900)]">
-        <span class="text-[var(--blue-700)]">Rilith</span>
+  <nav class="fixed w-full z-50 bg-[var(--white)] bg-opacity-90 backdrop-blur-sm border-b border-[var(--blue-100)]">
+    <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <div class="w-9 h-9 rounded-xl bg-[var(--blue-700)] flex items-center justify-center text-white text-xl font-bold">
+          R
+        </div>
+        <div class="flex flex-col leading-tight">
+          <span class="text-lg font-bold text-[var(--blue-900)] tracking-tight">Rilith</span>
+          <span class="text-xs text-[var(--blue-700)]/80">Software & AI Studio</span>
+        </div>
       </div>
 
+      <!-- Desktop nav -->
+      <div class="hidden md:flex items-center space-x-6 text-sm font-medium">
+        <a href="#services" class="text-[var(--blue-900)] hover:text-[var(--blue-700)]">Services</a>
+        <a href="#why" class="text-[var(--blue-900)] hover:text-[var(--blue-700)]">Why Rilith</a>
+        <a href="#contact" class="text-[var(--blue-900)] hover:text-[var(--blue-700)]">Contact</a>
+
+        <!-- Explore dropdown -->
+        <div class="relative dropdown">
+          <button class="text-[var(--blue-700)] hover:text-[var(--blue-900)] px-3 py-2 rounded-md flex items-center border border-transparent hover:border-[var(--blue-100)] bg-[var(--blue-100)]/40">
+            Explore
+            <i data-feather="chevron-down" class="ml-1 h-4 w-4"></i>
+          </button>
+          <div class="hidden dropdown-menu absolute right-0 mt-2 w-60 rounded-lg shadow-lg bg-[var(--white)] ring-1 ring-[var(--blue-300)] z-20">
+            <div class="py-1 text-sm">
+              <a href="#" class="block px-4 py-2 text-[var(--blue-900)] hover:bg-[var(--blue-100)]">Application Development</a>
+              <a href="hire.html" class="block px-4 py-2 text-[var(--blue-900)] hover:bg-[var(--blue-100)]">Hire Talent</a>
+              <a href="agent-ecomm.html" class="block px-4 py-2 text-[var(--blue-900)] hover:bg-[var(--blue-100)]">Increase E-Commerce Sales</a>
+              <a href="AI_Data_Sol.html" class="block px-4 py-2 text-[var(--blue-900)] hover:bg-[var(--blue-100)]">AI Data Services</a>
+            </div>
+          </div>
+        </div>
+
+        <button id="open-contact-modal-desktop" class="ml-2 px-4 py-2 rounded-full text-xs font-semibold bg-[var(--blue-700)] text-white hover:bg-[var(--blue-600)] shadow-sm">
+          Talk to us
+        </button>
+      </div>
+
+      <!-- Mobile button -->
       <div class="md:hidden">
         <button id="menu-toggle" class="text-[var(--blue-900)] focus:outline-none">
           <i data-feather="menu"></i>
         </button>
       </div>
-
-      <div class="relative dropdown hidden md:block">
-        <button class="text-[var(--blue-700)] hover:text-[var(--blue-900)] px-4 py-3 rounded-md text-sm font-medium flex items-center">
-          Explore
-          <i data-feather="chevron-down" class="ml-1 h-4 w-4"></i>
-        </button>
-
-        <div class="hidden dropdown-menu absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-[var(--white)] ring-1 ring-[var(--blue-300)] ring-opacity-100 z-10">
-          <div class="py-1">
-            <a href="#" class="block px-4 py-2 text-sm text-[var(--blue-900)] hover:bg-[var(--blue-100)]">Application Development</a>
-            <a href="hire.html" class="block px-4 py-2 text-sm text-[var(--blue-900)] hover:bg-[var(--blue-100)]">Hire Talent</a>
-            <a href="agent-ecomm.html" class="block px-4 py-2 text-sm text-[var(--blue-900)] hover:bg-[var(--blue-100)]">Increase E-Commerce Sales</a>
-            <a href="AI_Data_Sol.html" class="block px-4 py-2 text-sm text-[var(--blue-900)] hover:bg-[var(--blue-100)]">Data Annotation</a>
-          </div>
-        </div>
-      </div>
     </div>
 
-    <div id="mobile-menu" class="mobile-menu md:hidden bg-[var(--white)] border-t border-[var(--blue-300)]">
-      <div class="container mx-auto px-6 py-4 flex flex-col space-y-4">
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="mobile-menu md:hidden bg-[var(--white)] border-t border-[var(--blue-100)]">
+      <div class="container mx-auto px-6 py-4 flex flex-col space-y-4 text-sm font-medium">
+        <a href="#services" class="text-[var(--blue-900)] hover:text-[var(--blue-700)] transition">Services</a>
+        <a href="#why" class="text-[var(--blue-900)] hover:text-[var(--blue-700)] transition">Why Rilith</a>
+        <a href="#contact" class="text-[var(--blue-900)] hover:text-[var(--blue-700)] transition">Contact</a>
+        <div class="h-px bg-[var(--blue-100)] my-1"></div>
         <a href="#" class="text-[var(--blue-900)] hover:text-[var(--blue-700)] transition">Application Development</a>
         <a href="hire.html" class="text-[var(--blue-900)] hover:text-[var(--blue-700)] transition">Hire Talent</a>
         <a href="agent-ecomm.html" class="text-[var(--blue-900)] hover:text-[var(--blue-700)] transition">Increase E-Commerce Sales</a>
@@ -103,29 +143,36 @@
 
   <!-- HERO -->
   <section class="relative h-screen flex items-center justify-center overflow-hidden">
-    <video autoplay muted loop class="video-background">
+    <video autoplay muted loop playsinline class="video-background">
       <source src="clipweb.mp4" type="video/mp4" />
     </video>
+    <div class="hero-overlay"></div>
 
-    <!-- Blue-tinted overlay -->
-    <div class="absolute inset-0 hero-overlay"></div>
+    <div class="container mx-auto px-6 z-10">
+      <div class="max-w-3xl" data-aos="fade-up">
+        <div class="inline-flex items-center px-3 py-1 rounded-full bg-white/10 border border-white/30 mb-5 backdrop-blur">
+          <span class="w-2 h-2 rounded-full bg-emerald-300 mr-2"></span>
+          <span class="text-xs font-semibold uppercase tracking-[0.18em] text-white/90">Software · Cloud · AI</span>
+        </div>
 
-    <div class="container mx-auto px-6 z-10 text-center" data-aos="fade-up">
-      <h1 class="text-5xl md:text-7xl font-bold mb-6 text-white">
-        <span class="text-[var(--blue-100)]">Innovative</span> Digital Solutions
-      </h1>
-      <p class="text-xl md:text-2xl mb-10 max-w-3xl mx-auto text-white/90">
-        We build cutting-edge software, web & mobile applications, and intelligent AI systems that transform businesses.
-      </p>
-      <div class="flex justify-center space-x-4">
-        <a href="#services" class="px-8 py-3 bg-[var(--blue-700)] hover:bg-[var(--blue-600)] rounded-full font-medium transition text-white">
-          Explore Services
-        </a>
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 text-white leading-tight drop-shadow-md">
+          Innovative digital products for the next decade
+        </h1>
+        <p class="text-lg md:text-xl mb-8 text-white/90 max-w-xl">
+          Rilith partners with teams to design, build, and run robust web, mobile, and AI solutions that move real business metrics.
+        </p>
 
-        <!-- This button opens the Contact Modal -->
-        <button id="open-contact-modal" class="px-8 py-3 bg-transparent border-2 border-white hover:bg-white hover:text-[var(--blue-700)] rounded-full font-medium transition text-white">
-          Get in Touch
-        </button>
+        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+          <a href="#services" class="px-7 py-3 bg-[var(--blue-700)] hover:bg-[var(--blue-600)] rounded-full font-semibold text-white text-sm shadow-sm">
+            Explore services
+          </a>
+          <button id="open-contact-modal" class="px-7 py-3 bg-transparent border border-white/80 hover:bg-white hover:text-[var(--blue-800)] rounded-full font-semibold text-white text-sm transition">
+            Get in touch
+          </button>
+          <p class="text-xs text-white/80 sm:ml-2">
+            No long forms. Tell us what you’re building, we’ll suggest next steps.
+          </p>
+        </div>
       </div>
     </div>
   </section>
@@ -133,32 +180,124 @@
   <!-- SERVICES -->
   <section id="services" class="py-20 bg-[var(--blue-100)]">
     <div class="container mx-auto px-6">
-      <div class="text-center mb-16" data-aos="fade-up">
-        <h2 class="text-4xl font-extrabold mb-4 text-[var(--blue-900)]">
+      <div class="text-center mb-14" data-aos="fade-up">
+        <h2 class="text-3xl md:text-4xl font-extrabold mb-3 text-[var(--blue-900)]">
           Our <span class="text-[var(--blue-700)]">Services</span>
         </h2>
-        <p class="text-xl text-[var(--blue-900)]/90 max-w-2xl mx-auto">
-          Comprehensive digital solutions to help your business thrive.
+        <p class="text-base md:text-lg text-[var(--blue-900)]/90 max-w-2xl mx-auto">
+          From product strategy to production systems, we help you ship reliable experiences faster.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-        <div class="bg-[var(--white)] rounded-lg p-8 border border-[var(--blue-300)] transform transition-transform duration-300 hover:scale-105 hover:shadow-xl" data-aos="fade-up" data-aos-delay="100">
-          <div class="text-[var(--blue-700)] mb-6"><i class="fas fa-code fa-3x"></i></div>
-          <h3 class="text-2xl font-bold mb-3 text-[var(--blue-900)]">Custom Software Development</h3>
-          <p class="text-[var(--blue-900)]/90">From concept to deployment, we build robust software solutions that align with your business objectives.</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- Custom Software -->
+        <article class="bg-[var(--white)] rounded-2xl p-7 border border-[var(--blue-200)] shadow-sm hover:shadow-xl hover:-translate-y-1 transform transition-all duration-200" data-aos="fade-up" data-aos-delay="50">
+          <div class="w-11 h-11 rounded-xl bg-[var(--blue-100)] flex items-center justify-center mb-5">
+            <i class="fas fa-code text-[var(--blue-700)] text-xl"></i>
+          </div>
+          <h3 class="text-lg font-bold mb-2 text-[var(--blue-900)]">Custom software & product engineering</h3>
+          <p class="text-sm text-[var(--blue-900)]/90 mb-3">
+            End-to-end web and mobile applications, tailored to your workflows and integrated with your existing stack.
+          </p>
+          <ul class="text-xs text-[var(--blue-900)]/80 space-y-1.5">
+            <li>• MVPs, internal tools, and customer-facing platforms</li>
+            <li>• API design, integrations, and data flows</li>
+          </ul>
+        </article>
+
+        <!-- Cloud -->
+        <article class="bg-[var(--white)] rounded-2xl p-7 border border-[var(--blue-200)] shadow-sm hover:shadow-xl hover:-translate-y-1 transform transition-all duration-200" data-aos="fade-up" data-aos-delay="100">
+          <div class="w-11 h-11 rounded-xl bg-[var(--blue-100)] flex items-center justify-center mb-5">
+            <i class="fas fa-cloud text-[var(--blue-700)] text-xl"></i>
+          </div>
+          <h3 class="text-lg font-bold mb-2 text-[var(--blue-900)]">Cloud architecture & DevOps</h3>
+          <p class="text-sm text-[var(--blue-900)]/90 mb-3">
+            Modern, scalable infrastructure that stays cost-efficient and observable as you grow.
+          </p>
+          <ul class="text-xs text-[var(--blue-900)]/80 space-y-1.5">
+            <li>• Cloud-native design on AWS, GCP, Azure</li>
+            <li>• CI/CD pipelines, monitoring, and SRE practices</li>
+          </ul>
+        </article>
+
+        <!-- Data & Analytics -->
+        <article class="bg-[var(--white)] rounded-2xl p-7 border border-[var(--blue-200)] shadow-sm hover:shadow-xl hover:-translate-y-1 transform transition-all duration-200" data-aos="fade-up" data-aos-delay="150">
+          <div class="w-11 h-11 rounded-xl bg-[var(--blue-100)] flex items-center justify-center mb-5">
+            <i class="fas fa-chart-line text-[var(--blue-700)] text-xl"></i>
+          </div>
+          <h3 class="text-lg font-bold mb-2 text-[var(--blue-900)]">Analytics & decision systems</h3>
+          <p class="text-sm text-[var(--blue-900)]/90 mb-3">
+            Turn raw data into dashboards, alerts, and models that actually drive decisions.
+          </p>
+          <ul class="text-xs text-[var(--blue-900)]/80 space-y-1.5">
+            <li>• BI dashboards and reporting</li>
+            <li>• Data pipelines and warehousing</li>
+          </ul>
+        </article>
+
+        <!-- AI & Automation -->
+        <article class="bg-[var(--white)] rounded-2xl p-7 border border-[var(--blue-200)] shadow-sm hover:shadow-xl hover:-translate-y-1 transform transition-all duration-200" data-aos="fade-up" data-aos-delay="200">
+          <div class="w-11 h-11 rounded-xl bg-[var(--blue-100)] flex items-center justify-center mb-5">
+            <i class="fas fa-robot text-[var(--blue-700)] text-xl"></i>
+          </div>
+          <h3 class="text-lg font-bold mb-2 text-[var(--blue-900)]">AI, automation & agents</h3>
+          <p class="text-sm text-[var(--blue-900)]/90 mb-3">
+            Practical AI features layered into your products: from chatbots and copilots to workflow automation.
+          </p>
+          <ul class="text-xs text-[var(--blue-900)]/80 space-y-1.5">
+            <li>• LLM-powered experiences & integrations</li>
+            <li>• Process automation and human-in-the-loop flows</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY RILITH -->
+  <section id="why" class="py-16 bg-[var(--white)]">
+    <div class="container mx-auto px-6">
+      <div class="grid gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] items-center">
+        <div data-aos="fade-right">
+          <h2 class="text-3xl font-bold text-[var(--blue-900)] mb-3">Why teams work with Rilith</h2>
+          <p class="text-[var(--blue-900)]/80 text-sm md:text-base mb-5 max-w-xl">
+            We combine a small senior team with clear communication and a focus on real outcomes.
+            No bloated project plans, just a sharp understanding of your goals and a path to get there.
+          </p>
+          <div class="grid sm:grid-cols-3 gap-4 text-sm">
+            <div class="bg-[var(--blue-100)] rounded-xl p-4 border border-[var(--blue-200)]">
+              <p class="text-xs font-semibold tracking-[0.18em] uppercase text-[var(--blue-700)] mb-1">
+                Delivery
+              </p>
+              <p class="font-semibold text-[var(--blue-900)] mb-1">Senior-led teams</p>
+              <p class="text-[var(--blue-900)]/75 text-xs">You work directly with builders, not layers of hand-offs.</p>
+            </div>
+            <div class="bg-[var(--blue-100)] rounded-xl p-4 border border-[var(--blue-200)]">
+              <p class="text-xs font-semibold tracking-[0.18em] uppercase text-[var(--blue-700)] mb-1">
+                Approach
+              </p>
+              <p class="font-semibold text-[var(--blue-900)] mb-1">Fast, iterative</p>
+              <p class="text-[var(--blue-900)]/75 text-xs">Tight feedback loops, visible progress every week.</p>
+            </div>
+            <div class="bg-[var(--blue-100)] rounded-xl p-4 border border-[var(--blue-200)]">
+              <p class="text-xs font-semibold tracking-[0.18em] uppercase text-[var(--blue-700)] mb-1">
+                Engagement
+              </p>
+              <p class="font-semibold text-[var(--blue-900)] mb-1">Flexible models</p>
+              <p class="text-[var(--blue-900)]/75 text-xs">From discovery sprints to long-term product partnerships.</p>
+            </div>
+          </div>
         </div>
 
-        <div class="bg-[var(--white)] rounded-lg p-8 border border-[var(--blue-300)] transform transition-transform duration-300 hover:scale-105 hover:shadow-xl" data-aos="fade-up" data-aos-delay="200">
-          <div class="text-[var(--blue-700)] mb-6"><i class="fas fa-cloud fa-3x"></i></div>
-          <h3 class="text-2xl font-bold mb-3 text-[var(--blue-900)]">Cloud Solutions</h3>
-          <p class="text-[var(--blue-900)]/90">Scalable cloud infrastructure and services to optimize your operations.</p>
-        </div>
-
-        <div class="bg-[var(--white)] rounded-lg p-8 border border-[var(--blue-300)] transform transition-transform duration-300 hover:scale-105 hover:shadow-xl" data-aos="fade-up" data-aos-delay="300">
-          <div class="text-[var(--blue-700)] mb-6"><i class="fas fa-chart-line fa-3x"></i></div>
-          <h3 class="text-2xl font-bold mb-3 text-[var(--blue-900)]">Data Analytics</h3>
-          <p class="text-[var(--blue-900)]/90">Transform your data into actionable insights with our analytics solutions.</p>
+        <div class="bg-[var(--blue-100)] rounded-2xl border border-[var(--blue-200)] p-6 md:p-7" data-aos="fade-left">
+          <h3 class="text-base font-semibold text-[var(--blue-900)] mb-2">A simple way to get started</h3>
+          <ol class="list-decimal list-inside text-[var(--blue-900)]/80 text-sm space-y-1.5 mb-5">
+            <li>Share your goals, constraints, and timelines.</li>
+            <li>We map possible approaches and trade-offs.</li>
+            <li>Start with a focused sprint or pilot build.</li>
+          </ol>
+          <button id="open-contact-modal-2" class="mt-1 w-full md:w-auto px-6 py-2.5 bg-[var(--blue-700)] text-white text-sm font-semibold rounded-full hover:bg-[var(--blue-600)]">
+            Schedule a conversation
+          </button>
         </div>
       </div>
     </div>
@@ -167,107 +306,115 @@
   <!-- CONTACT SECTION -->
   <section id="contact" class="py-20 bg-[var(--blue-700)]">
     <div class="container mx-auto px-6 text-center" data-aos="fade-up">
-      <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white">Ready to Transform Your Business?</h2>
-      <p class="text-xl mb-10 max-w-2xl mx-auto text-white/90">Let's discuss how Rilith can help you achieve your digital goals.</p>
-
-      <button id="open-contact-modal-2" class="px-10 py-4 bg-white text-[var(--blue-700)] hover:bg-[var(--blue-100)] rounded-full font-bold text-lg transition">
-        Get in Touch
+      <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">Ready to transform your business?</h2>
+      <p class="text-base md:text-lg mb-8 max-w-2xl mx-auto text-white/90">
+        Share a bit about your project and we’ll come back with proposed next steps and timelines.
+      </p>
+      <button id="open-contact-modal-3" class="px-10 py-3 bg-white text-[var(--blue-700)] hover:bg-[var(--blue-100)] rounded-full font-semibold text-sm md:text-base transition">
+        Get in touch
       </button>
     </div>
   </section>
 
   <!-- CONTACT MODAL -->
-  <div id="contact-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 modal-overlay bg-[var(--blue-900)] bg-opacity-40">
-    <div class="bg-white rounded-2xl shadow-xl w-full max-w-lg modal-content border border-[var(--blue-300)]">
+  <div id="contact-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-[var(--blue-900)] bg-opacity-40">
+    <div class="bg-white rounded-2xl shadow-xl w-full max-w-lg border border-[var(--blue-300)]">
       <div class="flex justify-between items-center border-b border-[var(--blue-300)] p-4">
-        <h3 class="text-xl font-bold text-[var(--blue-900)]">Get in Touch</h3>
+        <h3 class="text-xl font-bold text-[var(--blue-900)]">Get in touch</h3>
         <button id="close-contact-modal" class="text-[var(--blue-700)] hover:text-[var(--blue-900)]" aria-label="Close modal">
           <i class="fas fa-times"></i>
         </button>
       </div>
 
       <div class="p-6">
-        <form id="contact-form" action="https://formspree.io/f/xdkdvwly" method="POST" class="space-y-4">
+        <form id="contact-form" action="https://formspree.io/f/xdkdvwly" method="POST" class="space-y-4 text-sm">
           <div>
-            <label for="full-name" class="block text-[var(--blue-900)] font-medium mb-1">Full Name</label>
+            <label for="full-name" class="block text-[var(--blue-900)] font-medium mb-1">Full name</label>
             <input id="full-name" name="full-name" type="text" required class="w-full px-4 py-2 border rounded-lg" />
           </div>
 
           <div>
-            <label for="nick-name" class="block text-[var(--blue-900)] font-medium mb-1">Nick Name (What colleagues call you)</label>
+            <label for="nick-name" class="block text-[var(--blue-900)] font-medium mb-1">Nick name (what colleagues call you)</label>
             <input id="nick-name" name="nick-name" type="text" class="w-full px-4 py-2 border rounded-lg" />
           </div>
 
           <div>
-            <label for="company" class="block text-[var(--blue-900)] font-medium mb-1">Company Name</label>
+            <label for="company" class="block text-[var(--blue-900)] font-medium mb-1">Company</label>
             <input id="company" name="company" type="text" class="w-full px-4 py-2 border rounded-lg" />
           </div>
 
           <div>
-            <label for="email" class="block text-[var(--blue-900)] font-medium mb-1">Email ID</label>
+            <label for="email" class="block text-[var(--blue-900)] font-medium mb-1">Work email</label>
             <input id="email" name="email" type="email" required class="w-full px-4 py-2 border rounded-lg" />
           </div>
 
           <div>
-            <label for="phone" class="block text-[var(--blue-900)] font-medium mb-1">Phone Number (Optional)</label>
+            <label for="phone" class="block text-[var(--blue-900)] font-medium mb-1">Phone number (optional)</label>
             <input id="phone" name="phone" type="tel" class="w-full px-4 py-2 border rounded-lg" />
           </div>
 
           <div>
-            <label for="designation" class="block text-[var(--blue-900)] font-medium mb-1">Designation (Optional)</label>
+            <label for="designation" class="block text-[var(--blue-900)] font-medium mb-1">Role / designation (optional)</label>
             <input id="designation" name="designation" type="text" class="w-full px-4 py-2 border rounded-lg" />
           </div>
 
           <div>
-            <label for="requirement" class="block text-[var(--blue-900)] font-medium mb-1">Requirement (Optional)</label>
-            <textarea id="requirement" name="requirement" rows="3" class="w-full px-4 py-2 border rounded-lg"></textarea>
+            <label for="requirement" class="block text-[var(--blue-900)] font-medium mb-1">What would you like to discuss?</label>
+            <textarea id="requirement" name="requirement" rows="3" class="w-full px-4 py-2 border rounded-lg" placeholder="Short description of your product, challenge, or idea."></textarea>
           </div>
 
           <div>
-            <label class="block text-[var(--blue-900)] font-medium mb-1">Would you like to schedule a meeting beforehand? (Optional)</label>
-            <input id="meeting-date" name="meeting-date" type="text" placeholder="Select date" class="w-full px-4 py-2 border rounded-lg mb-2" />
-            <select id="meeting-time" name="meeting-time" class="w-full px-4 py-2 border rounded-lg">
-              <option value="">-- Select Time Slot --</option>
-            </select>
+            <label class="block text-[var(--blue-900)] font-medium mb-1">Would you like to schedule a meeting beforehand? (optional)</label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <input id="meeting-date" name="meeting-date" type="text" placeholder="Select date" class="w-full px-4 py-2 border rounded-lg" />
+              <select id="meeting-time" name="meeting-time" class="w-full px-4 py-2 border rounded-lg">
+                <option value="">-- Select time slot --</option>
+              </select>
+            </div>
           </div>
 
-          <button type="submit" class="w-full bg-[var(--blue-700)] text-white py-2 rounded-lg font-medium hover:bg-[var(--blue-600)] transition">
+          <button type="submit" class="w-full bg-[var(--blue-700)] text-white py-2.5 rounded-lg font-semibold hover:bg-[var(--blue-600)] transition">
             Submit
           </button>
         </form>
 
-        <div id="contact-success" class="mt-4 hidden text-[var(--blue-700)] font-medium">
-          Thanks! Your request was submitted. We'll be in touch shortly.
+        <div id="contact-success" class="mt-4 hidden text-[var(--blue-700)] font-medium text-sm">
+          Thanks, your request was submitted. We’ll be in touch shortly.
         </div>
       </div>
     </div>
   </div>
 
   <!-- FOOTER -->
-  <footer class="bg-[var(--white)] py-12 border-t border-[var(--blue-300)]">
+  <footer class="bg-[var(--white)] py-10 border-t border-[var(--blue-100)]">
     <div class="container mx-auto px-6">
-      <div class="flex flex-col md:flex-row justify-between items-center">
-        <div class="mb-6 md:mb-0">
-          <div class="text-2xl font-bold text-[var(--blue-900)]">
-            <span class="text-[var(--blue-700)]">Rilith</span>
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+        <div>
+          <div class="flex items-center space-x-2">
+            <div class="w-8 h-8 rounded-xl bg-[var(--blue-700)] flex items-center justify-center text-white text-sm font-bold">
+              R
+            </div>
+            <span class="text-lg font-bold text-[var(--blue-900)]">Rilith</span>
           </div>
-          <p class="text-[var(--blue-900)]/80 mt-2">Innovating the future of digital solutions</p>
+          <p class="text-[var(--blue-900)]/80 mt-2 text-sm">
+            Designing, building, and scaling digital products with a focus on real outcomes.
+          </p>
         </div>
 
-        <div class="flex space-x-6">
-          <a href="#" class="text-[var(--blue-900)] hover:text-[var(--blue-700)] transition"><i data-feather="facebook"></i></a>
-          <a href="#" class="text-[var(--blue-900)] hover:text-[var(--blue-700)] transition"><i data-feather="twitter"></i></a>
-          <a href="#" class="text-[var(--blue-900)] hover:text-[var(--blue-700)] transition"><i data-feather="linkedin"></i></a>
-          <a href="#" class="text-[var(--blue-900)] hover:text-[var(--blue-700)] transition"><i data-feather="github"></i></a>
+        <div class="flex space-x-5 text-[var(--blue-900)]">
+          <a href="#" class="hover:text-[var(--blue-700)] transition"><i data-feather="facebook"></i></a>
+          <a href="#" class="hover:text-[var(--blue-700)] transition"><i data-feather="twitter"></i></a>
+          <a href="#" class="hover:text-[var(--blue-700)] transition"><i data-feather="linkedin"></i></a>
+          <a href="#" class="hover:text-[var(--blue-700)] transition"><i data-feather="github"></i></a>
         </div>
       </div>
 
-      <div class="border-t border-[var(--blue-300)] mt-10 pt-10 flex flex-col md:flex-row justify-between">
-        <div class="text-[var(--blue-900)] mb-6 md:mb-0">&copy; 2024 Rilith. All rights reserved.</div>
-        <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8">
-          <a href="#" class="text-[var(--blue-900)] hover:text-[var(--blue-700)] transition">Privacy Policy</a>
-          <a href="#" class="text-[var(--blue-900)] hover:text-[var(--blue-700)] transition">Terms of Service</a>
-          <a href="#contact" class="text-[var(--blue-900)] hover:text-[var(--blue-700)] transition">Contact Us</a>
+      <div class="border-t border-[var(--blue-100)] mt-8 pt-6 flex flex-col md:flex-row justify-between text-xs text-[var(--blue-900)]/80 gap-4">
+        <div>&copy; 2024 Rilith. All rights reserved.</div>
+        <div class="flex flex-col md:flex-row gap-3 md:gap-6">
+          <a href="#" class="hover:text-[var(--blue-700)] transition">Privacy policy</a>
+          <a href="#" class="hover:text-[var(--blue-700)] transition">Terms of service</a>
+          <a href="#contact" class="hover:text-[var(--blue-700)] transition">Contact us</a>
         </div>
       </div>
     </div>
@@ -276,6 +423,7 @@
   <!-- SCRIPTS -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
+      // AOS + feather
       if (typeof AOS !== 'undefined') {
         AOS.init({ duration: 800, easing: 'ease-in-out', once: true });
       }
@@ -283,6 +431,7 @@
         feather.replace();
       }
 
+      // Mobile menu
       const menuToggle = document.getElementById('menu-toggle');
       const mobileMenu = document.getElementById('mobile-menu');
       if (menuToggle && mobileMenu) {
@@ -290,13 +439,13 @@
           mobileMenu.classList.toggle('open');
         });
       }
-
       document.querySelectorAll('#mobile-menu a').forEach(link => {
         link.addEventListener('click', () => {
           if (mobileMenu) mobileMenu.classList.remove('open');
         });
       });
 
+      // Dropdown
       const dropdownButton = document.querySelector('.dropdown > button');
       const dropdownMenu = document.querySelector('.dropdown-menu');
       if (dropdownButton && dropdownMenu) {
@@ -310,10 +459,13 @@
         dropdownMenu.addEventListener('click', function (e) { e.stopPropagation(); });
       }
 
+      // Contact modal
       const contactModal = document.getElementById('contact-modal');
       const openContactBtns = [
         document.getElementById('open-contact-modal'),
-        document.getElementById('open-contact-modal-2')
+        document.getElementById('open-contact-modal-2'),
+        document.getElementById('open-contact-modal-3'),
+        document.getElementById('open-contact-modal-desktop')
       ].filter(Boolean);
       const closeContactBtn = document.getElementById('close-contact-modal');
 
@@ -343,6 +495,7 @@
         }
       });
 
+      // Flatpickr
       if (typeof flatpickr !== 'undefined' && document.getElementById('meeting-date')) {
         flatpickr('#meeting-date', {
           altInput: true,
@@ -352,6 +505,7 @@
         });
       }
 
+      // Time slots
       const meetingTimeSelect = document.getElementById('meeting-time');
       if (meetingTimeSelect) {
         function generateTimeSlots() {
@@ -373,6 +527,7 @@
         generateTimeSlots();
       }
 
+      // Contact form
       const contactForm = document.getElementById('contact-form');
       const successEl = document.getElementById('contact-success');
       const contactModalEl = document.getElementById('contact-modal');
@@ -407,6 +562,19 @@
           });
         });
       }
+
+      // Smooth scroll for in-page anchors
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          const targetId = this.getAttribute('href');
+          if (!targetId || targetId === '#') return;
+          const target = document.querySelector(targetId);
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      });
     });
   </script>
 </body>
