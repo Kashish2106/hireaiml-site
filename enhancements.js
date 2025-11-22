@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let typingForward = true;
 
     const span = document.createElement('span');
-    span.classList.add('active'); 
+    span.classList.add('active');
     typedWrapper.appendChild(span);
 
     // Reveal headline
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (typingForward) {
         charIndex++;
         span.textContent = currentPhrase.slice(0, charIndex);
-        // Introduce a slight random delay to mimic human typing
+        // Slight random delay to mimic human typing
         const typingDelay = typingSpeed + (Math.random() * 50 - 25);
         if (charIndex === currentPhrase.length) {
           typingForward = false;
@@ -56,14 +56,17 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ---------- Magnetic buttons ---------- */
   function initMagnetic(selector, strength = 10) {
     document.querySelectorAll(selector).forEach(item => {
+      // Skip on touch devices
       if ('ontouchstart' in window) return;
       item.addEventListener('mousemove', e => {
         const rect = item.getBoundingClientRect();
-        const relX = (e.clientX - rect.left)/rect.width - 0.5;
-        const relY = (e.clientY - rect.top)/rect.height - 0.5;
-        item.style.transform = `translate(${relX*strength}px, ${relY*strength}px) scale(1.02)`;
+        const relX = (e.clientX - rect.left) / rect.width - 0.5;
+        const relY = (e.clientY - rect.top) / rect.height - 0.5;
+        item.style.transform = `translate(${relX * strength}px, ${relY * strength}px) scale(1.02)`;
       });
-      item.addEventListener('mouseleave', () => { item.style.transform = ''; });
+      item.addEventListener('mouseleave', () => {
+        item.style.transform = '';
+      });
     });
   }
   initMagnetic('.magnetic', 10);
@@ -82,6 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ---------- Recovered counter ---------- */
+  // Optional: only runs if an element with id="recovered-counter" exists
   const counter = document.getElementById('recovered-counter');
   if (counter) {
     const target = parseInt(counter.dataset.target || '4200', 10);
@@ -90,9 +94,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function step(ts) {
       if (!start) start = ts;
-      const progress = Math.min((ts - start)/duration, 1);
-      const ease = 1 - Math.pow(1-progress, 3);
-      const value = Math.floor(ease*target);
+      const progress = Math.min((ts - start) / duration, 1);
+      const ease = 1 - Math.pow(1 - progress, 3);
+      const value = Math.floor(ease * target);
+      // You can change the text here to whatever makes sense for this site
       counter.textContent = value.toLocaleString() + ' carts recovered today';
       if (progress < 1) requestAnimationFrame(step);
     }
@@ -105,11 +110,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const rect = card.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
-      const rotateY = ((x/rect.width)-0.5)*12;
-      const rotateX = ((y/rect.height)-0.5)*-12;
+      const rotateY = ((x / rect.width) - 0.5) * 12;
+      const rotateX = ((y / rect.height) - 0.5) * -12;
       card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
     });
-    card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
   });
 
   /* ---------- Feather icons ---------- */
@@ -118,27 +125,24 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ---------- How-It-Works Carousel ---------- */
   const howItWorksCarousel = document.getElementById('how-it-works-carousel');
   const howItWorksDotsContainer = document.getElementById('how-it-works-dots');
-  
-  if (howItWorksCarousel && howItWorksDotsContainer) {
-    const howItWorksSection = document.getElementById('how-it-works');
+  const howItWorksSection = document.getElementById('how-it-works');
+
+  if (howItWorksCarousel && howItWorksDotsContainer && howItWorksSection) {
     const slides = howItWorksCarousel.querySelectorAll('.how-it-works-slide');
     const totalSlides = slides.length;
     let currentSlide = 0;
     let autoRotateInterval;
 
-    // Function to update the carousel position and dot status
+    // Update carousel position and dot status
     function updateHowItWorksCarousel() {
       howItWorksCarousel.style.transform = `translateX(-${currentSlide * 100}%)`;
-      
+
       document.querySelectorAll('.how-it-works-dot').forEach((dot, index) => {
-        dot.classList.remove('active');
-        if (index === currentSlide) {
-          dot.classList.add('active');
-        }
+        dot.classList.toggle('active', index === currentSlide);
       });
     }
 
-    // Function to generate navigation dots
+    // Generate navigation dots
     function generateHowItWorksDots() {
       howItWorksDotsContainer.innerHTML = '';
       for (let i = 0; i < totalSlides; i++) {
@@ -153,28 +157,28 @@ document.addEventListener('DOMContentLoaded', () => {
         howItWorksDotsContainer.appendChild(dot);
       }
     }
-    
-    // Function to start automatic rotation
+
+    // Start automatic rotation
     function startAutoRotate() {
       autoRotateInterval = setInterval(() => {
         currentSlide = (currentSlide + 1) % totalSlides;
         updateHowItWorksCarousel();
-      }, 5000); // Change slide every 5 seconds
+      }, 5000);
     }
-    
-    // Function to reset the automatic rotation timer
+
+    // Reset automatic rotation timer
     function resetAutoRotate() {
       clearInterval(autoRotateInterval);
       startAutoRotate();
     }
-    
-    // Add event listeners for hover and touch to pause rotation
+
+    // Pause / resume on hover and touch
     howItWorksSection.addEventListener('mouseenter', () => clearInterval(autoRotateInterval));
     howItWorksSection.addEventListener('mouseleave', () => startAutoRotate());
     howItWorksSection.addEventListener('touchstart', () => clearInterval(autoRotateInterval), { passive: true });
     howItWorksSection.addEventListener('touchend', () => startAutoRotate());
-    
-    // Add keyboard navigation for accessibility
+
+    // Keyboard navigation
     document.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowRight') {
         currentSlide = (currentSlide + 1) % totalSlides;
@@ -192,7 +196,8 @@ document.addEventListener('DOMContentLoaded', () => {
     updateHowItWorksCarousel();
     startAutoRotate();
   }
-     // Animated stats on scroll
+
+  /* ---------- Animated stats on scroll (Global Footprint) ---------- */
   const statSection = document.getElementById('global-stats');
   const statNumbers = document.querySelectorAll('.stat-number');
   let statsAnimated = false;
