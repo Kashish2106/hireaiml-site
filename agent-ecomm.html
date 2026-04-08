@@ -3,1353 +3,224 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Anna – Recover Abandoned Carts with AI Phone Calls</title>
+  <title>Anna – Data & Deployment for the Robotics Era</title>
 
-  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- AOS -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-  <!-- Feather Icons -->
   <script src="https://unpkg.com/feather-icons"></script>
 
-  <!-- Font Awesome (for stars) -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-  />
-
-  <!-- Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet" />
 
   <style>
     :root {
-      --anna-primary: #4f46e5;
-      --anna-primary-soft: rgba(79, 70, 229, 0.08);
-      --anna-surface: #0b1020;
-      --anna-border-subtle: rgba(148, 163, 184, 0.3);
+      --anna-primary: #6366f1;
+      --anna-surface: #020617;
+      --anna-accent: #10b981;
     }
 
     body {
       font-family: "Inter", sans-serif;
-      background: radial-gradient(circle at top, #020617 0, #020617 40%, #020617 100%);
-      color: #0f172a;
+      background-color: #020617;
+      color: #f8fafc;
     }
+
+    .code-font { font-family: 'JetBrains Mono', monospace; }
 
     .hero-gradient {
-      background: radial-gradient(
-        circle at top,
-        #ffffff 0%,
-        #f8fafc 45%,
-        #eef2ff 100%
-      );
-    }
-        
-    .hero-background {
-      background-image: url("https://raw.githubusercontent.com/Kashish2106/hireaiml-site/main/electronics_cart.png");
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      opacity: 0.18;
+      background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
+                  radial-gradient(circle at bottom left, rgba(16, 185, 129, 0.05) 0%, transparent 40%);
     }
 
-    @media (max-width: 768px) {
-      .hero-background {
-        background-position: 60% center;
-      }
-    }
-
-    .testimonial-card {
+    .service-card {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(148, 163, 184, 0.1);
       backdrop-filter: blur(12px);
-      background: rgba(15, 23, 42, 0.94);
-      border-radius: 1rem;
-      border: 1px solid rgba(148, 163, 184, 0.35);
-      color: #e5e7eb;
-      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      transition: all 0.3s ease;
     }
 
-    .testimonial-card:hover {
+    .service-card:hover {
+      border-color: var(--anna-primary);
       transform: translateY(-4px);
-      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.9);
-      border-color: rgba(79, 70, 229, 0.7);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
     }
 
     .feature-icon {
-      width: 44px;
-      height: 44px;
+      width: 48px;
+      height: 48px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 0.9rem;
-      background: var(--anna-primary-soft);
+      border-radius: 12px;
+      background: rgba(99, 102, 241, 0.1);
+      color: var(--anna-primary);
     }
 
-    .how-it-works-bg {
-      background: radial-gradient(circle at top, #111827 0, #020617 55%, #020617 100%);
-    }
-
-    .how-it-works-card {
-      transition: all 0.3s ease;
-      border-radius: 0.9rem;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.3);
-      backdrop-filter: blur(10px);
-    }
-
-    .how-it-works-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 20px 50px rgba(15, 23, 42, 1);
-    }
-
-    .mobile-img {
-      max-width: 320px;
-      filter: drop-shadow(0 12px 22px rgba(15, 23, 42, 0.45));
-    }
-
-    .step-number {
-      background: rgba(15, 23, 42, 0.9);
-      width: 50px;
-      height: 50px;
-      border-radius: 0.9rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 600;
-      font-size: 1.4rem;
-    }
-
-    /* HERO ENHANCEMENTS */
-    #hero {
-      position: relative;
-      overflow: hidden;
-    }
-
-    #hero::before {
-      background: transparent;
-    }
-    
-    @keyframes gradientShift {
-      0% {
-        background-position: 0% 50%;
-      }
-      50% {
-        background-position: 100% 50%;
-      }
-      100% {
-        background-position: 0% 50%;
-      }
-    }
-
-    #hero-headline {
-      opacity: 0;
-      transform: translateY(10px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-      text-align: center;
-    }
-
-    #hero-headline.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    #typed-text-wrapper {
-      display: inline-block;
-      position: relative;
-      min-width: 22ch;
-      height: 1.1em;
-      vertical-align: bottom;
-      margin: 0 auto;
-    }
-
-    #typed-text-wrapper span {
-      position: absolute;
-      inset: 0;
-      text-align: center;
-      white-space: nowrap;
-      opacity: 0;
-      transition: opacity 0.35s ease;
-    }
-
-    #typed-text-wrapper span.active {
-      opacity: 1;
-    }
-
-    .magnetic {
-      transition: transform 0.12s ease, box-shadow 0.12s ease;
-      transform-origin: center;
-      will-change: transform;
-    }
-
-    .pulse {
-      animation: pulseGlow 2.8s infinite;
-    }
-
-    @keyframes pulseGlow {
-      0% {
-        box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.1);
-      }
-      50% {
-        box-shadow: 0 18px 45px 0 rgba(79, 70, 229, 0.25);
-      }
-      100% {
-        box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.1);
-      }
-    }
-
-    .ripple-button {
-      position: relative;
-      overflow: hidden;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .ripple-effect {
-      position: absolute;
-      border-radius: 999px;
-      transform: translate(-50%, -50%);
-      width: 8px;
-      height: 8px;
-      background: rgba(15, 23, 42, 0.12);
-      animation: ripple 600ms ease-out forwards;
-      pointer-events: none;
-    }
-
-    @keyframes ripple {
-      to {
-        width: 360px;
-        height: 360px;
-        opacity: 0;
-      }
-    }
-
-    #recovered-counter {
-      display: inline-block;
-      margin-top: 12px;
-      font-weight: 600;
-      font-size: 1.05rem;
-      color: rgba(248, 250, 252, 0.98);
-    }
-
-    .voice-wave {
-      display: inline-flex;
-      align-items: center;
-      margin-left: 6px;
-    }
-
-    .voice-wave span {
-      display: block;
-      width: 3px;
-      height: 8px;
-      margin: 0 1px;
-      background: #a5b4fc;
-      border-radius: 999px;
-      animation: waveAnim 1.2s infinite ease-in-out;
-    }
-
-    .voice-wave span:nth-child(2) {
-      animation-delay: 0.2s;
-    }
-    .voice-wave span:nth-child(3) {
-      animation-delay: 0.4s;
-    }
-    .voice-wave span:nth-child(4) {
-      animation-delay: 0.6s;
-    }
-    .voice-wave span:nth-child(5) {
-      animation-delay: 0.8s;
-    }
-
-    @keyframes waveAnim {
-      0%,
-      100% {
-        height: 6px;
-      }
-      50% {
-        height: 14px;
-      }
-    }
-
-    .carousel-container {
-      transition: transform 0.5s ease-in-out;
-    }
-
-    .dot.active {
-      background-color: var(--anna-primary);
-      transform: scale(1.1);
-    }
-
-    .how-it-works-img-small {
-      width: 100%;
-      max-width: 280px;
-      height: auto;
-      border-radius: 1.25rem;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      background: radial-gradient(circle at top, #f9fafb 0, #e5e7eb 100%);
-    }
-
-    .logo-margin-top {
-      margin-top: 2.5rem;
-    }
-
-    @media (max-width: 768px) {
-      #typed-text-wrapper {
-        font-size: 1.05rem;
-        min-width: 18ch;
-      }
+    .grid-pattern {
+      background-image: radial-gradient(rgba(148, 163, 184, 0.1) 1px, transparent 1px);
+      background-size: 40px 40px;
     }
   </style>
-
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: "#4F46E5",
-          },
-          container: {
-            center: true,
-            padding: {
-              DEFAULT: "1.5rem",
-              sm: "1.5rem",
-              lg: "2rem",
-              xl: "2.5rem",
-            },
-          },
-        },
-      },
-    };
-  </script>
 </head>
 
-<body class="bg-slate-950 text-slate-100 antialiased">
-  <!-- Logo -->
-  <header class="logo-margin-top mb-4">
-    <div class="container flex justify-center">
+<body class="antialiased grid-pattern">
+
+  <nav class="py-6 border-b border-slate-800/50">
+    <div class="container mx-auto px-6 flex justify-between items-center">
       <div class="flex items-center gap-3">
-        <img src="anna-logo.png" alt="Anna Logo" class="h-12 md:h-14 w-auto rounded-xl" />
-        <div class="hidden sm:flex flex-col leading-tight">
-          <span class="text-xs font-medium tracking-[0.23em] uppercase text-slate-400">Anna</span>
-          <span class="text-[0.7rem] text-slate-500">AI-powered cart recovery calls</span>
-        </div>
+        <div class="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center font-bold text-xl">A</div>
+        <span class="text-xl font-bold tracking-tight">ANNA</span>
+      </div>
+      <div class="hidden md:flex gap-8 text-sm font-medium text-slate-400">
+        <a href="#services" class="hover:text-white transition">Services</a>
+        <a href="#deployment" class="hover:text-white transition">Deployment</a>
+        <a href="#" class="text-indigo-400">Documentation →</a>
       </div>
     </div>
-  </header>
+  </nav>
 
-  <!-- HERO -->
-  <section id="hero" class="hero-gradient text-white relative">
-    <div class="absolute inset-0 z-0 bg-gradient-to-b from-slate-900/40 via-slate-950/60 to-slate-950"></div>
-    <div class="container relative z-10 py-16 md:py-22 lg:py-24">
-      <div class="max-w-3xl mx-auto text-center" data-aos="fade-up">
-        <h1
-          id="hero-headline"
-          class="text-[2.1rem] md:text-[2.8rem] lg:text-[3.05rem] font-semibold leading-tight mb-6 flex justify-center flex-wrap items-center gap-x-2 text-center"
-        >
-          <span>Recover more abandoned carts with&nbsp;</span>
-          <!-- This wrapper is what enhancements.js needs -->
-          <span id="typed-text-wrapper"></span>
-        </h1>
-        <p class="text-base md:text-lg text-slate-200/90 max-w-2xl mx-auto mb-8">
-          Anna calls shoppers who walked away at checkout, answers their questions, and
-          nudges them over the line – with human-like AI that feels like a real support
-          rep, not a robocall.
-        </p>
-
-        <div class="flex flex-col sm:flex-row gap-3 justify-center items-center">
-          <a
-            href="#demo"
-            id="primary-cta"
-            class="bg-white text-slate-900 hover:bg-slate-100 px-7 py-3 rounded-full font-semibold text-sm tracking-wide uppercase transition duration-200 shadow-xl magnetic pulse ripple-button"
-          >
-            Book a demo
-          </a>
-          <button
-            type="button"
-            id="secondary-cta"
-            class="border border-white/60 text-white/95 hover:bg-white/5 px-6 py-3 rounded-full font-medium text-xs tracking-[0.18em] uppercase transition duration-200 magnetic ripple-button"
-            onclick="document.getElementById('how-it-works').scrollIntoView({behavior:'smooth'})"
-          >
-            See how it works
-          </button>
-        </div>
-
-        <div class="mt-6 text-center text-sm text-slate-200/90">
-          <span id="recovered-counter" data-target="4200">0 carts recovered so far</span>
-        </div>
-
-        <div
-          class="mt-10 flex flex-wrap justify-center gap-x-8 gap-y-3 text-xs text-slate-100/90"
-        >
-          <div class="flex items-center gap-2">
-            <i data-feather="check-circle" class="w-4 h-4"></i>
-            <span>1-click Shopify & Woo integration</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <i data-feather="check-circle" class="w-4 h-4"></i>
-            <span>Pay only for recovered sales</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <i data-feather="check-circle" class="w-4 h-4"></i>
-            <span>No upfront fees, no long-term lock-ins</span>
-          </div>
-        </div>
+  <section class="relative pt-20 pb-32 hero-gradient overflow-hidden">
+    <div class="container mx-auto px-6 relative z-10 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-mono mb-6" data-aos="fade-down">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+        </span>
+        V2.0: ROBOTICS INTELLIGENCE ENGINE
       </div>
-    </div>
-  </section>
-
-  <!-- SOCIAL PROOF TESTIMONIALS -->
-  <section class="py-16 bg-slate-950">
-    <div class="container">
-      <h2 class="text-2xl md:text-3xl font-semibold text-center text-slate-50 mb-4" data-aos="fade-up">
-        Real teams swear by cart recovery calls
-      </h2>
-      <p class="text-sm md:text-base text-center text-slate-400 mb-12 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="80">
-        Phone calls have always converted better than emails. Anna just makes them
-        scalable, consistent, and affordable.
+      
+      <h1 class="text-5xl md:text-7xl font-bold mb-8 tracking-tight" data-aos="fade-up">
+        Data Infrastructure for <br/>
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-emerald-400">Autonomous Systems</span>
+      </h1>
+      
+      <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10" data-aos="fade-up" data-aos-delay="100">
+        We provide the high-fidelity datasets and deployment pipelines necessary to move robots from simulation to the real world.
       </p>
 
-      <div class="grid md:grid-cols-3 gap-6">
-        <!-- Testimonial 1 -->
-        <article
-          class="testimonial-card p-6"
-          data-aos="fade-up"
-          data-aos-delay="80"
-        >
-          <div class="flex items-center mb-5">
-            <img
-              src="http://static.photos/people/200x200/1"
-              alt="Chris Koerner"
-              class="w-11 h-11 rounded-full mr-4 object-cover"
-            />
-            <div>
-              <h4 class="font-semibold flex items-center gap-1 text-sm">
-                Chris Koerner
-                <div class="voice-wave">
-                  <span></span><span></span><span></span><span></span><span></span>
-                </div>
-              </h4>
-              <p class="text-slate-400 text-xs">Business Mogul</p>
-            </div>
-          </div>
-          <p class="text-sm text-slate-200 mb-4">
-            “He had an insane conversion rate once he got someone on the phone and walked
-            them through how it would go once the product arrived.”
-          </p>
-          <div class="flex gap-1 text-amber-400 text-xs">
-            <i data-feather="star" class="w-3 h-3 fill-yellow-400"></i>
-            <i data-feather="star" class="w-3 h-3 fill-yellow-400"></i>
-            <i data-feather="star" class="w-3 h-3 fill-yellow-400"></i>
-            <i data-feather="star" class="w-3 h-3 fill-yellow-400"></i>
-            <i data-feather="star" class="w-3 h-3 fill-yellow-400"></i>
-          </div>
-        </article>
-
-        <!-- Testimonial 2 -->
-        <article
-          class="testimonial-card p-6"
-          data-aos="fade-up"
-          data-aos-delay="140"
-        >
-          <div class="flex items-center mb-5">
-            <img
-              src="http://static.photos/people/200x200/2"
-              alt="Shopify Community"
-              class="w-11 h-11 rounded-full mr-4 object-cover"
-            />
-            <div>
-              <h4 class="font-semibold flex items-center gap-1 text-sm">
-                Shopify Community
-                <div class="voice-wave">
-                  <span></span><span></span><span></span><span></span><span></span>
-                </div>
-              </h4>
-              <p class="text-slate-400 text-xs">Reddit user</p>
-            </div>
-          </div>
-          <p class="text-sm text-slate-200 mb-4">
-            “Emails via Klaviyo were at ~5% recovery. Calling them yielded 17%.
-            Average order value went from $52 to $78. Repeat purchases doubled.”
-          </p>
-          <div class="flex gap-1 text-amber-400 text-xs">
-            <i data-feather="star" class="w-3 h-3 fill-yellow-400"></i>
-            <i data-feather="star" class="w-3 h-3 fill-yellow-400"></i>
-            <i data-feather="star" class="w-3 h-3 fill-yellow-400"></i>
-            <i data-feather="star" class="w-3 h-3 fill-yellow-400"></i>
-            <i data-feather="star" class="w-3 h-3 fill-yellow-400"></i>
-          </div>
-        </article>
-
-        <!-- Testimonial 3 -->
-        <article
-          class="testimonial-card p-6"
-          data-aos="fade-up"
-          data-aos-delay="200"
-        >
-          <div class="flex items-center mb-5">
-            <img
-              src="http://static.photos/people/200x200/3"
-              alt="Ecommerce Fuel"
-              class="w-11 h-11 rounded-full mr-4 object-cover"
-            />
-            <div>
-              <h4 class="font-semibold flex items-center gap-1 text-sm">
-                Ecommerce Fuel
-                <div class="voice-wave">
-                  <span></span><span></span><span></span><span></span><span></span>
-                </div>
-              </h4>
-              <p class="text-slate-400 text-xs">Industry leader</p>
-            </div>
-          </div>
-          <p class="text-sm text-slate-200 mb-4">
-            “We saw a 40% recovery rate after our team started calling abandoned carts.
-            It surfaced real objections and shaped our entire onboarding.”
-          </p>
-          <div class="flex gap-1 text-amber-400 text-xs">
-            <i data-feather="star" class="w-3 h-3 fill-yellow-400"></i>
-            <i data-feather="star" class="w-3 h-3 fill-yellow-400"></i>
-            <i data-feather="star" class="w-3 h-3 fill-yellow-400"></i>
-            <i data-feather="star" class="w-3 h-3 fill-yellow-400"></i>
-            <i data-feather="star" class="w-3 h-3 fill-yellow-400"></i>
-          </div>
-        </article>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center" data-aos="fade-up" data-aos-delay="200">
+        <a href="#" class="bg-indigo-600 hover:bg-indigo-500 text-white px-8 py-4 rounded-xl font-semibold transition-all shadow-lg shadow-indigo-500/20">
+          Access Datasets
+        </a>
+        <a href="#" class="bg-slate-800 hover:bg-slate-700 text-white px-8 py-4 rounded-xl font-semibold transition-all">
+          View Pipeline Docs
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- HOW IT WORKS -->
-  <section id="how-it-works" class="py-16 how-it-works-bg text-white">
-    <div class="container max-w-6xl">
-      <div class="max-w-3xl mx-auto text-center mb-12">
-        <h2 class="text-2xl md:text-3xl font-semibold mb-4" data-aos="fade-up">
-          From abandoned checkout to “Order confirmed”
-        </h2>
-        <p
-          class="text-sm md:text-base text-blue-100/90"
-          data-aos="fade-up"
-          data-aos-delay="80"
-        >
-          A simple, fully automated flow that fits neatly into your existing stack.
-        </p>
-      </div>
-
-      <div class="relative overflow-hidden">
-        <div
-          class="how-it-works-carousel-container flex transition-transform duration-700 ease-in-out"
-          id="how-it-works-carousel"
-        >
-          <!-- Slide 1 -->
-          <div
-            class="how-it-works-slide flex-shrink-0 w-full p-4 md:p-6 flex flex-col md:flex-row items-center gap-10 text-center md:text-left how-it-works-card"
-          >
-            <div class="md:w-1/2 space-y-2">
-              <h3 class="text-xl font-semibold">1. The shopping journey</h3>
-              <p class="text-sm text-blue-100/90">
-                A customer browses your products and adds items to their cart. That
-                event quietly registers with Anna in the background.
-              </p>
-            </div>
-            <div class="md:w-1/2 flex justify-center">
-              <img
-                src="image-bot1.png"
-                alt="Customer browsing products"
-                class="how-it-works-img-small"
-              />
-            </div>
-          </div>
-
-          <!-- Slide 2 -->
-          <div
-            class="how-it-works-slide flex-shrink-0 w-full p-4 md:p-6 flex flex-col md:flex-row-reverse items-center gap-10 text-center md:text-right how-it-works-card"
-          >
-            <div class="md:w-1/2 space-y-2">
-              <h3 class="text-xl font-semibold">2. The abandoned cart</h3>
-              <p class="text-sm text-blue-100/90">
-                They reach checkout but bounce – shipping friction, doubts, or a quick
-                distraction. Anna logs the abandonment and queues a call.
-              </p>
-            </div>
-            <div class="md:w-1/2 flex justify-center">
-              <img
-                src="image-bot2.png"
-                alt="Abandoned checkout page"
-                class="how-it-works-img-small"
-              />
-            </div>
-          </div>
-
-          <!-- Slide 3 -->
-          <div
-            class="how-it-works-slide flex-shrink-0 w-full p-4 md:p-6 flex flex-col md:flex-row items-center gap-10 text-center md:text-left how-it-works-card"
-          >
-            <div class="md:w-1/2 space-y-2">
-              <h3 class="text-xl font-semibold">3. Anna calls, like a human rep</h3>
-              <p class="text-sm text-blue-100/90">
-                At the right time, Anna calls. She understands their cart, answers
-                questions, and can offer tailored incentives if needed.
-              </p>
-            </div>
-            <div class="md:w-1/2 flex justify-center">
-              <img
-                src="image-bot3.png"
-                alt="AI bot conversation"
-                class="how-it-works-img-small"
-              />
-            </div>
-          </div>
-
-          <!-- Slide 4 -->
-          <div
-            class="how-it-works-slide flex-shrink-0 w-full p-4 md:p-6 flex flex-col md:flex-row-reverse items-center gap-10 text-center md:text-right how-it-works-card"
-          >
-            <div class="md:w-1/2 space-y-2">
-              <h3 class="text-xl font-semibold">4. The successful conversion</h3>
-              <p class="text-sm text-blue-100/90">
-                With concerns resolved and a discount or perk applied, the shopper
-                returns and completes payment – no extra work for your team.
-              </p>
-            </div>
-            <div class="md:w-1/2 flex justify-center">
-              <img
-                src="image-bot4.png"
-                alt="Discount applied to cart"
-                class="how-it-works-img-small"
-              />
-            </div>
-          </div>
-
-          <!-- Slide 5 -->
-          <div
-            class="how-it-works-slide flex-shrink-0 w-full p-4 md:p-6 flex flex-col md:flex-row items-center gap-10 text-center md:text-left how-it-works-card"
-          >
-            <div class="md:w-1/2 space-y-2">
-              <h3 class="text-xl font-semibold">5. Clear confirmation</h3>
-              <p class="text-sm text-blue-100/90">
-                The customer receives a clean confirmation and feels taken care of –
-                not nagged. You win a sale and a better relationship.
-              </p>
-            </div>
-            <div class="md:w-1/2 flex justify-center">
-              <img
-                src="image-bot5.png"
-                alt="Final purchase confirmation"
-                class="how-it-works-img-small"
-              />
-            </div>
-          </div>
-
-          <!-- Slide 6 -->
-          <div
-            class="how-it-works-slide flex-shrink-0 w-full p-4 md:p-6 flex flex-col md:flex-row-reverse items-center gap-10 text-center md:text-right how-it-works-card"
-          >
-            <div class="md:w-1/2 space-y-2">
-              <h3 class="text-xl font-semibold">6. Insights in your dashboard</h3>
-              <p class="text-sm text-blue-100/90">
-                Every call is logged – what blocked the purchase, which offers work,
-                and which cohorts respond best. Real data, not guesses.
-              </p>
-            </div>
-            <div class="md:w-1/2 flex justify-center">
-              <img
-                src="image-bot6.png"
-                alt="Client dashboard with revenue data"
-                class="how-it-works-img-small"
-              />
-            </div>
-          </div>
-        </div>
-
-        <div class="flex justify-center mt-6 space-x-2" id="how-it-works-dots"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FEATURES -->
-  <section class="py-16 bg-slate-950">
-    <div class="container max-w-6xl">
-      <div class="max-w-3xl mx-auto text-center mb-12">
-        <h2 class="text-2xl md:text-3xl font-semibold mb-4" data-aos="fade-up">
-          Recover more sales, without adding another tool to babysit
-        </h2>
-        <p
-          class="text-sm md:text-base text-slate-400"
-          data-aos="fade-up"
-          data-aos-delay="80"
-        >
-          Anna sits on top of your existing stack and quietly turns dead carts into
-          revenue, with human-like conversations your shoppers actually enjoy.
-        </p>
-      </div>
-
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-5" data-aos="fade-up">
-          <div class="feature-icon mb-4">
-            <i data-feather="phone" class="w-5 h-5 text-primary"></i>
-          </div>
-          <h3 class="text-sm font-semibold mb-2">Call when they’re most likely to buy</h3>
-          <p class="text-xs text-slate-400">
-            Timing is everything. Anna calls based on browsing patterns, time zones,
-            and intent – not random delays.
-          </p>
-        </div>
-
-        <div
-          class="bg-slate-900/80 border border-slate-800 rounded-xl p-5"
-          data-aos="fade-up"
-          data-aos-delay="80"
-        >
-          <div class="feature-icon mb-4">
-            <i data-feather="trending-up" class="w-5 h-5 text-primary"></i>
-          </div>
-          <h3 class="text-sm font-semibold mb-2">Up to 55% recovery rates</h3>
-          <p class="text-xs text-slate-400">
-            Brands see 3x the recovery of their email / SMS flows – with zero manual
-            call effort from the team.
-          </p>
-        </div>
-
-        <div
-          class="bg-slate-900/80 border border-slate-800 rounded-xl p-5"
-          data-aos="fade-up"
-          data-aos-delay="140"
-        >
-          <div class="feature-icon mb-4">
-            <i data-feather="cpu" class="w-5 h-5 text-primary"></i>
-          </div>
-          <h3 class="text-sm font-semibold mb-2">AI that feels like a person</h3>
-          <p class="text-xs text-slate-400">
-            Natural pauses, clarifying questions, and the ability to explain – not just
-            read a script.
-          </p>
-        </div>
-
-        <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-5" data-aos="fade-up">
-          <div class="feature-icon mb-4">
-            <i data-feather="dollar-sign" class="w-5 h-5 text-primary"></i>
-          </div>
-          <h3 class="text-sm font-semibold mb-2">Pay only for recovered sales</h3>
-          <p class="text-xs text-slate-400">
-            No setup fee, no subscription. If Anna doesn’t recover the order, you pay
-            nothing.
-          </p>
-        </div>
-
-        <div
-          class="bg-slate-900/80 border border-slate-800 rounded-xl p-5"
-          data-aos="fade-up"
-          data-aos-delay="80"
-        >
-          <div class="feature-icon mb-4">
-            <i data-feather="bar-chart-2" class="w-5 h-5 text-primary"></i>
-          </div>
-          <h3 class="text-sm font-semibold mb-2">Instant, structured feedback</h3>
-          <p class="text-xs text-slate-400">
-            Learn exactly why people hesitate – shipping, trust, price, UX – and fix the
-            funnel with confidence.
-          </p>
-        </div>
-
-        <div
-          class="bg-slate-900/80 border border-slate-800 rounded-xl p-5"
-          data-aos="fade-up"
-          data-aos-delay="140"
-        >
-          <div class="feature-icon mb-4">
-            <i data-feather="clock" class="w-5 h-5 text-primary"></i>
-          </div>
-          <h3 class="text-sm font-semibold mb-2">24/7, across time zones</h3>
-          <p class="text-xs text-slate-400">
-            While your team sleeps, Anna keeps working. Weekend, evenings, peak seasons
-            – all covered.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CUSTOMER STORIES CAROUSEL -->
-  <section class="py-16 bg-slate-950/95">
-    <div class="container max-w-6xl">
-      <h2 class="text-2xl md:text-3xl font-semibold text-center text-slate-50 mb-2">
-        What shoppers actually experience
-      </h2>
-      <p class="text-sm md:text-base text-center text-slate-400 mb-10">
-        A few of the real-world conversations Anna can drive.
-      </p>
-
-      <div class="relative overflow-hidden">
-        <div
-          class="carousel-container flex transition-transform duration-500 ease-in-out"
-          id="carousel"
-        >
-          <!-- Set 1 -->
-          <div class="w-full flex-shrink-0 grid grid-cols-1 md:grid-cols-3 gap-6">
-            <article class="testimonial-card bg-slate-900/95 p-6">
-              <div class="flex text-amber-400 mb-3 text-xs">
-                <i class="fas fa-star mr-1"></i>
-                <i class="fas fa-star mr-1"></i>
-                <i class="fas fa-star mr-1"></i>
-                <i class="fas fa-star mr-1"></i>
-                <i class="fas fa-star-half-alt"></i>
-              </div>
-              <p class="text-sm text-slate-100 mb-4">
-                “I was torn between two DSLRs. Anna called, asked about my style, and
-                gently recommended one. Then she added a
-                <span class="font-semibold text-primary">flat 5% Amex discount</span>.
-                Zero pressure, just clarity.”
-              </p>
-              <div>
-                <p class="font-semibold text-slate-50 text-sm">Emma W.</p>
-                <p class="text-[0.75rem] text-slate-400">Photographer, New York</p>
-              </div>
-            </article>
-
-            <article class="testimonial-card bg-slate-900/95 p-6">
-              <div class="flex text-amber-400 mb-3 text-xs">
-                <i class="fas fa-star mr-1"></i>
-                <i class="fas fa-star mr-1"></i>
-                <i class="fas fa-star mr-1"></i>
-                <i class="fas fa-star mr-1"></i>
-                <i class="fas fa-star"></i>
-              </div>
-              <p class="text-sm text-slate-100 mb-4">
-                “Shipping fees were making me hesitate. Anna offered
-                <span class="font-semibold text-primary">free delivery</span> on the
-                call if I checked out now. That was all I needed.”
-              </p>
-              <div>
-                <p class="font-semibold text-slate-50 text-sm">Michelle B.</p>
-                <p class="text-[0.75rem] text-slate-400">Baker, Chicago</p>
-              </div>
-            </article>
-
-            <article class="testimonial-card bg-slate-900/95 p-6">
-              <div class="flex text-amber-400 mb-3 text-xs">
-                <i class="fas fa-star mr-1"></i>
-                <i class="fas fa-star mr-1"></i>
-                <i class="fas fa-star mr-1"></i>
-                <i class="fas fa-star mr-1"></i>
-                <i class="fas fa-star"></i>
-              </div>
-              <p class="text-sm text-slate-100 mb-4">
-                “I had two laptops in my cart. Anna explained the GPU differences and
-                then offered a
-                <span class="font-semibold text-primary">special discount</span> on the
-                higher-end one. Decision made.”
-              </p>
-              <div>
-                <p class="font-semibold text-slate-50 text-sm">Jake P.</p>
-                <p class="text-[0.75rem] text-slate-400">Gamer, Seattle</p>
-              </div>
-            </article>
-          </div>
-
-          <!-- Set 2 -->
-          <div class="w-full flex-shrink-0 grid grid-cols-1 md:grid-cols-3 gap-6">
-            <article class="testimonial-card bg-slate-900/95 p-6">
-              <div class="flex text-amber-400 mb-3 text-xs">
-                <i class="fas fa-star mr-1"></i>
-                <i class="fas fa-star mr-1"></i>
-                <i class="fas fa-star mr-1"></i>
-                <i class="fas fa-star mr-1"></i>
-                <i class="fas fa-star-half-alt"></i>
-              </div>
-              <p class="text-sm text-slate-100 mb-4">
-                “Anna walked me through RAM, CPU and SSD options and then applied a
-                <span class="font-semibold text-primary">3% credit card offer</span> I’d
-                missed. It felt like chatting with a store expert.”
-              </p>
-              <div>
-                <p class="font-semibold text-slate-50 text-sm">Rajesh K.</p>
-                <p class="text-[0.75rem] text-slate-400">Developer, Bangalore</p>
-              </div>
-            </article>
-
-            <article class="testimonial-card bg-slate-900/95 p-6">
-              <div class="flex text-amber-400 mb-3 text-xs">
-                <i class="fas fa-star mr-1"></i>
-                <i class="fas fa-star mr-1"></i>
-                <i class="fas fa-star mr-1"></i>
-                <i class="fas fa-star mr-1"></i>
-                <i class="fas fa-star"></i>
-              </div>
-              <p class="text-sm text-slate-100 mb-4">
-                “I wasn’t sure about durability on an air fryer. Anna explained the
-                warranty and threw in a
-                <span class="font-semibold text-primary">recipe booklet add-on</span>.
-                It felt like real support, not sales.”
-              </p>
-              <div>
-                <p class="font-semibold text-slate-50 text-sm">Sarah T.</p>
-                <p class="text-[0.75rem] text-slate-400">Health coach, Austin</p>
-              </div>
-            </article>
-
-            <article class="testimonial-card bg-slate-900/95 p-6">
-              <div class="flex text-amber-400 mb-3 text-xs">
-                <i class="fas fa-star mr-1"></i>
-                <i class="fas fa-star mr-1"></i>
-                <i class="fas fa-star mr-1"></i>
-                <i class="fas fa-star mr-1"></i>
-                <i class="fas fa-star"></i>
-              </div>
-              <p class="text-sm text-slate-100 mb-4">
-                “Anna helped me compare console ecosystems and then offered a
-                <span class="font-semibold text-primary"
-                  >discount on extended warranty</span
-                >. I didn’t feel pushed – just informed.”
-              </p>
-              <div>
-                <p class="font-semibold text-slate-50 text-sm">Marcus L.</p>
-                <p class="text-[0.75rem] text-slate-400">Student, Boston</p>
-              </div>
-            </article>
-          </div>
-        </div>
-      </div>
-
-      <div class="flex justify-center mt-6 space-x-2" id="dots-container">
-        <button
-          class="dot w-2.5 h-2.5 rounded-full bg-slate-700 transition-all duration-300 active"
-          data-index="0"
-        ></button>
-        <button
-          class="dot w-2.5 h-2.5 rounded-full bg-slate-700 transition-all duration-300"
-          data-index="1"
-        ></button>
-      </div>
-    </div>
-  </section>
-
-  <!-- COMPARISON -->
-  <section class="py-16 bg-slate-950">
-    <div class="container max-w-5xl">
-      <div class="max-w-3xl mx-auto text-center mb-12">
-        <h2 class="text-2xl md:text-3xl font-semibold mb-4" data-aos="fade-up">
-          Before vs after Anna
-        </h2>
-        <p
-          class="text-sm md:text-base text-slate-400"
-          data-aos="fade-up"
-          data-aos-delay="80"
-        >
-          Same traffic. Same products. Very different recovery and insight.
-        </p>
+  <section id="services" class="py-24 bg-slate-950/50">
+    <div class="container mx-auto px-6">
+      <div class="mb-16">
+        <h2 class="text-3xl font-bold mb-4">Core Services</h2>
+        <div class="h-1 w-20 bg-indigo-500"></div>
       </div>
 
       <div class="grid md:grid-cols-2 gap-8">
-        <article
-          class="rounded-xl p-6 border border-red-500/20 bg-red-950/30"
-          data-aos="fade-right"
-        >
-          <div class="flex items-center justify-center mb-5">
-            <div
-              class="bg-red-500/10 text-red-400 w-10 h-10 rounded-full flex items-center justify-center mr-3"
-            >
-              <i data-feather="x" class="w-5 h-5"></i>
-            </div>
-            <h3 class="text-sm font-semibold">Before Anna</h3>
+        <div class="service-card p-8 rounded-2xl" data-aos="fade-right">
+          <div class="feature-icon mb-6">
+            <i data-feather="database"></i>
           </div>
-          <ul class="space-y-3 text-xs text-red-100/90">
-            <li class="flex items-start gap-2">
-              <i data-feather="x" class="w-4 h-4 mt-0.5"></i>
-              <span>5–15% recovery from abandoned carts at best.</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <i data-feather="x" class="w-4 h-4 mt-0.5"></i>
-              <span>Emails / SMS ignored, buried, or in spam.</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <i data-feather="x" class="w-4 h-4 mt-0.5"></i>
-              <span>Zero context on why customers bounced.</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <i data-feather="x" class="w-4 h-4 mt-0.5"></i>
-              <span>No human touch – just flows and automations.</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <i data-feather="x" class="w-4 h-4 mt-0.5"></i>
-              <span>Ops team has no time to run manual calls.</span>
-            </li>
-          </ul>
-        </article>
-
-        <article
-          class="rounded-xl p-6 border border-emerald-500/25 bg-emerald-950/25"
-          data-aos="fade-left"
-        >
-          <div class="flex items-center justify-center mb-5">
-            <div
-              class="bg-emerald-500/10 text-emerald-400 w-10 h-10 rounded-full flex items-center justify-center mr-3"
-            >
-              <i data-feather="check" class="w-5 h-5"></i>
-            </div>
-            <h3 class="text-sm font-semibold">After Anna</h3>
-          </div>
-          <ul class="space-y-3 text-xs text-emerald-100/90">
-            <li class="flex items-start gap-2">
-              <i data-feather="check" class="w-4 h-4 mt-0.5"></i>
-              <span>3x improvement in recovery, up to 55% in some cases.</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <i data-feather="check" class="w-4 h-4 mt-0.5"></i>
-              <span>Friendly calls that feel like real support, not spam.</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <i data-feather="check" class="w-4 h-4 mt-0.5"></i>
-              <span>Structured feedback on objections and friction points.</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <i data-feather="check" class="w-4 h-4 mt-0.5"></i>
-              <span>Fully automated – your team never has to dial.</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <i data-feather="check" class="w-4 h-4 mt-0.5"></i>
-              <span>Only pay for recovered sales, no ongoing overhead.</span>
-            </li>
-          </ul>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section class="py-16 bg-slate-950/95">
-    <div class="container max-w-4xl">
-      <div class="text-center mb-12">
-        <h2 class="text-2xl md:text-3xl font-semibold mb-4" data-aos="fade-up">
-          FAQs about voice AI and cart recovery
-        </h2>
-        <p
-          class="text-sm md:text-base text-slate-400"
-          data-aos="fade-up"
-          data-aos-delay="80"
-        >
-          Short answers to the questions founders and growth teams ask us most.
-        </p>
-      </div>
-
-      <div class="space-y-4">
-        <!-- FAQ 1 -->
-        <article
-          class="bg-slate-900/80 border border-slate-800 rounded-xl p-5"
-          data-aos="fade-up"
-        >
-          <button
-            type="button"
-            class="w-full flex items-center justify-between text-left"
-            onclick="toggleFAQ(1)"
-          >
-            <span class="text-sm font-medium">Will people actually talk to an AI?</span>
-            <i
-              data-feather="chevron-down"
-              class="w-4 h-4 text-primary transition-transform duration-300"
-              id="faq-icon-1"
-            ></i>
-          </button>
-          <div class="text-xs text-slate-400 mt-3 hidden" id="faq-content-1">
-            <p>
-              Yes – when the AI is genuinely helpful. Anna feels like a patient support
-              rep, not a robocall. These aren’t cold calls; they’re follow-ups to carts
-              your customers already filled out.
-            </p>
-          </div>
-        </article>
-
-        <!-- FAQ 2 -->
-        <article
-          class="bg-slate-900/80 border border-slate-800 rounded-xl p-5"
-          data-aos="fade-up"
-          data-aos-delay="80"
-        >
-          <button
-            type="button"
-            class="w-full flex items-center justify-between text-left"
-            onclick="toggleFAQ(2)"
-          >
-            <span class="text-sm font-medium">How is this only becoming possible now?</span>
-            <i
-              data-feather="chevron-down"
-              class="w-4 h-4 text-primary transition-transform duration-300"
-              id="faq-icon-2"
-            ></i>
-          </button>
-          <div class="text-xs text-slate-400 mt-3 hidden" id="faq-content-2">
-            <p>
-              Until recently, voice AI was robotic and laggy. The tech has finally
-              caught up – calls are fast, contextual, and human-like enough to be
-              genuinely useful. Anna packages that into a focused cart recovery product.
-            </p>
-          </div>
-        </article>
-
-        <!-- FAQ 3 -->
-        <article
-          class="bg-slate-900/80 border border-slate-800 rounded-xl p-5"
-          data-aos="fade-up"
-          data-aos-delay="140"
-        >
-          <button
-            type="button"
-            class="w-full flex items-center justify-between text-left"
-            onclick="toggleFAQ(3)"
-          >
-            <span class="text-sm font-medium">Does this make sense for my store?</span>
-            <i
-              data-feather="chevron-down"
-              class="w-4 h-4 text-primary transition-transform duration-300"
-              id="faq-icon-3"
-            ></i>
-          </button>
-          <div class="text-xs text-slate-400 mt-3 hidden" id="faq-content-3">
-            <p>
-              Anna works best for higher-ticket items, repeat purchase categories (like
-              supplements), or products that need explanation. If you tick one of those,
-              it’s usually worth testing. If you tick multiple, it’s a no-brainer.
-            </p>
-          </div>
-        </article>
-
-        <!-- FAQ 4 -->
-        <article
-          class="bg-slate-900/80 border border-slate-800 rounded-xl p-5"
-          data-aos="fade-up"
-          data-aos-delay="200"
-        >
-          <button
-            type="button"
-            class="w-full flex items-center justify-between text-left"
-            onclick="toggleFAQ(4)"
-          >
-            <span class="text-sm font-medium">Will this cheapen my brand?</span>
-            <i
-              data-feather="chevron-down"
-              class="w-4 h-4 text-primary transition-transform duration-300"
-              id="faq-icon-4"
-            ></i>
-          </button>
-          <div class="text-xs text-slate-400 mt-3 hidden" id="faq-content-4">
-            <p>
-              Not if you respect your customers. We recommend a single, well-timed call
-              during business hours. If they don’t pick up, we don’t spam them. Used
-              thoughtfully, it feels like concierge service, not pressure.
-            </p>
-          </div>
-        </article>
-
-        <!-- FAQ 5 -->
-        <article
-          class="bg-slate-900/80 border border-slate-800 rounded-xl p-5"
-          data-aos="fade-up"
-          data-aos-delay="260"
-        >
-          <button
-            type="button"
-            class="w-full flex items-center justify-between text-left"
-            onclick="toggleFAQ(5)"
-          >
-            <span class="text-sm font-medium">Do enough people even leave phone numbers?</span>
-            <i
-              data-feather="chevron-down"
-              class="w-4 h-4 text-primary transition-transform duration-300"
-              id="faq-icon-5"
-            ></i>
-          </button>
-          <div class="text-xs text-slate-400 mt-3 hidden" id="faq-content-5">
-            <p>
-              In most stores, yes. Around 70–75% of customers provide a number,
-              especially with autofill. Hiding or de-emphasizing that field often means
-              leaving both revenue and rich feedback on the table.
-            </p>
-          </div>
-        </article>
-
-        <!-- FAQ 6 -->
-        <article
-          class="bg-slate-900/80 border border-slate-800 rounded-xl p-5"
-          data-aos="fade-up"
-          data-aos-delay="320"
-        >
-          <button
-            type="button"
-            class="w-full flex items-center justify-between text-left"
-            onclick="toggleFAQ(6)"
-          >
-            <span class="text-sm font-medium">
-              Don’t people hate being called by brands?
-            </span>
-            <i
-              data-feather="chevron-down"
-              class="w-4 h-4 text-primary transition-transform duration-300"
-              id="faq-icon-6"
-            ></i>
-          </button>
-          <div class="text-xs text-slate-400 mt-3 hidden" id="faq-content-6">
-            <p>
-              People hate irrelevant interruption. They don’t mind fast, helpful answers
-              to something they already tried to buy. These are “hot” calls, not cold
-              outreach.
-            </p>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA / DEMO -->
-  <section id="demo" class="py-16 how-it-works-bg text-white relative">
-    <div class="container relative z-10 max-w-4xl text-center">
-      <div data-aos="zoom-in" data-aos-delay="40" class="mb-6 flex justify-center">
-        <div
-          class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center border border-white/15"
-        >
-          <i data-feather="dollar-sign" class="w-6 h-6 text-white"></i>
-        </div>
-      </div>
-
-      <h2
-        class="text-2xl md:text-3xl font-semibold mb-4 leading-snug"
-        data-aos="fade-up"
-        data-aos-delay="80"
-      >
-        Stop leaking revenue at checkout. Let Anna pick it up.
-      </h2>
-      <p
-        class="text-sm md:text-base mb-8 text-blue-100/95"
-        data-aos="fade-up"
-        data-aos-delay="140"
-      >
-        Book a short demo. We’ll show you real flows, talk through numbers, and help you
-        sanity-check whether this makes sense for your store. No pressure, no
-        long-term contracts.
-      </p>
-
-      <a
-        href="https://calendar.app.google/3FFyBeq4VPjEXCLs7"
-        class="inline-flex items-center justify-center bg-white text-slate-900 hover:bg-slate-100 px-8 py-3 rounded-full font-semibold text-sm tracking-wide uppercase transition duration-200 shadow-xl magnetic pulse ripple-button"
-        data-aos="fade-up"
-        data-aos-delay="200"
-      >
-        Book a demo
-      </a>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="bg-slate-950 border-t border-slate-800 py-10">
-    <div class="container max-w-6xl">
-      <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-        <div>
-          <h3 class="text-base font-semibold text-slate-100">Anna</h3>
-          <p class="text-xs text-slate-500 mt-1">
-            AI-powered phone calls that recover abandoned carts at scale.
+          <h3 class="text-2xl font-bold mb-4">Dataset Creation & Curation</h3>
+          <p class="text-slate-400 mb-6 leading-relaxed">
+            High-quality, domain-specific datasets tailored for complex robot training environments. We bridge the "Sim-to-Real" gap with precision.
           </p>
+          <ul class="space-y-3 text-sm text-slate-300">
+            <li class="flex items-center gap-2">
+              <i data-feather="check" class="w-4 h-4 text-emerald-500"></i>
+              Synthetic & Real-world data pipelines
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-feather="check" class="w-4 h-4 text-emerald-500"></i>
+              Multi-modal sensor fusion labeling
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-feather="check" class="w-4 h-4 text-emerald-500"></i>
+              Edge-case discovery & augmentation
+            </li>
+          </ul>
         </div>
-        <div class="flex space-x-4 text-slate-500 text-sm">
-          <a href="#" class="hover:text-slate-200">
-            <i data-feather="twitter" class="w-4 h-4"></i>
-          </a>
-          <a href="#" class="hover:text-slate-200">
-            <i data-feather="facebook" class="w-4 h-4"></i>
-          </a>
-          <a href="#" class="hover:text-slate-200">
-            <i data-feather="linkedin" class="w-4 h-4"></i>
-          </a>
-          <a href="#" class="hover:text-slate-200">
-            <i data-feather="instagram" class="w-4 h-4"></i>
-          </a>
-        </div>
-      </div>
 
-      <div
-        class="border-t border-slate-800 mt-6 pt-6 flex flex-col md:flex-row justify-between items-center gap-3"
-      >
-        <p class="text-[0.7rem] text-slate-500">© 2025 Anna. All rights reserved.</p>
-        <div class="flex space-x-4 text-[0.7rem] text-slate-500">
-          <a href="#" class="hover:text-slate-200">Privacy Policy</a>
-          <a href="#" class="hover:text-slate-200">Terms of Service</a>
-          <a href="#" class="hover:text-slate-200">Contact</a>
+        <div class="service-card p-8 rounded-2xl relative overflow-hidden" data-aos="fade-left">
+          <div class="absolute top-4 right-4 bg-emerald-500/10 text-emerald-400 text-[10px] font-bold px-2 py-1 rounded uppercase tracking-widest border border-emerald-500/20">
+            Coming Soon
+          </div>
+          <div class="feature-icon mb-6">
+            <i data-feather="cpu"></i>
+          </div>
+          <h3 class="text-2xl font-bold mb-4">Robotics Deployment</h3>
+          <p class="text-slate-400 mb-6 leading-relaxed">
+            End-to-end deployment of robotic systems into industrial and commercial environments. Reliable scaling for autonomous fleets.
+          </p>
+          <ul class="space-y-3 text-sm text-slate-300">
+            <li class="flex items-center gap-2">
+              <i data-feather="arrow-right" class="w-4 h-4 text-indigo-500"></i>
+              Industrial IoT Integration
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-feather="arrow-right" class="w-4 h-4 text-indigo-500"></i>
+              Fleet Management Systems
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-feather="arrow-right" class="w-4 h-4 text-indigo-500"></i>
+              OTA Hardware Updates
+            </li>
+          </ul>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="py-24 border-t border-slate-900">
+    <div class="container mx-auto px-6">
+      <div class="bg-indigo-900/10 border border-indigo-500/20 rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-12">
+        <div class="md:w-1/2">
+          <h2 class="text-3xl font-bold mb-6">The Anna Pipeline</h2>
+          <p class="text-slate-400 mb-6">
+            Our proprietary pipeline ingests raw sensor data and transforms it into structured, actionable intelligence for neural network training.
+          </p>
+          <div class="space-y-4">
+            <div class="flex items-start gap-4">
+              <div class="bg-indigo-500/20 p-2 rounded text-indigo-400 code-font text-xs">01</div>
+              <div>
+                <h4 class="font-semibold">Ingestion</h4>
+                <p class="text-xs text-slate-500">LiDAR, Camera, and IMU data normalization.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="bg-indigo-500/20 p-2 rounded text-indigo-400 code-font text-xs">02</div>
+              <div>
+                <h4 class="font-semibold">Annotation</h4>
+                <p class="text-xs text-slate-500">Auto-labeling with human-in-the-loop verification.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="md:w-1/2 w-full bg-slate-900 rounded-xl p-4 border border-slate-800 shadow-2xl shadow-indigo-500/5">
+           <div class="aspect-video bg-slate-800 rounded flex items-center justify-center border border-dashed border-slate-700">
+              <span class="text-slate-500 code-font text-sm">[ Robotic_Vision_Matrix_Active ]</span>
+           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="py-12 border-t border-slate-900">
+    <div class="container mx-auto px-6 text-center">
+      <div class="flex justify-center gap-6 mb-8 text-slate-500">
+        <i data-feather="github" class="w-5 h-5 cursor-pointer hover:text-white transition"></i>
+        <i data-feather="twitter" class="w-5 h-5 cursor-pointer hover:text-white transition"></i>
+        <i data-feather="linkedin" class="w-5 h-5 cursor-pointer hover:text-white transition"></i>
+      </div>
+      <p class="text-sm text-slate-600">© 2026 Anna Robotics Infrastructure. All rights reserved.</p>
     </div>
   </footer>
 
-  <!-- CORE JS -->
   <script>
-    AOS.init({
-      duration: 700,
-      once: true,
-    });
-
     feather.replace();
-
-    function toggleFAQ(id) {
-      const content = document.getElementById(`faq-content-${id}`);
-      const icon = document.getElementById(`faq-icon-${id}`);
-      if (!content || !icon) return;
-
-      const isHidden = content.classList.contains("hidden");
-      content.classList.toggle("hidden", !isHidden);
-      icon.style.transform = isHidden ? "rotate(180deg)" : "rotate(0deg)";
-    }
-
-    // testimonial carousel
-    document.addEventListener("DOMContentLoaded", function () {
-      const carousel = document.getElementById("carousel");
-      const dots = document.querySelectorAll(".dot");
-      const totalSets = document.querySelectorAll(".carousel-container > div").length;
-      let currentSet = 0;
-      let autoRotateInterval;
-
-      function updateCarousel() {
-        carousel.style.transform = `translateX(-${currentSet * 100}%)`;
-        dots.forEach((dot, index) => {
-          dot.classList.toggle("active", index === currentSet);
-        });
-      }
-
-      function goToSet(index) {
-        currentSet = index;
-        updateCarousel();
-        resetAutoRotate();
-      }
-
-      function startAutoRotate() {
-        autoRotateInterval = setInterval(() => {
-          currentSet = (currentSet + 1) % totalSets;
-          updateCarousel();
-        }, 5000);
-      }
-
-      function resetAutoRotate() {
-        clearInterval(autoRotateInterval);
-        startAutoRotate();
-      }
-
-      dots.forEach((dot) => {
-        dot.addEventListener("click", function () {
-          goToSet(parseInt(this.getAttribute("data-index"), 10));
-        });
-      });
-
-      startAutoRotate();
-
-      carousel.addEventListener("mouseenter", () => {
-        clearInterval(autoRotateInterval);
-      });
-
-      carousel.addEventListener("mouseleave", () => {
-        startAutoRotate();
-      });
-    });
+    AOS.init({ duration: 800, once: true });
   </script>
-
-  <!-- Your extra interactions / typed text / counters -->
-  <script src="enhancements.js" defer></script>
 </body>
 </html>
