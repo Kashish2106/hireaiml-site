@@ -6,12 +6,9 @@
   <title>Rilith – Data & Deployment for the Robotics Era</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
-
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
   <script src="https://unpkg.com/feather-icons"></script>
-
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet" />
 
   <style>
@@ -34,33 +31,33 @@
                   radial-gradient(circle at bottom left, rgba(16, 185, 129, 0.05) 0%, transparent 40%);
     }
 
-    .service-card {
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid rgba(148, 163, 184, 0.1);
-      backdrop-filter: blur(12px);
-      transition: all 0.3s ease;
-    }
-
-    .service-card:hover {
-      border-color: var(--rilith-primary);
-      transform: translateY(-4px);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-    }
-
-    .feature-icon {
-      width: 48px;
-      height: 48px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 12px;
-      background: rgba(99, 102, 241, 0.1);
-      color: var(--rilith-primary);
-    }
-
     .grid-pattern {
       background-image: radial-gradient(rgba(148, 163, 184, 0.1) 1px, transparent 1px);
       background-size: 40px 40px;
+    }
+
+    /* Modal Animation */
+    .modal-overlay {
+      background: rgba(2, 6, 23, 0.85);
+      backdrop-filter: blur(8px);
+      transition: opacity 0.3s ease;
+    }
+    
+    .modal-hidden {
+      display: none;
+      opacity: 0;
+    }
+
+    .form-input {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      transition: all 0.2s ease;
+    }
+
+    .form-input:focus {
+      border-color: var(--rilith-primary);
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
     }
   </style>
 </head>
@@ -74,8 +71,8 @@
         <span class="text-xl font-bold tracking-tight">RILITH</span>
       </div>
       <div class="hidden md:flex gap-8 text-sm font-medium text-slate-400">
-        <a href="#services" class="hover:text-white transition">Services</a>
-        <a href="#deployment" class="hover:text-white transition">Deployment</a>
+        <a href="#" class="hover:text-white transition">Solutions</a>
+        <a href="#" class="hover:text-white transition">Infrastructure</a>
         <a href="#" class="text-indigo-400">Documentation →</a>
       </div>
     </div>
@@ -88,7 +85,7 @@
           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
           <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
         </span>
-        V2.0: ROBOTICS INTELLIGENCE ENGINE
+        V3.0: Intelligence Engine Active
       </div>
       
       <h1 class="text-5xl md:text-7xl font-bold mb-8 tracking-tight" data-aos="fade-up">
@@ -97,115 +94,56 @@
       </h1>
       
       <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10" data-aos="fade-up" data-aos-delay="100">
-        We provide the high-fidelity datasets and deployment pipelines necessary to move robots from simulation to the real world.
+        We engineer bespoke AI applications and high-fidelity datasets that move intelligence from simulation to the real world.
       </p>
 
       <div class="flex flex-col sm:flex-row gap-4 justify-center" data-aos="fade-up" data-aos-delay="200">
-        <a href="#" class="bg-indigo-600 hover:bg-indigo-500 text-white px-8 py-4 rounded-xl font-semibold transition-all shadow-lg shadow-indigo-500/20">
-          Access Datasets
-        </a>
-        <a href="#" class="bg-slate-800 hover:bg-slate-700 text-white px-8 py-4 rounded-xl font-semibold transition-all">
-          View Pipeline Docs
-        </a>
+        <button onclick="toggleModal()" class="bg-indigo-600 hover:bg-indigo-500 text-white px-8 py-4 rounded-xl font-semibold transition-all shadow-lg shadow-indigo-500/20">
+          Request Datasets
+        </button>
+        <button onclick="toggleModal()" class="bg-slate-800 hover:bg-slate-700 text-white px-8 py-4 rounded-xl font-semibold transition-all">
+          Contact Expert
+        </button>
       </div>
     </div>
   </section>
 
-  <section id="services" class="py-24 bg-slate-950/50">
-    <div class="container mx-auto px-6">
-      <div class="mb-16">
-        <h2 class="text-3xl font-bold mb-4">Core Services</h2>
-        <div class="h-1 w-20 bg-indigo-500"></div>
-      </div>
+  <div id="contactModal" class="modal-hidden fixed inset-0 z-50 flex items-center justify-center p-4 modal-overlay">
+    <div class="bg-slate-900 border border-slate-800 w-full max-w-lg rounded-2xl p-8 relative shadow-2xl">
+      <button onclick="toggleModal()" class="absolute top-4 right-4 text-slate-500 hover:text-white">
+        <i data-feather="x"></i>
+      </button>
+      
+      <h2 class="text-2xl font-bold mb-2">Get in Touch</h2>
+      <p class="text-slate-400 text-sm mb-6">Tell us about your project requirements.</p>
 
-      <div class="grid md:grid-cols-2 gap-8">
-        <div class="service-card p-8 rounded-2xl" data-aos="fade-right">
-          <div class="feature-icon mb-6">
-            <i data-feather="database"></i>
-          </div>
-          <h3 class="text-2xl font-bold mb-4">Dataset Creation & Curation</h3>
-          <p class="text-slate-400 mb-6 leading-relaxed">
-            High-quality, domain-specific datasets tailored for complex robot training environments. We bridge the "Sim-to-Real" gap with precision.
-          </p>
-          <ul class="space-y-3 text-sm text-slate-300">
-            <li class="flex items-center gap-2">
-              <i data-feather="check" class="w-4 h-4 text-emerald-500"></i>
-              Synthetic & Real-world data pipelines
-            </li>
-            <li class="flex items-center gap-2">
-              <i data-feather="check" class="w-4 h-4 text-emerald-500"></i>
-              Multi-modal sensor fusion labeling
-            </li>
-            <li class="flex items-center gap-2">
-              <i data-feather="check" class="w-4 h-4 text-emerald-500"></i>
-              Edge-case discovery & augmentation
-            </li>
-          </ul>
+      <form id="contactForm" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Full Name</label>
+          <input type="text" required class="form-input w-full px-4 py-3 rounded-lg text-white" placeholder="John Doe">
         </div>
-
-        <div class="service-card p-8 rounded-2xl relative overflow-hidden" data-aos="fade-left">
-          <div class="absolute top-4 right-4 bg-emerald-500/10 text-emerald-400 text-[10px] font-bold px-2 py-1 rounded uppercase tracking-widest border border-emerald-500/20">
-            Coming Soon
-          </div>
-          <div class="feature-icon mb-6">
-            <i data-feather="cpu"></i>
-          </div>
-          <h3 class="text-2xl font-bold mb-4">Robotics Deployment</h3>
-          <p class="text-slate-400 mb-6 leading-relaxed">
-            End-to-end deployment of robotic systems into industrial and commercial environments. Reliable scaling for autonomous fleets.
-          </p>
-          <ul class="space-y-3 text-sm text-slate-300">
-            <li class="flex items-center gap-2">
-              <i data-feather="arrow-right" class="w-4 h-4 text-indigo-500"></i>
-              Industrial IoT Integration
-            </li>
-            <li class="flex items-center gap-2">
-              <i data-feather="arrow-right" class="w-4 h-4 text-indigo-500"></i>
-              Fleet Management Systems
-            </li>
-            <li class="flex items-center gap-2">
-              <i data-feather="arrow-right" class="w-4 h-4 text-indigo-500"></i>
-              OTA Hardware Updates
-            </li>
-          </ul>
+        <div>
+          <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Email Address</label>
+          <input type="email" required class="form-input w-full px-4 py-3 rounded-lg text-white" placeholder="john@company.com">
         </div>
-      </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Inquiry Type</label>
+          <select class="form-input w-full px-4 py-3 rounded-lg text-white">
+            <option>Dataset Request</option>
+            <option>AI Application Development</option>
+            <option>General Inquiry</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Message</label>
+          <textarea rows="4" class="form-input w-full px-4 py-3 rounded-lg text-white" placeholder="Describe your needs..."></textarea>
+        </div>
+        <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-4 rounded-xl transition-all">
+          Send Intelligence Request
+        </button>
+      </form>
     </div>
-  </section>
-
-  <section class="py-24 border-t border-slate-900">
-    <div class="container mx-auto px-6">
-      <div class="bg-indigo-900/10 border border-indigo-500/20 rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-12">
-        <div class="md:w-1/2">
-          <h2 class="text-3xl font-bold mb-6">The Rilith Pipeline</h2>
-          <p class="text-slate-400 mb-6">
-            Our proprietary pipeline ingests raw sensor data and transforms it into structured, actionable intelligence for neural network training.
-          </p>
-          <div class="space-y-4">
-            <div class="flex items-start gap-4">
-              <div class="bg-indigo-500/20 p-2 rounded text-indigo-400 code-font text-xs">01</div>
-              <div>
-                <h4 class="font-semibold">Ingestion</h4>
-                <p class="text-xs text-slate-500">LiDAR, Camera, and IMU data normalization.</p>
-              </div>
-            </div>
-            <div class="flex items-start gap-4">
-              <div class="bg-indigo-500/20 p-2 rounded text-indigo-400 code-font text-xs">02</div>
-              <div>
-                <h4 class="font-semibold">Annotation</h4>
-                <p class="text-xs text-slate-500">Auto-labeling with human-in-the-loop verification.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="md:w-1/2 w-full bg-slate-900 rounded-xl p-4 border border-slate-800 shadow-2xl shadow-indigo-500/5">
-           <div class="aspect-video bg-slate-800 rounded flex items-center justify-center border border-dashed border-slate-700">
-              <span class="text-slate-500 code-font text-sm">[ Robotic_Vision_Matrix_Active ]</span>
-           </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  </div>
 
   <footer class="py-12 border-t border-slate-900">
     <div class="container mx-auto px-6 text-center">
@@ -214,13 +152,26 @@
         <i data-feather="twitter" class="w-5 h-5 cursor-pointer hover:text-white transition"></i>
         <i data-feather="linkedin" class="w-5 h-5 cursor-pointer hover:text-white transition"></i>
       </div>
-      <p class="text-sm text-slate-600">© 2026 Rilith technologies. All rights reserved.</p>
+      <p class="text-sm text-slate-600">© 2026 Rilith Technologies. All rights reserved.</p>
     </div>
   </footer>
 
   <script>
     feather.replace();
     AOS.init({ duration: 800, once: true });
+
+    // Modal Logic
+    function toggleModal() {
+      const modal = document.getElementById('contactModal');
+      modal.classList.toggle('modal-hidden');
+    }
+
+    // Form Handling
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Request Received. Rilith systems are processing your inquiry.');
+      toggleModal();
+    });
   </script>
 </body>
 </html>
