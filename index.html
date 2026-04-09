@@ -36,18 +36,19 @@
       background-size: 40px 40px;
     }
 
-    /* Modal Styling */
+    /* Modal Logic */
     .modal-overlay {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(5px);
-      z-index: 100;
+      background: rgba(2, 6, 23, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
       align-items: center;
       justify-content: center;
+      padding: 1rem;
     }
-    .modal-active { display: flex; }
+    .modal-overlay.active { display: flex; }
   </style>
 </head>
 
@@ -83,42 +84,44 @@
       </h1>
       
       <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10" data-aos="fade-up" data-aos-delay="100">
-        We create bespoke AI applications and provide high-fidelity datasets for software and robotics.
+        We engineer AI applications and software, providing high-fidelity datasets for robotics and autonomous platforms.
       </p>
 
       <div class="flex flex-col sm:flex-row gap-4 justify-center" data-aos="fade-up" data-aos-delay="200">
-        <button onclick="toggleModal()" class="bg-indigo-600 hover:bg-indigo-500 text-white px-8 py-4 rounded-xl font-semibold transition-all shadow-lg shadow-indigo-500/20">
+        <button onclick="openModal('dataset')" class="bg-indigo-600 hover:bg-indigo-500 text-white px-8 py-4 rounded-xl font-semibold transition-all shadow-lg shadow-indigo-500/20">
           Request Datasets
         </button>
-        <button onclick="toggleModal()" class="bg-slate-800 hover:bg-slate-700 text-white px-8 py-4 rounded-xl font-semibold transition-all">
+        <button onclick="openModal('contact')" class="bg-slate-800 hover:bg-slate-700 text-white px-8 py-4 rounded-xl font-semibold transition-all">
           Contact Us
         </button>
       </div>
     </div>
   </section>
 
-  <div id="contactModal" class="modal-overlay">
-    <div class="bg-slate-900 border border-slate-800 p-8 rounded-2xl w-full max-w-md mx-4 relative">
-      <button onclick="toggleModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+  <div id="formModal" class="modal-overlay">
+    <div class="bg-slate-900 border border-slate-800 w-full max-w-lg rounded-2xl p-6 md:p-10 relative shadow-2xl">
+      <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-500 hover:text-white transition">
         <i data-feather="x"></i>
       </button>
-      <h2 class="text-2xl font-bold mb-4 text-white">Get in Touch</h2>
       
-      <form action="https://formspree.io/f/your-email@example.com" method="POST" class="space-y-4">
+      <h2 id="modalTitle" class="text-2xl md:text-3xl font-bold mb-2 text-white">Contact Us</h2>
+      <p id="modalDesc" class="text-slate-400 mb-8">Please fill out the details below.</p>
+
+      <form id="activeForm" action="" method="POST" class="space-y-5">
         <div>
-          <label class="block text-sm font-medium text-slate-400 mb-1">Name</label>
-          <input type="text" name="name" required class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500">
+          <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Full Name</label>
+          <input type="text" name="name" required class="w-full bg-slate-800/50 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition" placeholder="John Doe">
         </div>
         <div>
-          <label class="block text-sm font-medium text-slate-400 mb-1">Email</label>
-          <input type="email" name="email" required class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500">
+          <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Email Address</label>
+          <input type="email" name="email" required class="w-full bg-slate-800/50 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition" placeholder="john@company.com">
         </div>
         <div>
-          <label class="block text-sm font-medium text-slate-400 mb-1">Message</label>
-          <textarea name="message" rows="4" required class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500"></textarea>
+          <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Message</label>
+          <textarea name="message" rows="4" required class="w-full bg-slate-800/50 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition" placeholder="How can we help?"></textarea>
         </div>
-        <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded-lg transition">
-          Submit Request
+        <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-indigo-600/20">
+          Send Request
         </button>
       </form>
     </div>
@@ -139,9 +142,44 @@
     feather.replace();
     AOS.init({ duration: 800, once: true });
 
-    function toggleModal() {
-      const modal = document.getElementById('contactModal');
-      modal.classList.toggle('modal-active');
+    const modal = document.getElementById('formModal');
+    const activeForm = document.getElementById('activeForm');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDesc = document.getElementById('modalDesc');
+
+    // Endpoints provided by you
+    const endpoints = {
+      contact: "https://formspree.io/f/mblkqlyg",
+      dataset: "https://formspree.io/f/xdkdvwly"
+    };
+
+    function openModal(type) {
+      // Set the correct Formspree endpoint based on button clicked
+      activeForm.action = endpoints[type];
+      
+      // Update text to match context
+      if(type === 'dataset') {
+        modalTitle.innerText = "Request Datasets";
+        modalDesc.innerText = "Tell us about the data requirements for your autonomous system.";
+      } else {
+        modalTitle.innerText = "Contact Us";
+        modalDesc.innerText = "Get in touch with our team for deployment and AI software inquiries.";
+      }
+
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden'; // Prevent scroll
+    }
+
+    function closeModal() {
+      modal.classList.remove('active');
+      document.body.style.overflow = 'auto'; // Restore scroll
+    }
+
+    // Close modal on outside click
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        closeModal();
+      }
     }
   </script>
 </body>
