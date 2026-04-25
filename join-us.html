@@ -146,6 +146,7 @@
 <script src="script.js"></script>
 <script src="jobs.js"></script>
 <script>
+    const applyEndpoint = "https://formspree.io/f/mzdyoqyr";
     function toggleDept(clickedHeader) {
         // 1. Get all job lists and all icons on the page
         const allLists = document.querySelectorAll('.job-list');
@@ -197,18 +198,43 @@
                     ${job["Preferred Qualifications"].map(item => `<li>${item}</li>`).join('')}
                 </ul>
             </div>
-
-            <form id="applyForm">
-                <input type="text" placeholder="Full Name*" required>
-                <input type="email" placeholder="Email Address*" required>
-                <input type="text" placeholder="Personal website or GitHub">
-                <textarea rows="4" placeholder="Why do you want to work at Rilith?*" required></textarea>
-                <label style="display:block; margin-bottom: 5px;">Upload Resume*</label>
-                <input type="file" style="margin-bottom: 20px;" required>
-                <button type="submit">Apply</button>
+            
+            <form id="applyForm" action="${applyEndpoint}" method="POST">
+                
+                <input type="hidden" name="role" value="${title}">
+            
+                <input type="text" name="name" placeholder="Full Name*" required>
+                
+                <input type="email" name="email" placeholder="Email Address*" required>
+                
+                <input type="text" name="portfolio" placeholder="Portfolio / GitHub / Resume link">
+                
+                <textarea name="message" rows="4" placeholder="Why do you want to work at Rilith?*" required></textarea>
+            
+                <button type="submit">Apply →</button>
             </form>
         `;
     }
+    document.addEventListener("submit", async function(e) {
+    if (e.target && e.target.id === "applyForm") {
+        e.preventDefault();
+
+        const form = e.target;
+        const formData = new FormData(form);
+
+        const response = await fetch(form.action, {
+            method: "POST",
+            body: formData,
+            headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+            form.innerHTML = "<p style='color: green;'>Application submitted successfully!</p>";
+        } else {
+            form.innerHTML = "<p style='color: red;'>Something went wrong. Try again.</p>";
+        }
+    }
+});
 </script>
 </body>
 </html>
