@@ -319,6 +319,6 @@ const jobsData = {
             "Familiarity with dataset contribution platforms or gig-based digital work",
             "Attention to detail in following video quality and compliance standards"
         ]
-    };
-}
+    }
+};
         
