@@ -296,4 +296,28 @@ const jobsData = {
             "Attention to detail in maintaining video quality and compliance standards"
         ]
     },
-};
+    "Face Motion Video Collector": {
+        "Description": "Help build diverse facial motion datasets used to train AI systems across a wide range of skin tones and demographics. This role involves recording a single short face motion video from anywhere in the world — no experience, audio, or special equipment required.",
+        "Job Type": "Contractor",
+        "Location": "Remote - Egypt, Morocco, South Africa, Nigeria, Pakistan, Malaysia, Hong Kong, Taiwan, Bangladesh, Indonesia, Laos, Japan, South Korea, Thailand, Vietnam, Suriname, Belgium, Australia, United Kingdom, France, Germany, Italy, Poland, Portugal, Brazil, Spain, Mexico, Sweden, Turkey",
+        "Key Responsibilities": [
+            "Record a single ~10-second face motion video using a PC webcam, phone, or tablet",
+            "Ensure video meets minimum resolution and format requirements (MP4, ≥720p / 30fps)",
+            "Complete KYC registration on the platform prior to submission",
+            "Submit one video per person — no repeat or duplicate submissions",
+            "Ensure submission is a real human recording (no AI-generated content)"
+        ],
+        "Required Skills and Qualifications": [
+            "Age 18 or above",
+            "Access to a PC webcam, smartphone, or tablet capable of recording video",
+            "Located in one of the eligible countries listed",
+            "Ability to follow basic recording guidelines and submission instructions",
+            "Completion of KYC registration on the platform before submitting"
+        ],
+        "Preferred Qualifications": [
+            "Experience in data collection, crowdsourcing, or AI training tasks",
+            "Familiarity with dataset contribution platforms or gig-based digital work",
+            "Attention to detail in following video quality and compliance standards"
+        ]
+    };
+        
