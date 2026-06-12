@@ -244,7 +244,7 @@ const jobsData = {
     "Remote Household Task Video Recorder": {
         "Description": "Contribute to the future of robotics and machine learning by capturing high-quality motion and video data from everyday household activities. This role focuses on generating synchronized datasets that power activity recognition and robot learning systems, all from a remote environment.",
         "Job Type": "Contractor",
-        "Location": "Remote (U.S. Only)",
+        "Location": "Remote (U.S. LATAM)",
         "Key Responsibilities": [
             "Capture synchronized motion data using smartphone IMU sensors while performing assigned household tasks",
             "Record high-quality video footage aligned with sensor data for accurate dataset creation",
@@ -269,10 +269,10 @@ const jobsData = {
             "Familiarity with activity recognition or activity segmentation workflows"
         ]
     },
-    "Egocentric Video Data Collector (iPhone Only)": {
+    "Egocentric Video Data Collector (iPhone 11 - 17 (except 16/17e), Galaxy S21 - S26, Pixel 6 - 10)": {
         "Description": "Support the development of advanced AI and robotics systems by recording first-person (egocentric) videos of everyday household tasks. This role focuses on generating high-quality, privacy-compliant datasets used for activity recognition and human-motion understanding.",
         "Job Type": "Contractor",
-        "Location": "Remote",
+        "Location": "Remote - USA, Canada, Mexico, Colombia, Brazil, Argentina",
         "Key Responsibilities": [
             "Record egocentric (first-person) videos while performing assigned household tasks",
             "Ensure consistent lighting, clear visibility, and adherence to recording guidelines",
