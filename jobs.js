@@ -320,5 +320,5 @@ const jobsData = {
             "Attention to detail in following video quality and compliance standards"
         ]
     };
-};
+}
         
