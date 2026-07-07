@@ -240,5 +240,6 @@ const jobsData = {
             "Experience supporting integrations with third-party hardware platforms",
             "Strong understanding of developer experience (DX) design principles"
         ]
+    },    
 };
         
