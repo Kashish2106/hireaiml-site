@@ -241,5 +241,88 @@ const jobsData = {
             "Strong understanding of developer experience (DX) design principles"
         ]
     },    
+
+    "Face Collection": {
+        "Description": "Join Rilith as a contributor to help build diverse facial datasets representing a range of skin tones for AI and machine learning model training. This remote opportunity is open to individuals in eligible countries who want to contribute to real-world AI development. Record videos using a device you have, such as a laptop, mobile phone, or tablet, in lighting conditions and indoor or outdoor environments where you feel comfortable. No prior experience or spoken language skills are required. The project involves video recording only, with no audio or speech required. Your contribution will help support the development and training of AI models.",
+        "Job Type": "Flexible / No Daily Commitment",
+        "Location": "Remote (India, Indonesia, Suriname, Brazil, Mexico, Australia, Trinidad and Tobago, Malawi)",
+        "Key Responsibilities": [
+            "Record videos for facial datasets used in AI and machine learning model training",
+            "Use an available device, such as a laptop, mobile phone, or tablet, to record videos",
+            "Record in indoor or outdoor environments, using lighting conditions in which you feel comfortable",
+            "Ensure that all submitted recordings feature a real human and do not contain AI-generated content",
+            "Follow the project's video recording instructions and submission guidelines",
+            "Complete recording tasks according to your availability, without a fixed daily commitment"
+        ],
+        "Required Skills and Qualifications": [
+            "No prior experience required",
+            "Must be located in an eligible country: India, Indonesia, Suriname, Brazil, Mexico, Australia, Trinidad and Tobago, or Malawi",
+            "Access to a device capable of recording video, such as a laptop, desktop computer, mobile phone, or tablet",
+            "Ability to record and submit videos according to the project guidelines",
+            "No language requirement, as no audio or speech is required",
+            "Willingness to provide genuine recordings featuring a real human, not AI-generated content"
+        ],
+        "Preferred Qualifications": [
+            "Ability to follow recording instructions carefully",
+            "Attention to detail when capturing and submitting video recordings",
+            "Willingness to contribute according to your availability"
+        ]
+    },
+
+    
+    "Egocentric Video - Household": {
+        "Description": "Join Rilith in building one of the world's most comprehensive first-person video datasets for AI and robotics research. We are partnering with students, working professionals, and homemakers to record everyday activities through first-person (egocentric) videos. Your role is simple: record short videos of your normal routine at home or work using a head-mounted phone strap. Activities may include cooking, cleaning, laundry, warehouse operations, retail activities, and more. No acting, scripts, or prior experience are required. Your contribution will help train the intelligent systems of tomorrow.",
+        "Job Type": "Part-Time / Flexible",
+        "Location": "India (Remote)",
+        "Key Responsibilities": [
+            "Record first-person (egocentric) videos of everyday household or workplace activities",
+            "Capture natural daily tasks such as cooking, cleaning, laundry, and other routine activities",
+            "Record relevant workplace activities, including warehouse operations and retail tasks, where applicable",
+            "Use a head-mounted phone strap to capture videos from a first-person perspective",
+            "Follow the project's video recording guidelines to ensure the quality and usability of recordings",
+            "Fit recording activities around your existing daily routine"
+        ],
+        "Required Skills and Qualifications": [
+            "No prior experience required; students, working professionals, and homemakers are welcome",
+            "Access to an iPhone 12 through iPhone 18, including all variants",
+            "Ability to record videos of everyday activities using a head-mounted phone strap",
+            "No language requirement, as the task involves recording only and no speech is needed",
+            "Ability to follow recording instructions and project guidelines"
+        ],
+        "Preferred Qualifications": [
+            "Willingness to contribute recordings consistently on a flexible schedule",
+            "Ability to capture a variety of everyday household or workplace activities",
+            "Attention to detail when following video recording requirements"
+        ]
+    },
+    
+    "Egocentric Video - Commercial": {
+        "Description": "Join Rilith AI (DataWorkLab) as a contributor to an ongoing AI and robotics research project. This flexible, part-time opportunity is open to individuals working in commercial environments who can record short first-person (egocentric) videos of their hands while performing real tasks at their current workplace. The recordings will help train next-generation AI and robotics systems to better understand how people interact with the physical world. No prior experience is required, and no audio or speech is needed. The project focuses exclusively on hands and task footage.",
+        "Job Type": "Part-Time / Flexible",
+        "Location": "Remote (US, Canada, Mexico, Brazil, Colombia, and Argentina)",
+        "Key Responsibilities": [
+            "Record first-person (egocentric) videos showing your hands while performing real tasks at your current workplace",
+            "Capture everyday work activities in eligible commercial, industrial, service, or trade environments",
+            "Perform and record tasks naturally as part of your regular work routine",
+            "Use a compatible smartphone to capture task footage according to project guidelines",
+            "Ensure recordings focus on hands and task activities, without requiring audio or speech",
+            "Follow the project's recording instructions and data quality requirements"
+        ],
+        "Required Skills and Qualifications": [
+            "No prior experience in AI, robotics, or data collection required",
+            "Currently working in one of the eligible industries or workplace environments",
+            "Must reside in the United States, Canada, Mexico, Brazil, Colombia, or Argentina",
+            "Must have a compatible smartphone: iPhone 12 or newer, excluding iPhone 16e and 17e; Google Pixel 6 or newer; or Samsung Galaxy S21 or newer",
+            "Ability to record first-person videos of hands performing real workplace tasks",
+            "Willingness to follow project recording and submission guidelines"
+        ],
+        "Preferred Qualifications": [
+            "Experience performing hands-on tasks in commercial, industrial, service, or trade environments",
+            "Ability to capture a variety of relevant workplace activities",
+            "Attention to detail when recording task footage and following project requirements",
+            "Willingness to contribute on an ongoing, flexible schedule"
+        ]
+    },
+
 };
         
