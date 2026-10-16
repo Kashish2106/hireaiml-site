@@ -324,5 +324,33 @@ const jobsData = {
         ]
     },
 
+    
+    "Image Collection": {
+        "Description": "Join Rilith to help build high-quality image datasets for AI and machine learning. Contributors in India will collect authentic photos of handwritten text in Bangla, Gujarati, Odia, Punjabi, Kannada, Malayalam, Telugu, Tamil, and Urdu. Using an Apple device, you will capture Live Photos of existing handwritten content, such as cards, letters, notes, recipes, and forms. No prior experience is required, but recordings must follow the project guidelines and protect personal information.",
+        "Job Type": "Part-Time / Flexible",
+        "Location": "India (Remote)",
+        "Key Responsibilities": [
+            "Capture Live Photos of existing handwritten text in the target languages",
+            "Collect images across categories such as cards, letters, notes, recipes, and forms",
+            "Use a compatible Apple device to capture photos and their corresponding motion files",
+            "Ensure handwriting is clear, legible, and follows the required language and orientation guidelines",
+            "Remove or redact personally identifiable information before submission",
+            "Follow the project's image quality, file format, and submission requirements"
+        ],
+        "Required Skills and Qualifications": [
+            "No prior experience required",
+            "Must be located in India",
+            "Access to a compatible Apple device running iOS 16 or later",
+            "Ability to capture Live Photos using the rear camera",
+            "Ability to collect handwritten content in one or more of the specified languages",
+            "Attention to privacy, image quality, and project guidelines"
+        ],
+        "Preferred Qualifications": [
+            "Ability to collect varied handwriting styles, writing tools, and paper types",
+            "Attention to detail when capturing and submitting images",
+            "Willingness to contribute on a flexible schedule"
+        ]
+    },
+
 };
         
